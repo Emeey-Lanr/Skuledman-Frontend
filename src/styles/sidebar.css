@@ -83,9 +83,26 @@
     color: #707070;
 }
 
+.back {
+    display: none;
+}
 
 @media (max-width:1063px) {
-    .sidebar {
+
+    .sidebarNone {
         display: none;
+
+    }
+
+    .back {
+        display: block;
+        animation: back 1 0.9s running normal;
+    }
+
+    @keyframes back {
+        0% {
+            opacity: 0;
+        }
+
     }
 }

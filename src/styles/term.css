@@ -1,18 +1,11 @@
-.dashboard {
+.term {
     width: 83%;
-    height: 100vh;
     margin: 0 0 0 auto;
+
 }
 
-
-
-
-
-
-
-
 @media (max-width:1063px) {
-    .dashboard {
+    .term {
         width: 100%;
     }
 

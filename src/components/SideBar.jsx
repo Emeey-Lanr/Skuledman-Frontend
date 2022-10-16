@@ -4,15 +4,21 @@ import { FaWarehouse } from "react-icons/fa"
 import { MdAdminPanelSettings } from "react-icons/md"
 import Logo from "./Logo"
 import { Link } from "react-router-dom"
-const SideBar = ({ dashsign }) => {
+import { useState, useContext } from "react"
+import { appContext } from "../App"
+
+
+const SideBar = () => {
+    const { sidebarNone, setSidebarNone } = useContext(appContext)
+    const [forNav, setForNav] = useState(1)
     return (
-        <div className="sidebar">
+        <div className={forNav === 1 ? `sidebar ${sidebarNone}` : "mm"}>
             <div className="px-3 py-2 position-sticky top-0 bg-white">
                 <Logo />
             </div>
             <div>
                 <div className="w-100">
-                    <Link to="/" className="dash-link w-100 dash-link-dashboard">
+                    <Link to="/dashboard" className="dash-link w-100 dash-link-dashboard">
                         <p>
                             <FaWarehouse />
                         </p>
@@ -32,10 +38,9 @@ const SideBar = ({ dashsign }) => {
                     <p>Junior Secondary School</p>
                 </div>
                 <div className="jss">
-                    <Link to="/" className="dash-link">
+                    <Link to="/jss1" className="dash-link">
                         <FiUsers />
                         <p>Jss1</p>
-
                     </Link>
                 </div>
                 <div className="jss">
@@ -77,11 +82,10 @@ const SideBar = ({ dashsign }) => {
                     </Link>
                 </div>
                 <div className="logoutbtn">
-                    <button>
+                    <button >
                         <FiLogOut />
                         LogOut
                     </button>
-
                 </div>
             </div>
 

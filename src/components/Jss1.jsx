@@ -3,15 +3,28 @@ import "../styles/jss1.css"
 import { FaSearch, FaPlus } from "react-icons/fa"
 import { AiOutlineMenu } from "react-icons/ai"
 import AddSetModal from "./AddSetModal"
+import Background from "./Background"
+import { useState, useContext } from "react"
+import { appContext } from "../App"
+
+
 const Jss1 = () => {
+    const { sidebarNone, setSidebarNone, showBack, setShowBack } = useContext(appContext)
+
+    const ShowModal = () => {
+        setShowBack(true)
+        setSidebarNone("")
+    }
     return (
         <>
+
             <div>
+                {showBack && <Background />}
                 <SideBar />
                 <div className="jss1 bg-light">
                     <h2 className="h2 py-2 px-2 w-75 mx-auto">JSS1</h2>
                     <div className="w-75 mx-auto d-flex border  form-control">
-                        <span className="outlineNone">
+                        <span className="outlineNone" onClick={() => ShowModal()}>
                             <AiOutlineMenu />
                         </span>
                         {/* <span>
@@ -26,14 +39,13 @@ const Jss1 = () => {
                         </button>
                     </div>
                     <div className="w-100 mx-auto border-bottom "> </div>
-                    <div onClick={() => alert(30)} className="set my-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
+                    <div className="set my-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                         <p className="fs-5">2020/2004 <span>Set</span></p>
                     </div>
                 </div>
 
             </div>
             <AddSetModal />
-
 
         </>
 

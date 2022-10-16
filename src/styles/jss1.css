@@ -29,6 +29,7 @@
 
 }
 
+
 @media (max-width:1063px) {
     .jss1 {
         width: 100%;
@@ -40,4 +41,5 @@
         padding: 0 10px;
         font-weight: 500;
     }
+
 }

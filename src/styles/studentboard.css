@@ -1,0 +1,94 @@
+.studentBoard {
+    width: 83%;
+    margin: 0 0 0 auto;
+    height: 100vh;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.text {
+    border: none;
+}
+
+.text:focus {
+    outline: none;
+}
+
+.searchInfo {
+    background-color: white;
+    box-shadow: 1px 2px 4px rgb(219, 219, 219);
+    padding: 0 10px;
+    align-items: center;
+}
+
+.searchInfo p {
+    color: #ff6400;
+    font-size: 1.2rem;
+}
+
+.searchInfo button {
+    color: #ff6400;
+}
+
+.studentCard {
+    background-color: white;
+    box-shadow: 1px 2px 5px #afafaf;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.studentCard button {
+    border: none;
+    color: #afafaf;
+    box-shadow: 1px 3px 5px #afafaf;
+    background-color: white;
+    padding: 8px 10px;
+    margin: 5px 0;
+    border-radius: 20px;
+    background-color: #ff6400;
+    color: white;
+    font-weight: 500;
+}
+
+.studentInfo div span {
+    font-weight: 500;
+    color: #858585;
+}
+
+.studentInfo div {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.studentInfo div p {
+    color: #5f5f5f;
+    font-weight: 400;
+    font-size: 1rem;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:1063px) {
+    .studentBoard {
+        width: 100%;
+    }
+}
