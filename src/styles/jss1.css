@@ -1,0 +1,43 @@
+.jss1 {
+    width: 83%;
+    height: 100vh;
+    margin: 0 0 0 auto;
+}
+
+.h2 {
+    color: #ff6400;
+}
+
+.inputjss1 {
+    border: none;
+}
+
+.inputjss1:focus {
+    outline: none;
+}
+
+.outlineNone {
+    display: none;
+}
+
+.set {
+    width: 75%;
+    height: 10vh;
+    background-color: white;
+    box-shadow: 1px 2px 5px #bdbdbd;
+    margin: auto;
+
+}
+
+@media (max-width:1063px) {
+    .jss1 {
+        width: 100%;
+    }
+
+    .outlineNone {
+        display: block;
+        cursor: pointer;
+        padding: 0 10px;
+        font-weight: 500;
+    }
+}

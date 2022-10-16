@@ -1,0 +1,28 @@
+.logo1 {
+    width: 20px;
+    height: 40px;
+    border: 1px solid #ff6400;
+    border-radius: 10px 0 10px 0;
+    /* #33ff00 */
+}
+
+.logo2 {
+    width: 20px;
+    height: 40px;
+    border: 1px solid #ff6400;
+    border-radius: 0px 10px 0px 10px;
+}
+
+.logo2 div {
+    border-bottom: 1px solid #ff6400;
+    height: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.eduman {
+
+    color: #ff7519;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
