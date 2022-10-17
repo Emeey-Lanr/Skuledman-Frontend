@@ -1,0 +1,15 @@
+.studentResult {
+    width: 83%;
+    height: 100vh;
+    margin: 0 0 0 auto;
+    overflow-x: scroll;
+}
+
+
+@media (max-width:1063px) {
+    .studentResult {
+        width: 100%;
+    }
+
+
+}

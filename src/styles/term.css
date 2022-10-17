@@ -4,10 +4,57 @@
 
 }
 
+.search {
+    border: none;
+}
+
+.search:focus {
+    outline: none;
+}
+
+.termdescription {
+    width: 77%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 1px 2px 4px #797878;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+}
+
+.termdescription button {
+    border: none;
+    background: none;
+    color: #797878;
+}
+
+.termdescriptionBtnNone {
+    display: none;
+}
+
 @media (max-width:1063px) {
     .term {
         width: 100%;
     }
 
+    .termdescription {
+        width: 80%;
+        margin: auto;
+    }
 
+    .termdescriptionBtnNone {
+        display: block;
+    }
+
+
+}
+
+@media (max-width:500px) {
+    .termdescription {
+        width: 100%;
+        position: sticky;
+        top: 0;
+    }
 }

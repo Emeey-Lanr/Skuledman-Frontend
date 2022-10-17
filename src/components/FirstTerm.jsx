@@ -1,8 +1,10 @@
 import SideBar from "./SideBar"
 import "../styles/term.css"
 import photo1 from "../images/photo1.jpg"
-import { FaCameraRetro, FaPlus } from "react-icons/fa"
+import { FaCameraRetro, FaPlus, FaSearch } from "react-icons/fa"
+import { AiOutlineMenu } from "react-icons/ai"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 const FirstTerm = () => {
 
     return (
@@ -11,14 +13,14 @@ const FirstTerm = () => {
                 <SideBar />
                 <div className="term bg-light">
                     <div>
-                        <div className="w-75 mx-auto d-flex justify-content-between">
-                            <button className="btn" style={{ borderBottom: "2px solid #ff6400" }} >FirstTerm</button><button className="btn">SecondTerm</button><button className="btn">ThirdTerm</button>
+                        <div className="termdescription">
+                            <button >FirstTerm</button><button >SecondTerm</button><button >ThirdTerm</button><button className="termdescriptionBtnNone">    <AiOutlineMenu /></button>
                         </div>
                     </div>
                     <div className="w-75 mx-auto">
                         <div className="my-5 d-flex align-items-end" >
                             <img src={photo1} alt="" style={{ width: "120px", height: "130px", objectFit: "cover" }} />
-                            <button className="btn"><FaCameraRetro /> </button>
+                            <button className="btn"> <FaCameraRetro /> </button>
                         </div>
                         <div className="row">
                             <div className="col-lg-6 col-md-6 col-sm-12 ">
@@ -69,6 +71,13 @@ const FirstTerm = () => {
                             <label className="from-label fw-bold ">Name :</label>
                             <input type="text" className="w-100 form-control" />
                         </div>
+
+                        <div className="w-100 mx-auto mt-4 border-bottom"></div>
+                        <div className="form-control mt-4">
+                            <button className="btn"><FaSearch /></button>  <input type="text" placeholder="Search..." className="w-75 search" />
+                        </div>
+                        <div className="w-100 mx-auto mt-4 border-bottom"></div>
+
                         <div className="w-100 mx-auto mt-4 border-top py-3">
                             <div className="d-flex justify-content-between">
                                 <p className="fs-5" style={{ color: "#ff6400" }}>English</p>

@@ -1,7 +1,7 @@
 import "../styles/logo.css"
 const Logo = () => {
     return (
-        <div className="w-100">
+        <div className="">
             <div className="bdy d-flex">
                 <div className="logo1">
                     <div></div>
@@ -15,7 +15,7 @@ const Logo = () => {
                 </div>
 
             </div>
-            <p className="eduman">Eduman</p>
+            <p className="eduman text-center">Eduman</p>
         </div>
 
     )

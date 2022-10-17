@@ -5,6 +5,9 @@ import Jss1 from "./components/Jss1";
 import { useState, createContext } from "react";
 import Studentboard from "./components/Studentboard";
 import FirstTerm from "./components/FirstTerm";
+import ResultTable from "./components/ResultTable";
+import Register from "./components/Register";
+import Login from "./components/Login";
 export const appContext = createContext(null)
 function App() {
 
@@ -19,6 +22,9 @@ function App() {
         <Route path="/jss1" element={<Jss1 />} />
         <Route path="/studentSet" element={<Studentboard />} />
         <Route path="/studentProfile" element={<FirstTerm />} />
+        <Route path="/studentResult" element={<ResultTable />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
       </Routes >
     </appContext.Provider>
 
