@@ -13,10 +13,20 @@ function App() {
 
   const [sidebarNone, setSidebarNone] = useState("sidebarNone")
   const [showBack, setShowBack] = useState(false)
+  const [addSetModal, setAddSetModal] = useState(false)
+
 
   return (
 
-    <appContext.Provider value={{ sidebarNone, setSidebarNone, showBack, setShowBack }}>
+    <appContext.Provider value={
+      {
+        sidebarNone,
+        setSidebarNone,
+        showBack,
+        setShowBack,
+        addSetModal,
+        setAddSetModal
+      }}>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/jss1" element={<Jss1 />} />

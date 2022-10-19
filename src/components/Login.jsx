@@ -1,7 +1,7 @@
 import Logo from "./Logo"
 import "../styles/login.css"
 import { FaLock } from "react-icons/fa"
-import { AiOutlineMail } from "react-icons/ai"
+import { GiMailbox } from "react-icons/gi"
 import { Link } from "react-router-dom"
 const Login = () => {
     return (
@@ -10,16 +10,19 @@ const Login = () => {
                 <div className="d-flex justify-content-center">
                     <Logo />
                 </div>
+                <div className="message">
+                    <p>Welcome, log in to continue</p>
+                </div>
                 <div className="inputform-box">
                     <span>School Email</span>
                     <div>
-                        <span>< AiOutlineMail /></span>  <input type="text" />
+                        <span><GiMailbox style={{ color: "#ff6400" }} /></span>  <input type="text" />
                     </div>
                 </div>
                 <div className="inputform-box">
-                    <span>Password</span>
+                    <span >Password</span>
                     <div>
-                        <span><FaLock /></span>  <input type="text" />
+                        <span className="border-right" ><FaLock style={{ color: "#ff6400" }} /></span>  <input type="password" />
                     </div>
                 </div>
 

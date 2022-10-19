@@ -6,18 +6,23 @@ import AddSetModal from "./AddSetModal"
 import Background from "./Background"
 import { useState, useContext } from "react"
 import { appContext } from "../App"
+import { Navigate, useNavigate } from "react-router-dom"
 
 
 const Jss1 = () => {
-    const { sidebarNone, setSidebarNone, showBack, setShowBack } = useContext(appContext)
+    const { sidebarNone, setSidebarNone, showBack, setShowBack, addSetModal, setAddSetModal } = useContext(appContext)
 
     const ShowModal = () => {
         setShowBack(true)
         setSidebarNone("")
     }
+    let Navigate = useNavigate()
+    const showDetails = () => {
+        Navigate("/studentSet")
+    }
+
     return (
         <>
-
             <div>
                 {showBack && <Background />}
                 <SideBar />
@@ -34,12 +39,12 @@ const Jss1 = () => {
                     </div>
 
                     <div className="d-flex justify-content-end w-75 mx-auto my-3">
-                        <button className="btn btn-rounded" style={{ background: "#ff6400", color: "white" }}>
+                        <button onClick={() => setAddSetModal(true)} className="btn btn-rounded" style={{ background: "#ff6400", color: "white" }}>
                             <FaPlus />Add Set
                         </button>
                     </div>
                     <div className="w-100 mx-auto border-bottom "> </div>
-                    <div className="set my-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
+                    <div onClick={() => showDetails()} className="set my-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                         <p className="fs-5">2020/2004 <span>Set</span></p>
                     </div>
                 </div>

@@ -1,0 +1,20 @@
+.setdetails {
+    background-color: white;
+    width: 700px;
+    padding: 10px 10px;
+    border-radius: 5px;
+}
+
+.addstudentModal {
+    width: 600px;
+    background-color: white;
+}
+
+
+
+
+@Media (max-width:600px) {
+    .addstudentModal {
+        width: 96%;
+    }
+}
