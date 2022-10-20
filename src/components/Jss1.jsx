@@ -43,9 +43,13 @@ const Jss1 = () => {
                             <FaPlus />Add Set
                         </button>
                     </div>
-                    <div className="w-100 mx-auto border-bottom "> </div>
-                    <div onClick={() => showDetails()} className="set my-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
+                    <div className="w-100 mx-auto border-bottom"> </div>
+                    <div className="set my-4" style={{ cursor: "pointer" }}>
                         <p className="fs-5">2020/2004 <span>Set</span></p>
+                        <div className="setBtn">
+                            <button>View Student</button>
+                            <button>View Details</button>
+                        </div>
                     </div>
                 </div>
 

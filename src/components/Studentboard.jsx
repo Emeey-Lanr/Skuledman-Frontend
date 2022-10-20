@@ -5,14 +5,23 @@ import { FaArrowLeft, FaPlus } from "react-icons/fa"
 import { AiOutlineMenu } from "react-icons/ai"
 import photo1 from "../images/photo1.jpg"
 import AddStudentModal from "./AddStudentModal"
-import { createContext, useState } from "react"
+import Background from "./Background"
+import { createContext, useState, useContext } from "react"
+import { appContext } from "../App"
 export const studentBoardContext = createContext(null)
 const Studentboard = () => {
     const [studentModal, setStudentModal] = useState(false)
+    const { showBack, setShowBack, setSidebarNone } = useContext(appContext)
+    const showSidBar = () => {
+        setSidebarNone("")
+        setShowBack(true)
+
+    }
     return (
         <>
             <studentBoardContext.Provider value={{ studentModal, setStudentModal }}>
                 <div>
+                    {showBack && <Background />}
                     <SideBar />
                     <div className="studentBoard bg-light">
                         <div>
@@ -20,7 +29,7 @@ const Studentboard = () => {
                                 <Link to="/" className="link">
                                     <FaArrowLeft />
                                 </Link>
-                                <span className="outlineNone">
+                                <span className="outlineNone" onClick={() => showSidBar()}>
                                     <AiOutlineMenu />
                                 </span>
 
@@ -87,6 +96,7 @@ const Studentboard = () => {
                     </div>
 
                 </div>
+
                 {studentModal && <AddStudentModal />}
 
             </studentBoardContext.Provider>

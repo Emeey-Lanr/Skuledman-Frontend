@@ -9,10 +9,10 @@
 
 .signupForm {
     width: 400px;
+    overflow-x: hidden;
     background-color: white;
     box-shadow: 1px 2px 4px rgb(230, 230, 230);
     border-radius: 5px;
-    padding-top: 10px;
     padding-bottom: 30px;
 }
 
@@ -24,7 +24,6 @@
     color: #706459;
     font-size: 0.9rem;
     font-weight: 500;
-
 }
 
 .signupformInput div>div {
@@ -32,7 +31,7 @@
     border-radius: 5px;
     padding-left: 5px;
     margin-top: 5px;
-  
+
 }
 
 
@@ -95,10 +94,12 @@
 }
 
 .signin-form {
+    overflow-x: hidden;
     width: 400px;
     background-color: white;
     box-shadow: 1px 2px 5px #d1ccc7;
     padding: 10px 10px;
+    padding-top: 0;
     box-sizing: border-box;
     border-radius: 5px;
 }
@@ -166,6 +167,73 @@
     color: #ff6400;
 }
 
+/* Token */
+
+.token {
+    width: 400px;
+    background-color: white;
+    box-shadow: 1px 2px 4px #b9b4b1;
+    overflow-x: hidden;
+}
+
+.tokenMove {
+    width: 150px;
+    height: 5px;
+    background-color: #ff6400;
+    border-radius: 20px;
+    animation: tokenMove infinite 1s running normal;
+}
+
+@keyframes tokenMove {
+    0% {
+        transform: translateX(0px);
+    }
+
+    100% {
+        transform: translateX(500px);
+    }
+
+}
+
+.inputToken {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputToken input {
+    width: 50px;
+    border: 1px solid #ff6400;
+    height: 50px;
+    margin: 0 10px;
+    text-align: center;
+    color: #ff6400;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.inputToken input:focus {
+    outline: 2px solid #f7c9ab;
+}
+
+.tokenBtn {
+    width: 80%;
+    margin: 10px auto;
+
+
+}
+
+.tokenBtn button {
+    background-color: #ff6400;
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+}
 
 @media (max-width:400px) {
     .signin-form {

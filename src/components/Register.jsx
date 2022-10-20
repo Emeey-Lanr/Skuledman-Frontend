@@ -1,7 +1,7 @@
 
 import Logo from "./Logo"
 import "../styles/login.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
 const Register = () => {
@@ -20,6 +20,7 @@ const Register = () => {
 
     const MailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const [emailCheck, setEmailCheck] = useState(false)
+    const [mailMessage, setmailMessage] = useState("")
     const [x, setx] = useState(0)
     const [s, sets] = useState(1)
     const checkMail = (e) => {
@@ -33,6 +34,7 @@ const Register = () => {
             setEmailCheck(true)
             setMailCheckNumb(3)
             setx(0)
+            setmailMessage("Invalid Email")
         }
     }
     const [passCheck, setPassCheck] = useState(false)
@@ -51,35 +53,68 @@ const Register = () => {
             sets(3)
         }
     }
+    const schoolSignupEndPoint = "http://localhost:6463/school/signup"
     const [forgotSomethingCheck, setforgotSomethingCheck] = useState(false)
     const [checkif, setif] = useState(!MailRegex.test(schoolEmail))
-    const signUp = () => {
-        if (
+    const otp1 = Math.floor(Math.random() * 9)
+    const otp2 = Math.floor(Math.random() * 9)
+    const otp3 = Math.floor(Math.random() * 9)
+    const otp4 = Math.floor(Math.random() * 9)
+    const schoolSchema = {
+        schoolEmail: schoolEmail,
+        schoolName: schoolName,
+        schoolAddress: schoolAddress,
+        schoolPhoneNumber: schoolPhoneNumber,
+        schoolPassword: schoolPassword,
+        otp: Number(String(otp1) + String(otp2) + String(otp3) + String(otp4)),
+        otpStatus: false,
 
+    }
+
+    let navigate = useNavigate()
+    const [checkMessage, setcheckMessage] = useState("")
+    const [whenClicked, setwhenClicked] = useState(false)
+    const signUp = () => {
+        setwhenClicked(true)
+        if (
             schoolAddress === "" ||
             schoolName === "" ||
             schoolPhoneNumber === ""
         ) {
             console.log(1)
             setforgotSomethingCheck(true)
+            setcheckMessage("Looks like you forgot something")
+            setwhenClicked(false)
         } else {
-            console.log(2)
+            setwhenClicked(true)
             setforgotSomethingCheck(false)
-            // axios.post().then((result) => {
+            axios.post(schoolSignupEndPoint, schoolSchema).then((result) => {
+                if (result.data.status) {
+                    localStorage.pto = result.data.pto
+                    localStorage.eduEmail = result.data.schoolEmail
+                    navigate("/token")
+                } else {
+                    setforgotSomethingCheck(true)
+                    setcheckMessage(result.data.message)
+                    setwhenClicked(false)
 
-            // })
+                }
+
+
+            })
         }
     }
 
     return (
         <div className="signup bg-light">
             <div className="signupForm">
-                <div className="d-flex justify-content-center w-100">
+                {whenClicked && <div className="tokenMove mb-4"></div>}
+                <div className="d-flex justify-content-center w-100 pt-3">
                     <Logo />
                 </div>
                 <div className="signupformInput w-100 px-3">
                     {forgotSomethingCheck && <div className="form py-1" style={{ background: "#f7c9ab" }}>
-                        <p className="text-center" style={{ color: "white" }}>Looks like you forgot something</p>
+                        <p className="text-center" style={{ color: "white" }}>{checkMessage}</p>
                     </div>}
                     <div className="form" >
                         <span>SCHOOL EMAIL</span>
@@ -88,7 +123,7 @@ const Register = () => {
                         </div>
 
                     </div>
-                    {emailCheck && <p className="form" style={{ fontSize: "0.9rem", color: "#ff0000" }}>Invalid Email</p>}
+                    {emailCheck && <p className="form" style={{ fontSize: "0.9rem", color: "#ff0000" }}>{mailMessage}</p>}
                     <div className="form">
                         <span>SCHOOL NAME</span>
                         <div>

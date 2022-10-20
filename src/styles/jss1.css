@@ -21,12 +21,29 @@
 }
 
 .set {
-    width: 75%;
-    height: 10vh;
+    width: 80%;
     background-color: white;
     box-shadow: 1px 2px 5px #bdbdbd;
     margin: auto;
+    padding: 0 10px;
 
+}
+
+.setBtn {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.setBtn button {
+    background-color: #ff6400;
+    border: none;
+    color: white;
+    box-shadow: 2px 2px 5px #333232;
+    margin: 10px 10px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 1rem;
 }
 
 

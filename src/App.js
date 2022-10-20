@@ -8,10 +8,12 @@ import FirstTerm from "./components/FirstTerm";
 import ResultTable from "./components/ResultTable";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Tokenverification from "./components/Tokenverification";
 export const appContext = createContext(null)
 function App() {
 
   const [sidebarNone, setSidebarNone] = useState("sidebarNone")
+  const [logoCenter, setLogoCenter] = useState("justify-content-center")
   const [showBack, setShowBack] = useState(false)
   const [addSetModal, setAddSetModal] = useState(false)
 
@@ -25,7 +27,9 @@ function App() {
         showBack,
         setShowBack,
         addSetModal,
-        setAddSetModal
+        setAddSetModal,
+        logoCenter,
+        setLogoCenter
       }}>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
@@ -35,6 +39,7 @@ function App() {
         <Route path="/studentResult" element={<ResultTable />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
+        <Route path="/token" element={<Tokenverification />} />
       </Routes >
     </appContext.Provider>
 
