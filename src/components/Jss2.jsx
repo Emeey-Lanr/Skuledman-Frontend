@@ -9,23 +9,25 @@ import { appContext } from "../App"
 import { Navigate, useNavigate } from "react-router-dom"
 
 
-const Jss1 = () => {
+const Jss2 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set } = useContext(appContext)
-    // useLayoutEffect(() => {
-
-    // }, [])
-    useEffect(() => {
-        setClassType("Jss1")
-        hideSideBar()
+    const { showSideBar,
+        hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss2Set } = useContext(appContext)
+    useLayoutEffect(() => {
         getSchoolDetails()
-
+    }, [])
+    useEffect(() => {
+        setClassType("Jss2")
+        hideSideBar()
     }, [])
 
     const ShowModal = () => {
         showSideBar()
     }
     let Navigate = useNavigate()
+    const showDetails = () => {
+        Navigate("/studentSet")
+    }
 
 
     return (
@@ -34,7 +36,7 @@ const Jss1 = () => {
                 {showBack && <Background />}
                 <SideBar />
                 <div className="jss1 bg-light">
-                    <h2 className="h2 py-2 px-2 w-75 mx-auto">JSS1</h2>
+                    <h2 className="h2 py-2 px-2 w-75 mx-auto">JSS3</h2>
                     <div className="w-75 mx-auto d-flex border  form-control">
                         <span className="outlineNone" onClick={() => ShowModal()}>
                             <AiOutlineMenu />
@@ -51,11 +53,11 @@ const Jss1 = () => {
                         </button>
                     </div>
                     <div className="w-100 mx-auto border-bottom"> </div>
-                    {jss1Set.length > 0 ? jss1Set.map((set, id) => (
+                    {jss2Set.length > 0 ? jss2Set.map(() => (
                         <div className="set my-4" style={{ cursor: "pointer" }}>
-                            <p className="fs-5">{set.set}</p>
+                            <p className="fs-5">2020/2004 <span>Set</span></p>
                             <div className="setBtn">
-                                <button >View Student</button>
+                                <button>View Student</button>
                                 <button>View Details</button>
                             </div>
                         </div>
@@ -74,4 +76,4 @@ const Jss1 = () => {
     )
 }
 
-export default Jss1
+export default Jss2

@@ -44,14 +44,14 @@ const SideBar = () => {
                     </Link>
                 </div>
                 <div className="jss">
-                    <Link to="/" className="dash-link">
+                    <Link to="/jss2" className="dash-link">
                         <FiUsers />
                         <p>Jss2</p>
 
                     </Link>
                 </div>
                 <div className="jss">
-                    <Link to="/" className="dash-link">
+                    <Link to="/jss3" className="dash-link">
                         <FiUsers />
                         <p>Jss3</p>
 
@@ -61,21 +61,21 @@ const SideBar = () => {
                     <p>Senoir Secondary School</p>
                 </div>
                 <div className="sss">
-                    <Link to="/" className="dash-link">
+                    <Link to="/SsS1" className="dash-link">
                         <FiUsers />
                         <p>Sss1</p>
 
                     </Link>
                 </div>
                 <div className="sss">
-                    <Link to="/" className="dash-link">
+                    <Link to="/ssS2" className="dash-link">
                         <FiUsers />
                         <p>Sss2</p>
 
                     </Link>
                 </div>
                 <div className="sss">
-                    <Link to="/" className="dash-link">
+                    <Link to="/ssS3" className="dash-link">
                         <FiUsers />
                         <p>Sss3</p>
 

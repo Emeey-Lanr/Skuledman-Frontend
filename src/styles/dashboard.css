@@ -4,8 +4,58 @@
     margin: 0 0 0 auto;
 }
 
+.navigation {
+    background-color: white;
+    box-shadow: 1px 3px 5px #bdbdbd;
+    padding: 5px 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.banner {
+    background-color: white;
+    box-shadow: 1px 3px 5px #bdbdbd;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.bannerimg {
+
+    width: 20%;
+}
+
+.banner div img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.dash-details {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
 
 
+}
+
+.dash-details div {
+    width: 98%;
+    background-color: white;
+    box-shadow: 1px 2px 5px #bdbdbd;
+    margin-top: 10px;
+
+}
+
+.dash-info {
+    color: #666565;
+    margin: 0 auto;
+}
 
 
 

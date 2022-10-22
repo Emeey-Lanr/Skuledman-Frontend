@@ -46,9 +46,32 @@
     font-size: 1rem;
 }
 
+.setDetails {
+    width: 83%;
+    margin: 0 0 0 auto;
+}
+
+.setinfo {
+    width: 90%;
+    background-color: white;
+    box-shadow: 1px 2px 5px #bdbdbd;
+    margin: 0 auto;
+}
+
+.setinfo p {
+    color: #ff6400;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
 
 @media (max-width:1063px) {
     .jss1 {
+        width: 100%;
+    }
+
+    .setDetails {
         width: 100%;
     }
 
