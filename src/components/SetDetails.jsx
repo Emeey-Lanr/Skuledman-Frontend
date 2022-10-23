@@ -1,95 +1,146 @@
 import Logo from "./Logo"
 import "../styles/jss1.css"
 import SideBar from "./SideBar"
-import { AiOutlineMenu, AiOutlineArrowLeft } from "react-icons/ai"
+import { AiOutlineMenu, AiOutlineArrowLeft, } from "react-icons/ai"
+import { FaPenAlt, FaTrashAlt } from "react-icons/fa"
+import { useState, useEffect, useContext, createContext } from "react"
+import { appContext } from "../App"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
+import SetFirstTerm from "./SetFirstTerm"
+import SetSecondTerm from "./SetSecondTerm"
+import SetThirdTerm from "./SetThirdTerm"
+import Background from "./Background"
+export const setDetailContext = createContext(null)
 const SetDetails = () => {
+    const navigate = useNavigate()
+    const { showSideBar, showBack, setUrl } = useContext(appContext)
+    const [setInfo, setSetInfo] = useState({})
+    ///For terms
+    const [first, setFirst] = useState(false)
+    const [second, setSecond] = useState(false)
+    const [third, setThird] = useState(false)
+    ///For details about each terms
+    const [firstTerm, setFirstTerm] = useState([])
+    const [secondTerm, setSecondTerm] = useState([])
+    const [thirdTerm, setThirdTerm] = useState([])
+
+    ///Functions to handle the term condition for each page
+    const firstTermPage = () => {
+        setFirst(true)
+        setSecond(false)
+        setThird(false)
+    }
+    const secondTermPage = () => {
+        setFirst(false)
+        setSecond(true)
+        setThird(false)
+    }
+    const thirdTermPage = () => {
+        setFirst(false)
+        setSecond(false)
+        setThird(true)
+
+    }
+    useEffect(() => {
+        const currentSetId = localStorage.setId.split(",")
+        console.log(currentSetId)
+        const currentSetEndPoint = `${setUrl}/currentSet`
+        if (currentSetId === []) {
+            navigate(`/${currentSetId[currentSetId.length - 1]}`)
+        } else {
+            axios.get(currentSetEndPoint, {
+                headers: {
+                    "authorization": `bearer ${currentSetId[0]}`,
+                    "Content-Type": "application/json"
+                }
+            }).then((result) => {
+                if (result.data.status) {
+                    setSetInfo(result.data.currentSet)
+                    setFirstTerm(result.data.currentSet.firstTerm)
+                    setSecondTerm(result.data.currentSet.secondTerm)
+                    setThirdTerm(result.data.currentSet.thirdTerm)
+
+                } else {
+
+                }
+
+            })
+
+        }
+
+        if (localStorage.term === "setFirst") {
+            firstTermPage()
+
+        } else if (localStorage.term === "setSecond") {
+            secondTermPage()
+
+        } else if (localStorage.term === "setThird") {
+            thirdTermPage()
+        } else {
+            firstTermPage()
+        }
+
+
+
+    }, [])
+
+    ///Buttons handling the switch between pages
+    const btn1 = () => {
+        localStorage.term = "setFirst"
+        firstTermPage()
+    }
+    const btn2 = () => {
+        localStorage.term = "setSecond"
+        secondTermPage()
+    }
+    const btn3 = () => {
+        localStorage.term = "setThird"
+        thirdTermPage()
+    }
+
+    const addFee = () => {
+
+    }
     return (
         <>
-            <div>
-                <SideBar />
-                <div className="setDetails bg-light">
-                    <div>
-                        <div className="w-100 mx-auto">
-                            <div className="w-75 mx-auto d-flex justify-content-between">
-                                <button className="btn">
-                                    <AiOutlineArrowLeft />
-                                </button>
-                                <button className="btn" >
-                                    <AiOutlineMenu />
-                                </button>
-                            </div>
-                            <div className="d-flex w-75 mx-auto">
-                                <buttton className="btn">First Term</buttton>
-                                <buttton className="btn">Second Term</buttton>
-                                <buttton className="btn">Third Term</buttton>
-                            </div>
-                            <div className="setinfo w-75">
-                                <p>Jss</p>
-                                <p>2022/2023</p>
-                            </div>
-
-                            <div className="firstT w-75 mx-auto border-top mt-3 mb-2 py-3" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
-                                <p className="text-center">Add the amount to be paid for this term</p>
-                                <input type="text" className="form-control w-75 mx-auto" />
-                                <div className="d-flex justify-content-end w-75 mx-auto">
-                                    <button className="btn btn-dark my-4">
-                                        Add
+            <setDetailContext.Provider value={{ setInfo, firstTerm, secondTerm, thirdTerm }}>
+                <div>
+                    {showBack && <Background />}
+                    <SideBar />
+                    <div className="setDetails bg-light">
+                        <div>
+                            <div className="w-100 mx-auto">
+                                <div className="w-75 mx-auto d-flex justify-content-between">
+                                    <button className="btn">
+                                        <AiOutlineArrowLeft />
+                                    </button>
+                                    <button onClick={() => showSideBar()} className="btn" >
+                                        <AiOutlineMenu />
                                     </button>
                                 </div>
-                                <div className="d-flex justify-content-center">
-                                    <span className="fw-bold">Amount:</span><span>40000</span>
+                                <div className="d-flex w-75 mx-auto">
+                                    <buttton onClick={() => btn1()} className="btn">First Term</buttton>
+                                    <buttton onClick={() => btn2()} className="btn">Second Term</buttton>
+                                    <buttton onClick={() => btn3()} className="btn">Third Term</buttton>
                                 </div>
-                            </div>
-                            <div className="row w-75 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
-                                <div className="col-lg-6 mt-5 mb-4">
-                                    <p>Number of students</p>
-                                    <div className="border-bottom mt-5">
-
-                                    </div>
+                                <div className="setinfo w-75">
+                                    <p>{setInfo.class}</p>
+                                    <p>{setInfo.set}</p>
                                 </div>
-                                <div className="col-lg-6 mt-5  mb-4">
-                                    <p>Amount To Be Paid</p>
-                                    <div className="border-bottom mt-5">
-
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mt-5  mb-4">
-                                    <p>Total Owned</p>
-                                    <div className="border-bottom mt-5">
-
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mt-5  mb-4">
-                                    <p>Total Paid</p>
-                                    <div className="border-bottom mt-5">
-
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mt-5  mb-4">
-                                    <p>Best Student</p>
-                                    <div className="border-bottom mt-5">
-
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 mt-5  mb-4">
-                                    <p>Worst Student</p>
-                                    <div className="border-bottom mt-5">
-
-                                    </div>
-                                </div>
-
-
 
                             </div>
-
-
+                            {first && <SetFirstTerm />}
+                            {second && <SetSecondTerm />}
+                            {third && <SetThirdTerm />}
 
                         </div>
 
                     </div>
-
                 </div>
-            </div>
+
+
+            </setDetailContext.Provider>
 
         </>
     )

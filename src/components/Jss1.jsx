@@ -11,7 +11,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 
 const Jss1 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set } = useContext(appContext)
+    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents } = useContext(appContext)
     // useLayoutEffect(() => {
 
     // }, [])
@@ -55,12 +55,12 @@ const Jss1 = () => {
                         <div className="set my-4" style={{ cursor: "pointer" }}>
                             <p className="fs-5">{set.set}</p>
                             <div className="setBtn">
-                                <button >View Student</button>
-                                <button>View Details</button>
+                                <button onClick={() => viewStudents(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>View Student</button>
+                                <button onClick={() => setDetails(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}> View Details</button>
                             </div>
                         </div>
                     )) :
-                        <div>
+                        <div className="d-flex justify-content-center align-items-center">
                             <p>No set created</p>
                         </div>
                     }

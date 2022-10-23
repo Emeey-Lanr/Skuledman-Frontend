@@ -11,7 +11,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 
 const Jss3 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setShowBack, setAddSetModal, setClassType, getSchoolDetails, jss3Set } = useContext(appContext)
+    const { showSideBar, hideSideBar, showBack, setShowBack, setAddSetModal, setClassType, getSchoolDetails, jss3Set, viewStudents, setDetails } = useContext(appContext)
     useLayoutEffect(() => {
         getSchoolDetails()
     }, [])
@@ -54,18 +54,19 @@ const Jss3 = () => {
                         </button>
                     </div>
                     <div className="w-100 mx-auto border-bottom"> </div>
-                    {jss3Set.length > 0 ? jss3Set.map(() => (
+                    {jss3Set.length > 0 ? jss3Set.map((set, id) => (
                         <div className="set my-4" style={{ cursor: "pointer" }}>
                             <p className="fs-5">2020/2004 <span>Set</span></p>
                             <div className="setBtn">
-                                <button>View Student</button>
-                                <button>View Details</button>
+                                <button onClick={() => viewStudents(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>View Student</button>
+                                <button onClick={() => setDetails(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}> View Details</button>
                             </div>
                         </div>
                     )) :
-                        <div>
-                            <p>No set created</p>
-                        </div>
+                    <div className="d-flex justify-content-center align-items-center">
+                    <p>No set created</p>
+                </div>
+
                     }
                 </div>
 

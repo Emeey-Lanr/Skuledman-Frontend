@@ -3,14 +3,12 @@ import "../styles/login.css"
 import { FaLock } from "react-icons/fa"
 import { GiMailbox } from "react-icons/gi"
 import { Link, useNavigate } from "react-router-dom"
-import { useState, useContext, useEffect } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
-import { appContext } from "../App"
+
 const Login = () => {
-    const { yes } = useContext(appContext)
-    useEffect(() => {
-        yes()
-    }, [])
+
+
     const [whenClicked, setWhenClicked] = useState(false)
     const [forgotSomethingCheck, setforgotSomethingCheck] = useState(false)
     const [checkMessage, setCheckMessage] = useState("")
