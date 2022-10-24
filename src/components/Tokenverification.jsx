@@ -25,6 +25,7 @@ const Tokenverification = () => {
         setwhenClicked(true)
         axios.post(otpEndPoint, otpSchema).then((result) => {
             if (result.data.status) {
+                localStorage.eduManToken = result.data.token
                 navigate("/dashboard")
             } else {
                 setwhenClicked(false)

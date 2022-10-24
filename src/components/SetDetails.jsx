@@ -2,8 +2,8 @@ import Logo from "./Logo"
 import "../styles/jss1.css"
 import SideBar from "./SideBar"
 import { AiOutlineMenu, AiOutlineArrowLeft, } from "react-icons/ai"
-import { FaPenAlt, FaTrashAlt } from "react-icons/fa"
-import { useState, useEffect, useContext, createContext } from "react"
+import { FaPenAlt, FaTrashAlt, } from "react-icons/fa"
+import { useState, useEffect, useContext, createContext, useRef } from "react"
 import { appContext } from "../App"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -11,6 +11,8 @@ import SetFirstTerm from "./SetFirstTerm"
 import SetSecondTerm from "./SetSecondTerm"
 import SetThirdTerm from "./SetThirdTerm"
 import Background from "./Background"
+import FeeList from "./FeeList"
+
 export const setDetailContext = createContext(null)
 const SetDetails = () => {
     const navigate = useNavigate()
@@ -42,7 +44,10 @@ const SetDetails = () => {
         setThird(true)
 
     }
-    useEffect(() => {
+
+    ///a state that tell which term wants to be updated
+    const [currentTerm, setCurrentTerm] = useState("")
+    const getSetInfo = () => {
         const currentSetId = localStorage.setId.split(",")
         console.log(currentSetId)
         const currentSetEndPoint = `${setUrl}/currentSet`
@@ -71,43 +76,117 @@ const SetDetails = () => {
 
         if (localStorage.term === "setFirst") {
             firstTermPage()
+            setCurrentTerm("firstTerm")
 
         } else if (localStorage.term === "setSecond") {
             secondTermPage()
+            setCurrentTerm("secondTerm")
 
         } else if (localStorage.term === "setThird") {
             thirdTermPage()
+            setCurrentTerm("thirdTerm")
         } else {
             firstTermPage()
+            setCurrentTerm("firstTerm")
         }
 
-
-
+    }
+    useEffect(() => {
+        getSetInfo()
     }, [])
-
+    const [spinner, setSpinner] = useState(false)
     ///Buttons handling the switch between pages
     const btn1 = () => {
         localStorage.term = "setFirst"
         firstTermPage()
+        setCurrentTerm("firstTerm")
+        setSpinner(false)
     }
     const btn2 = () => {
         localStorage.term = "setSecond"
         secondTermPage()
+        setCurrentTerm("secondTerm")
+        setSpinner(false)
     }
     const btn3 = () => {
         localStorage.term = "setThird"
         thirdTermPage()
+        setCurrentTerm("thirdTerm")
+        setSpinner(false)
+    }
+    //Condition handling spin
+
+    ///List Modal
+    const [listModal, setListModal] = useState(false)
+    const [listDescription, setListDescription] = useState("")
+    const [listAmount, setListAmount] = useState("")
+
+
+    const [collectSchoolFees, setCollectSchoolFees] = useState("")
+    const [collectPtaFees, setCollectPtaFees] = useState("")
+    const updateFeesEndPoint = `${setUrl}/updateFees`
+    const fees = {
+        setId: setInfo._id,
+        schoolFees: collectSchoolFees,
+        ptaFees: collectPtaFees,
+        term: currentTerm,
+    }
+    const [inputMessage, setInputMessge] = useState("")
+    const feeUpdateFunction = () => {
+
+        axios.patch(updateFeesEndPoint, fees).then((result) => {
+            if (result.data.status) {
+                getSetInfo()
+            } else {
+
+            }
+
+        })
+    }
+    const updateFee = () => {
+        console.log(collectPtaFees, collectSchoolFees)
+        if (collectSchoolFees === "" && collectPtaFees !== "") {
+            feeUpdateFunction()
+        } else if (collectSchoolFees !== "" && collectPtaFees === "") {
+            feeUpdateFunction()
+        } else if (collectSchoolFees !== "" && collectPtaFees !== "") {
+            feeUpdateFunction()
+        } else if (collectSchoolFees === "" && collectPtaFees === "") {
+            setInputMessge("aleast fill in one input")
+        }
+
     }
 
-    const addFee = () => {
+    const list = {
+        setInfo: {
+            setid: setInfo._id,
+            currentTerm: currentTerm,
+        },
+        morelist: {
+            description: listDescription,
+            amount: listAmount,
+        }
+    }
+    const addListEndPoint = `${setUrl}/`
+    const addList = () => {
+        axios.patch(addListEndPoint, list).then((result) => {
 
+        })
     }
     return (
         <>
-            <setDetailContext.Provider value={{ setInfo, firstTerm, secondTerm, thirdTerm }}>
+            <setDetailContext.Provider
+                value={{
+                    setInfo, firstTerm, secondTerm, thirdTerm,
+                    setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, setListDescription, setListAmount, inputMessage,
+                    spinner, addList
+                }}
+            >
                 <div>
+
                     {showBack && <Background />}
                     <SideBar />
+                    {listModal && <FeeList />}
                     <div className="setDetails bg-light">
                         <div>
                             <div className="w-100 mx-auto">
@@ -130,6 +209,7 @@ const SetDetails = () => {
                                 </div>
 
                             </div>
+
                             {first && <SetFirstTerm />}
                             {second && <SetSecondTerm />}
                             {third && <SetThirdTerm />}

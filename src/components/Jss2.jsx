@@ -36,7 +36,7 @@ const Jss2 = () => {
                 {showBack && <Background />}
                 <SideBar />
                 <div className="jss1 bg-light">
-                    <h2 className="h2 py-2 px-2 w-75 mx-auto">JSS3</h2>
+                    <h2 className="h2 py-2 px-2 w-75 mx-auto">JSS2</h2>
                     <div className="w-75 mx-auto d-flex border  form-control">
                         <span className="outlineNone" onClick={() => ShowModal()}>
                             <AiOutlineMenu />

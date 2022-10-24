@@ -66,6 +66,21 @@
     font-weight: 500;
 }
 
+.spin {
+    animation: spin infinite 0.9s running normal;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        transition: 1s ease-out all;
+    }
+}
+
 @media (max-width:1063px) {
     .jss1 {
         width: 100%;
