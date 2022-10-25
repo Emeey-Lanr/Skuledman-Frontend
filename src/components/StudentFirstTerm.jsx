@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { FaPlus, FaSearch } from "react-icons/fa"
 const StudentFirstTerm = () => {
     return (
         <>

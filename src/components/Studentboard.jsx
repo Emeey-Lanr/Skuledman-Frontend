@@ -11,7 +11,8 @@ import { appContext } from "../App"
 export const studentBoardContext = createContext(null)
 const Studentboard = () => {
     const [studentModal, setStudentModal] = useState(false)
-    const { showBack, setShowBack, setSidebarNone } = useContext(appContext)
+    const { showBack, setShowBack, setSidebarNone, viewStudentPersonalDetails } = useContext(appContext)
+    const setId = localStorage.setId.split(",")
     const showSidBar = () => {
         setSidebarNone("")
         setShowBack(true)
@@ -45,14 +46,14 @@ const Studentboard = () => {
 
                             </div>
                             <div>
-                                <p className="text-center fs-4" style={{ color: "#ff6400" }}>Jss1-2020/2001</p>
+                                <p className="text-center fs-4" style={{ color: "#ff6400" }}><span>{setId[3]}</span>-<span>{setId[2]}</span></p>
                             </div>
 
                         </div>
                         <div className="row w-75 mx-auto">
                             <div className="col-lg-4 col-md-5 col-sm-10 mb-5 studentCard">
                                 <div className="d-flex justify-content-end">
-                                    <button>View Profile</button>
+                                    <button onClick={viewStudentPersonalDetails}>View Profile</button>
                                 </div>
                                 <div className=" border-none">
                                     <div className="d-flex justify-content-center">

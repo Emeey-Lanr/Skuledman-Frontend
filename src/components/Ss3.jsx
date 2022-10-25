@@ -53,7 +53,7 @@ const Ss3 = () => {
                     <div className="w-100 mx-auto border-bottom"> </div>
                     {Sss3Set.length > 0 ? Sss3Set.map((set, id) => (
                         <div className="set my-4" style={{ cursor: "pointer" }}>
-                            <p className="fs-5">2020/2004 <span>Set</span></p>
+                            <p className="fs-5">{set.set} <span>Set</span></p>
                             <div className="setBtn">
                                 <button onClick={() => viewStudents(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>View Student</button>
                                 <button onClick={() => setDetails(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}> View Details</button>

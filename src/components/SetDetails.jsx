@@ -23,9 +23,15 @@ const SetDetails = () => {
     const [second, setSecond] = useState(false)
     const [third, setThird] = useState(false)
     ///For details about each terms
-    const [firstTerm, setFirstTerm] = useState([])
-    const [secondTerm, setSecondTerm] = useState([])
-    const [thirdTerm, setThirdTerm] = useState([])
+    const [firstTerm, setFirstTerm] = useState({
+        otherFee: []
+    })
+    const [secondTerm, setSecondTerm] = useState({
+        otherFee: []
+    })
+    const [thirdTerm, setThirdTerm] = useState({
+        otherFee: []
+    })
 
     ///Functions to handle the term condition for each page
     const firstTermPage = () => {
@@ -62,6 +68,7 @@ const SetDetails = () => {
             }).then((result) => {
                 if (result.data.status) {
                     setSetInfo(result.data.currentSet)
+                    console.log(result.data.currentSet.firstTerm)
                     setFirstTerm(result.data.currentSet.firstTerm)
                     setSecondTerm(result.data.currentSet.secondTerm)
                     setThirdTerm(result.data.currentSet.thirdTerm)
@@ -94,7 +101,10 @@ const SetDetails = () => {
     useEffect(() => {
         getSetInfo()
     }, [])
+
+    //Condition handling spin
     const [spinner, setSpinner] = useState(false)
+    const [spinner2, setSpinner2] = useState(false)
     ///Buttons handling the switch between pages
     const btn1 = () => {
         localStorage.term = "setFirst"
@@ -114,7 +124,7 @@ const SetDetails = () => {
         setCurrentTerm("thirdTerm")
         setSpinner(false)
     }
-    //Condition handling spin
+
 
     ///List Modal
     const [listModal, setListModal] = useState(false)
@@ -132,17 +142,32 @@ const SetDetails = () => {
         term: currentTerm,
     }
     const [inputMessage, setInputMessge] = useState("")
+    const inputEmpty = useRef()
     const feeUpdateFunction = () => {
-
+        setSpinner(true)
         axios.patch(updateFeesEndPoint, fees).then((result) => {
             if (result.data.status) {
+                inputEmpty.value = ""
                 getSetInfo()
+                setInputMessge(result.data.message)
+                setTimeout(() => {
+                    setSpinner(false)
+                    setInputMessge("")
+                }, 2000);
+
+
             } else {
+                setInputMessge(result.data.message)
+                setTimeout(() => {
+                    setSpinner(false)
+                    setInputMessge("")
+                }, 2000);
 
             }
 
         })
     }
+
     const updateFee = () => {
         console.log(collectPtaFees, collectSchoolFees)
         if (collectSchoolFees === "" && collectPtaFees !== "") {
@@ -152,7 +177,7 @@ const SetDetails = () => {
         } else if (collectSchoolFees !== "" && collectPtaFees !== "") {
             feeUpdateFunction()
         } else if (collectSchoolFees === "" && collectPtaFees === "") {
-            setInputMessge("aleast fill in one input")
+            setInputMessge("Aleast fill in one input")
         }
 
     }
@@ -167,11 +192,34 @@ const SetDetails = () => {
             amount: listAmount,
         }
     }
-    const addListEndPoint = `${setUrl}/`
+    const [inputMessage2, setInputMessage2] = useState("")
+    const addListEndPoint = `${setUrl}/createList`
     const addList = () => {
-        axios.patch(addListEndPoint, list).then((result) => {
+        if (listDescription === "" || listAmount === "") {
+            setInputMessage2("Looks like you forgot something")
+        } else {
+            setSpinner2(true)
+            axios.patch(addListEndPoint, list).then((result) => {
+                if (result.data.status) {
+                    getSetInfo()
+                    setInputMessage2(result.data.message)
+                    setTimeout(() => {
+                        setSpinner2(false)
+                        setListModal(false)
+                        setInputMessage2("")
+                    }, 2000)
 
-        })
+                } else {
+                    setInputMessage2(result.data.message)
+                    setTimeout(() => {
+                        setSpinner2(false)
+                        setListModal(false)
+                        setInputMessage2("")
+                    }, 2000)
+                }
+
+            })
+        }
     }
     return (
         <>
@@ -179,7 +227,7 @@ const SetDetails = () => {
                 value={{
                     setInfo, firstTerm, secondTerm, thirdTerm,
                     setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, setListDescription, setListAmount, inputMessage,
-                    spinner, addList
+                    spinner, addList, spinner2, inputMessage2, setSpinner2, setInputMessage2, inputEmpty,
                 }}
             >
                 <div>

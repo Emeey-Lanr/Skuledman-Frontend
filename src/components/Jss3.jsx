@@ -56,16 +56,16 @@ const Jss3 = () => {
                     <div className="w-100 mx-auto border-bottom"> </div>
                     {jss3Set.length > 0 ? jss3Set.map((set, id) => (
                         <div className="set my-4" style={{ cursor: "pointer" }}>
-                            <p className="fs-5">2020/2004 <span>Set</span></p>
+                            <p className="fs-5">{set.set}<span>Set</span></p>
                             <div className="setBtn">
                                 <button onClick={() => viewStudents(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>View Student</button>
                                 <button onClick={() => setDetails(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}> View Details</button>
                             </div>
                         </div>
                     )) :
-                    <div className="d-flex justify-content-center align-items-center">
-                    <p>No set created</p>
-                </div>
+                        <div className="d-flex justify-content-center align-items-center">
+                            <p>No set created</p>
+                        </div>
 
                     }
                 </div>

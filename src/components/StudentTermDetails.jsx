@@ -5,6 +5,7 @@ import { FaCameraRetro, FaPlus, FaSearch } from "react-icons/fa"
 import { AiOutlineMenu } from "react-icons/ai"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import StudentFirstTerm from "./StudentFirstTerm"
 const StudenTermDetails = () => {
 
     return (
@@ -12,13 +13,12 @@ const StudenTermDetails = () => {
             <div>
                 <SideBar />
                 <div className="term bg-light">
-                    <div>
-                        <div className="termdescription">
-                            <button >FirstTerm</button><button >SecondTerm</button><button >ThirdTerm</button><button className="termdescriptionBtnNone">    <AiOutlineMenu /></button>
-                        </div>
+                    <div className="py-2 w-75 mx-auto">
+                        <p></p>
                     </div>
+
                     <div className="w-75 mx-auto">
-                        <div className="my-5 d-flex align-items-end" >
+                        <div className="d-flex align-items-end" >
                             <img src={photo1} alt="" style={{ width: "120px", height: "130px", objectFit: "cover" }} />
                             <button className="btn"> <FaCameraRetro /> </button>
                         </div>
@@ -63,7 +63,12 @@ const StudenTermDetails = () => {
                         <div className="w-100 mx-auto mt-4 border-bottom">
 
                         </div>
-
+                        <div>
+                            <div className="termdescription">
+                                <button >FirstTerm</button><button >SecondTerm</button><button >ThirdTerm</button><button className="termdescriptionBtnNone">    <AiOutlineMenu /></button>
+                            </div>
+                        </div>
+                        <StudentFirstTerm />
                     </div>
 
                 </div>

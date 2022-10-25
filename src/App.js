@@ -96,20 +96,22 @@ function App() {
 
   // gets the set details
   const setDetails = (setid, schoolEmail, schoolId, set, classSet) => {
-    const setIdentification = setid + "," + schoolId + "," + set + "," + classSet
+    const setIdentification = setid + "," + schoolId + "," + set + "," + classSet + "," + schoolEmail
     localStorage.setId = setIdentification
     localStorage.term = "setFirst"
     navigate("/setdetails")
 
   }
   const viewStudents = (setid, schoolEmail, schoolId, set, classSet) => {
-    const setIdentification = setid + "," + schoolId + "," + set + "," + classSet
+    const setIdentification = setid + "," + schoolId + "," + set + "," + classSet + "," + schoolEmail
     localStorage.setId = setIdentification
     localStorage.term = "viewFirst"
     navigate("/studentSet")
   }
 
-
+  const viewStudentPersonalDetails = () => {
+    navigate("/studentProfile")
+  }
 
 
   return (
@@ -153,7 +155,11 @@ function App() {
         ///Endpoint 
         schoolUrl,
         setUrl,
-        studentUrl
+        studentUrl,
+
+
+        ///For view studentPersonal Details
+        viewStudentPersonalDetails,
       }}>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />

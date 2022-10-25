@@ -51,6 +51,7 @@ const AddSetModal = () => {
         totalMoneyPaid: "",
     }
 
+
     const setEndPoint = "http://localhost:6463/set/newset"
     const closeModal = () => {
         setWhenClicked(false)
