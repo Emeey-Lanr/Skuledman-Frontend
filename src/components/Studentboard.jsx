@@ -1,26 +1,54 @@
 import "../styles/studentboard.css"
 import SideBar from "./SideBar"
 import { Link } from "react-router-dom"
-import { FaArrowLeft, FaPlus } from "react-icons/fa"
+import { FaArrowLeft, FaPlus, FaSpinner } from "react-icons/fa"
 import { AiOutlineMenu } from "react-icons/ai"
 import photo1 from "../images/photo1.jpg"
 import AddStudentModal from "./AddStudentModal"
 import Background from "./Background"
-import { createContext, useState, useContext } from "react"
-import { appContext } from "../App"
+import { createContext, useState, useContext, useEffect } from "react"
+import { appContext, } from "../App"
+import axios from "axios"
 export const studentBoardContext = createContext(null)
 const Studentboard = () => {
     const [studentModal, setStudentModal] = useState(false)
-    const { showBack, setShowBack, setSidebarNone, viewStudentPersonalDetails } = useContext(appContext)
+    const { showBack, setShowBack, setSidebarNone, viewStudentPersonalDetails, studentUrl } = useContext(appContext)
     const setId = localStorage.setId.split(",")
+    const [studentsFound, setStudentsFound] = useState([])
+    const [statusMessage, setStatusMessage] = useState("")
     const showSidBar = () => {
         setSidebarNone("")
         setShowBack(true)
 
     }
+    const getStudentEndPoint = `${studentUrl}/getStudent`
+    const [spinStatus, setSpinStatus] = useState(false)
+    const getStudent = () => {
+        setSpinStatus(true)
+        axios.get(getStudentEndPoint, {
+            headers: {
+                "Authorization": `${setId[3]},${setId[4]},${setId[2]},${setId[0]}`,
+                "Content-Type": "apllication/json"
+            }
+        }).then((result) => {
+            if (result.data.status) {
+                setStudentsFound(result.data.result)
+                setStatusMessage("")
+                setSpinStatus(false)
+            } else {
+                setStatusMessage(result.data.message)
+                setSpinStatus(false)
+            }
+
+        })
+    }
+    useEffect(() => {
+        getStudent()
+    }, [])
+
     return (
         <>
-            <studentBoardContext.Provider value={{ studentModal, setStudentModal }}>
+            <studentBoardContext.Provider value={{ studentModal, setStudentModal, getStudent }}>
                 <div>
                     {showBack && <Background />}
                     <SideBar />
@@ -50,47 +78,47 @@ const Studentboard = () => {
                             </div>
 
                         </div>
-                        <div className="row w-75 mx-auto">
-                            <div className="col-lg-4 col-md-5 col-sm-10 mb-5 studentCard">
-                                <div className="d-flex justify-content-end">
-                                    <button onClick={viewStudentPersonalDetails}>View Profile</button>
-                                </div>
-                                <div className=" border-none">
-                                    <div className="d-flex justify-content-center">
-                                        <div style={{ width: "60px", hheadereight: "60px" }}>
-                                            <img src={photo1} alt="" style={{ width: "60px", height: "60px", objectFit: "cover" }} className="rounded-circle" />
+                        {spinStatus && <div className="d-flex justify-content-center py-2">
+                            <FaSpinner className="spin" />
+                        </div>}
+                        {statusMessage !== "" && < div className="w-75 py-2 mx-auto bg-light">
+                            <p>{statusMessage}</p>
+                        </div>}
+                        <div className="row justify-content-center w-100 mx-auto grid-gap-1 mx-auto">
+                            {studentsFound.map((student, id) => (
+                                < div className="col-lg-3 col-md-3 col-sm-10 mx-1  mb-5 studentCard">
+                                    <div className="d-flex justify-content-end">
+                                        <button onClick={() => viewStudentPersonalDetails(student._id)}>View Profile</button>
+                                    </div>
+                                    <div className=" border-none">
+                                        <div className="d-flex justify-content-center">
+                                            <div style={{ width: "60px", hheadereight: "60px" }}>
+                                                <img src={student.imgUrl === "" ? photo1 : student.imgUrl} alt="" style={{ width: "60px", height: "60px", objectFit: "cover" }} className="rounded-circle" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="studentInfo">
-                                    <div>
-                                        <span>FirstName</span>
-                                        <p>Oyelowo</p>
-                                    </div>
-                                    <div>
-                                        <span>Surname</span>
-                                        <p>Emmanuel</p>
-                                    </div>
-                                    <div>
-                                        <span>MiddleName</span><p></p>
-                                    </div>
-                                    <div>
-                                        <span>UniqueId</span><p></p>
-                                    </div>
-                                    <div>
-                                        <span>FirstTerm</span><p></p>
-                                    </div>
-                                    <div>
-                                        <span>SecondTerm</span><p></p>
-                                    </div>
-                                    <div>
-                                        <span>LastTerm</span><p></p>
-                                    </div>
-                                    <div>
-                                        <span>Total Debt</span><p></p>
+                                    <div className="studentInfo">
+                                        <div>
+                                            <span>FirstName</span>
+                                            <p>{student.firstName}</p>
+                                        </div>
+                                        <div>
+                                            <span>Surname</span>
+                                            <p>{student.surName}</p>
+                                        </div>
+                                        <div>
+                                            <span>MiddleName</span>
+                                            <p>{student.middleName}</p>
+                                        </div>
+                                        <div>
+                                            <span>UniqueId</span>
+                                            <p>{student.schoolUniqueId}</p>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
+
+                            ))}
 
                         </div>
 

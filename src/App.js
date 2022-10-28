@@ -109,10 +109,10 @@ function App() {
     navigate("/studentSet")
   }
 
-  const viewStudentPersonalDetails = () => {
+  const viewStudentPersonalDetails = (id) => {
+    localStorage.cs = id
     navigate("/studentProfile")
   }
-
 
   return (
 

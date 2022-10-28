@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaPlus, FaSearch } from "react-icons/fa"
+import { studenTermDetailContext } from './StudentTermDetails'
 const StudentSecondTerm = () => {
+    const { first, activateSetStatus, secondTermActivationMessage, secondTerMActivationStyle, setSubjectToBeAdded } = useContext(studenTermDetailContext)
     return (
         <>
+            <div className='d-flex justify-content-center my-2'>
+                <button onClick={activateSetStatus} className={secondTerMActivationStyle}>{secondTermActivationMessage}</button>
+            </div>
             <div>
                 <p>Result</p>
                 <button className="btn" style={{ color: "#ff6400" }}><FaPlus /> Add Subject</button>
             </div>
             <div>
                 <label className="from-label fw-bold ">Name :</label>
-                <input type="text" className="w-100 form-control" />
+                <input type="text" className="w-100 form-control" onChange={(e) => setSubjectToBeAdded(e.target.value)} />
             </div>
 
             <div className="w-100 mx-auto mt-4 border-bottom"></div>

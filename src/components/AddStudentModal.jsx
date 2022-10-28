@@ -22,18 +22,27 @@ const AddStudentModal = () => {
         imgUrl: "",
         schoolUniqueId: 1,
         currentClass: setId[3],
+        jss1Id: "",
+        jss2Id: "",
+        jss3Id: "",
+        sss1Id: "",
+        sss2Id: "",
+        sss3Id: "",
         jss1: {
             set: "",
             setId: "",
             firstTermResult: [],
             secondTermResult: [],
             thirdTermResult: [],
-            firstTermSchoolFees: "",
-            secondTermSchoolFees: "",
-            thirdTermSchoolFees: "",
-            firstTermPtaFees: "",
-            secondTermPtaFees: "",
-            thirdTermPtaFees: "",
+            firstTermSchoolFees: 0,
+            secondTermSchoolFees: 0,
+            thirdTermSchoolFees: 0,
+            firstTermPtaFees: 0,
+            secondTermPtaFees: 0,
+            thirdTermPtaFees: 0,
+            firstTermStatus: false,
+            secondTermStatus: false,
+            thirdTermStatus: false
         },
         jss2: {
             set: "",
@@ -41,12 +50,15 @@ const AddStudentModal = () => {
             firstTermResult: [],
             secondTermResult: [],
             thirdTermResult: [],
-            firstTermSchoolFees: "",
-            secondTermSchoolFees: "",
-            thirdTermSchoolFees: "",
+            firstTermSchoolFees: 0,
+            secondTermSchoolFees: 0,
+            thirdTermSchoolFees: 0,
             firstTermPtaFees: "",
             secondTermPtaFees: "",
             thirdTermPtaFees: "",
+            firstTermStatus: false,
+            secondTermStatus: false,
+            thirdTermStatus: false
         },
         jss3: {
             set: "",
@@ -54,12 +66,15 @@ const AddStudentModal = () => {
             firstTermResult: [],
             secondTermResult: [],
             thirdTermResult: [],
-            firstTermSchoolFees: "",
-            secondTermSchoolFees: "",
-            thirdTermSchoolFees: "",
-            firstTermPtaFees: "",
-            secondTermPtaFees: "",
-            thirdTermPtaFees: "",
+            firstTermSchoolFees: 0,
+            secondTermSchoolFees: 0,
+            thirdTermSchoolFees: 0,
+            firstTermPtaFees: 0,
+            secondTermPtaFees: 0,
+            thirdTermPtaFees: 0,
+            firstTermStatus: false,
+            secondTermStatus: false,
+            thirdTermStatus: false
         },
         sss1: {
             set: "",
@@ -67,9 +82,15 @@ const AddStudentModal = () => {
             firstTermResult: [],
             secondTermResult: [],
             thirdTermResult: [],
-            firstTermPtaFees: "",
-            secondTermPtaFees: "",
-            thirdTermPtaFees: "",
+            firstTermSchoolFees: 0,
+            secondTermSchoolFees: 0,
+            thirdTermSchoolFees: 0,
+            firstTermPtaFees: 0,
+            secondTermPtaFees: 0,
+            thirdTermPtaFees: 0,
+            firstTermStatus: false,
+            secondTermStatus: false,
+            thirdTermStatus: false
         },
         sss2: {
             set: "",
@@ -77,12 +98,15 @@ const AddStudentModal = () => {
             firstTermResult: [],
             secondTermResult: [],
             thirdTermResult: [],
-            firstTermSchoolFees: "",
-            secondTermSchoolFees: "",
-            thirdTermSchoolFees: "",
-            firstTermPtaFees: "",
-            secondTermPtaFees: "",
-            thirdTermPtaFees: "",
+            firstTermSchoolFees: 0,
+            secondTermSchoolFees: 0,
+            thirdTermSchoolFees: 0,
+            firstTermPtaFees: 0,
+            secondTermPtaFees: 0,
+            thirdTermPtaFees: 0,
+            firstTermStatus: false,
+            secondTermStatus: false,
+            thirdTermStatus: false
         },
         sss3: {
             set: "",
@@ -90,32 +114,44 @@ const AddStudentModal = () => {
             firstTermResult: [],
             secondTermResult: [],
             thirdTermResult: [],
-            firstTermSchoolFees: "",
-            secondTermSchoolFees: "",
-            thirdTermSchoolFees: "",
-            firstTermPtaFees: "",
-            secondTermPtaFees: "",
-            thirdTermPtaFees: "",
+            firstTermSchoolFees: 0,
+            secondTermSchoolFees: 0,
+            thirdTermSchoolFees: 0,
+            firstTermPtaFees: 0,
+            secondTermPtaFees: 0,
+            thirdTermPtaFees: 0,
+            firstTermStatus: false,
+            secondTermStatus: false,
+            thirdTermStatus: false
         },
     }
 
     if (setId[3] === "Jss1") {
+        studentSchema.jss1Id = setId[0]
         studentSchema.jss1.set = setId[2]
         studentSchema.jss1.setId = setId[0]
+
     } else if (setId[3] === "Jss2") {
+        studentSchema.jss2Id = setId[0]
         studentSchema.jss2.set = setId[2]
         studentSchema.jss2.setId = setId[0]
     } else if (setId[3] === "Jss3") {
+        studentSchema.jss3Id = setId[0]
         studentSchema.jss3.set = setId[2]
         studentSchema.jss3.setId = setId[0]
     } else if (setId[3] === "Sss1") {
+        studentSchema.sss1Id = setId[0]
+
         studentSchema.sss1.set = setId[2]
         studentSchema.sss1.setId = setId[0]
     } else if (setId[3] === "Sss2") {
+        studentSchema.sss2Id = setId[0]
+
         studentSchema.sss2.set = setId[2]
         studentSchema.sss2.setId = setId[0]
 
     } else if (setId[3] === "Sss3") {
+        studentSchema.sss3Id = setId[0]
         studentSchema.sss3.set = setId[2]
         studentSchema.sss3.setId = setId[0]
     }

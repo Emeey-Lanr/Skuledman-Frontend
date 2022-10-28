@@ -7,14 +7,17 @@ import Background from "./Background"
 import { useState, useContext, useEffect, useLayoutEffect } from "react"
 import { appContext } from "../App"
 import { Navigate, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 
 const Jss1 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents } = useContext(appContext)
+    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents, setUrl,
+        studentUrl } = useContext(appContext)
     // useLayoutEffect(() => {
 
     // }, [])
+
     useEffect(() => {
         setClassType("Jss1")
         hideSideBar()

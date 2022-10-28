@@ -53,6 +53,12 @@
     }
 }
 
+.schoolFeeModal {
+    width: 500px;
+    background: white;
+
+}
+
 @media (max-width:700px) {
     .setdetails {
         width: 95%;
