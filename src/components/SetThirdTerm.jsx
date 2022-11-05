@@ -3,10 +3,12 @@ import "../styles/jss1.css"
 import SideBar from "./SideBar"
 import { AiOutlineMenu, AiOutlineArrowLeft, } from "react-icons/ai"
 import { FaPenAlt, FaTrashAlt, FaSpinner } from "react-icons/fa"
-import { setDetailContext } from "./SetDetails"
+import { schoolSetDetailContext } from "./SetDetails"
 import { useContext } from "react"
 const SetThirdTerm = () => {
-    const { setInfo, thirdTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner, inputEmpty } = useContext(setDetailContext)
+    const { schoolsetInfo, thirdTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
+        inputEmpty, brindDelModal
+    } = useContext(schoolSetDetailContext)
 
     return (
         <>
@@ -73,7 +75,7 @@ const SetThirdTerm = () => {
                             <button className="btn border">
                                 <FaPenAlt />
                             </button>
-                            <button className="btn border">
+                            <button onClick={() => brindDelModal(items.description)} className="btn border">
                                 <FaTrashAlt />
                             </button>
                         </div>

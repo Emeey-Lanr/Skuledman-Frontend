@@ -34,16 +34,17 @@
     display: none;
 }
 
-.border-none-input {
+.border-none-input input {
     border: none;
     background: none;
     border-bottom: 1px solid #bbbbbb;
     width: 90%;
-    display: block;
+
 }
 
-.border-none-input:focus {
+.border-none-input input:focus {
     outline: none;
+    border: none;
 
 }
 

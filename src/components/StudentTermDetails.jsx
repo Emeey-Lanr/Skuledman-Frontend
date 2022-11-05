@@ -11,9 +11,10 @@ import StudentThirdTerm from "./StudentThirdTerm"
 import axios from "axios"
 import { appContext } from "../App"
 import SchoolFeeModal from "./SchoolFeeModal"
+import DeleteSubjectmodal from "./DeleteSubjectmodal"
 export const studenTermDetailContext = createContext(null)
 const StudenTermDetails = () => {
-    const { studentUrl } = useContext(appContext)
+    const { studentUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus } = useContext(appContext)
     const [schoolFeeModal, setSchoolFeeModal] = useState(false)
     const setId = localStorage.setId.split(",")
     const userId = localStorage.cs
@@ -43,6 +44,9 @@ const StudenTermDetails = () => {
                 setStudentFirstName(result.data.totalInfo.firstName)
                 setStudentMiddleName(result.data.totalInfo.middleName)
                 setStudentSurName(result.data.totalInfo.surName)
+                setFirstTerm(result.data.currentClassInfo.firstTermResult)
+                setsecondTerm(result.data.currentClassInfo.secondTermResult)
+                setThirdTerm(result.data.currentClassInfo.thirdTermResult)
                 if (result.data.currentClassInfo.firstTermStatus) {
                     setfirstTermActivationMessage("First-Term Activated")
                     setFirstTermActivtaionStyle("btn btn-success")
@@ -72,28 +76,54 @@ const StudenTermDetails = () => {
     }
 
     useEffect(() => {
+        setDeleteLogicNumb(0)
         getCurrentUser()
 
     }, [])
+    const uploadImgEndPoint = `${studentUrl}/uploadimg`
 
+    const uploadImg = (e) => {
+
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = () => {
+            axios.patch(uploadImgEndPoint, { imgUrl: reader.result, userId: userId }).then((result) => {
+                if (result.data.status) {
+
+                } else {
+
+                }
+            })
+        }
+    }
+    const [detailsNumb, setDetailsNumb] = useState(-1)
+    const saveChanges = () => {
+
+    }
     const [first, setFirst] = useState(1)
+    const [subjectCondition, setSubjectCondition] = useState(-1)
+    const setSubjectCon = () => {
+        setSubjectCondition(-1)
+    }
     const firstTermBtn = () => {
         setFirst(1)
+        setSubjectCon()
     }
     const secondTermBtn = () => {
         setFirst(2)
+        setSubjectCon()
     }
     const thirdTermBtn = () => {
         setFirst(3)
-
+        setSubjectCon()
     }
     const activateStatusEndPont = `${studentUrl}/activateStatus`
     const studentActivateStatus = {
         class: setId[3],
         studentId: userId,
         term: first
-
     }
+    ///A fuction running for the style
     const run = (n) => {
         if (first === 1) {
             setfirstTermActivationMessage(n)
@@ -105,7 +135,6 @@ const StudenTermDetails = () => {
     }
     const activateSetStatus = () => {
         run("activating")
-
         axios.patch(activateStatusEndPont, studentActivateStatus).then((result) => {
             if (result.data.status) {
                 getCurrentUser()
@@ -116,6 +145,7 @@ const StudenTermDetails = () => {
 
         })
     }
+    ///Adding subject
     const [subjectToBeAdded, setSubjectToBeAdded] = useState("")
     const addSubjectSchema = {
         class: setId[3],
@@ -123,14 +153,82 @@ const StudenTermDetails = () => {
         subjectName: subjectToBeAdded,
         studentId: userId,
     }
-    const addSubjectEndPoint
+    const addSubjectEndPoint = `${studentUrl}/addSubject`
+    const [updateMessage, setUpdateMessage] = useState("")
     const addSubject = () => {
-        axios.patch()
+        if (subjectToBeAdded === "") {
+            setSubjectCondition(3)
+            setUpdateMessage("Empty Input Fill Something")
+        } else {
+            setSubjectCondition(2)
+            axios.patch(addSubjectEndPoint, addSubjectSchema).then((result) => {
+                console.log(result + "yess")
+                if (result.data.status) {
+                    getCurrentUser()
+                    setSubjectCondition(3)
+                    setUpdateMessage(result.data.message)
+                    setTimeout(() => {
+                        setSubjectCondition(-1)
+                        setUpdateMessage("")
+                    }, 1500)
+                } else {
+                    setSubjectCondition(3)
+                    setUpdateMessage(result.data.message)
+                    setTimeout(() => {
+                        setSubjectCondition(-1)
+                        setUpdateMessage("")
+                    }, 1500)
+
+                }
+            })
+        }
+
+    }
+
+    ///Adding value to subject
+    const [valueName, setValueName] = useState("")
+    const [valuePoint, setValuePoint] = useState("")
+    const addValueEndPoint = `${studentUrl}/addvaluetosubject`
+    const addValueToSubject = (subject, id) => {
+        console.log(subject, id)
+        const addValueToSubjectSchema = {
+            userInfo: addSubjectSchema,
+            subject: subject,
+            subjectInfo: {
+                valueName: valueName,
+                valuePoint: valuePoint
+            }
+        }
+        axios.patch(addValueEndPoint, addValueToSubjectSchema).then((result) => {
+            if (result.data.status) {
+                getCurrentUser()
+            }
+        })
+
+    }
+
+    const [currentSubject, setCurrentSubject] = useState("")
+    const [conditionalNumber, setConditionalNumber] = useState(0)
+    const deleteSubject = (subject) => {
+        setConditionalNumber(1)
+        setDelModalStatus(0)
+        setCurrentSubject(subject)
+    }
+    const [valuePointName, setValuePointName] = useState("")
+    const [valuePointId, setValuePointId] = useState()
+    const deletePoint = (valueName, id, subject) => {
+        setConditionalNumber(2)
+        setDelModalStatus(0)
+        setValuePointName(valueName)
+        setValuePointId(id)
+        setCurrentSubject(subject)
+
 
     }
     return (
         <>
             <studenTermDetailContext.Provider value={{
+                getCurrentUser,
                 first,
                 activateSetStatus,
                 setSchoolFeeModal,
@@ -141,7 +239,29 @@ const StudenTermDetails = () => {
                 secondTerMActivationStyle,
                 thirdTermActivationMessage,
                 thirdTerMActivationStyle,
+
+                ///Adding subject
                 setSubjectToBeAdded,
+                addSubject,
+                subjectCondition,
+                updateMessage,
+                ////subject added
+                firstTerm,
+                secondTerm,
+                thirdTerm,
+                ///Adding value to subject added
+                addValueToSubject,
+                setValueName,
+                setValuePoint,
+                //deletingSubject 
+                deleteSubject,
+                first,
+                currentSubject,
+                deletePoint,
+                conditionalNumber,
+                valuePointName,
+                valuePointId
+
 
             }}>
                 <div>
@@ -152,49 +272,62 @@ const StudenTermDetails = () => {
                             <p></p>
                         </div>
 
-                        <div className="w-75 mx-auto">
-                            <div className="d-flex align-items-end" >
+                        <div className="w-75 mx-auto py-2 px-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd", borderRadius: "30px, 30px, 0, 0" }}>
+                            <div className="d-flex w-75 mx-auto py-3 align-items-end" >
                                 <img src={photo1} alt="" style={{ width: "120px", height: "130px", objectFit: "cover" }} />
-                                <button className="btn"> <FaCameraRetro /> </button>
+                                <label htmlFor="img">
+                                    <FaCameraRetro />
+                                    <input type="file" id="img" hidden onChange={(e) => uploadImg(e)} />
+                                </label>
                             </div>
-                            <div className="row">
-                                <div className="col-lg-6 col-md-6 col-sm-12 ">
+                            <div className="row justify-content-evenly">
+                                <div className="col-lg-5 col-md-5 col-sm-12 mb-2 pb-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
 
                                     <label htmlFor="form-label">First Name</label>
 
-                                    <div className="d-flex">
-                                        <input type="text" value={studentFirstName} onChange={(e) => setStudentFirstName(e.target.value)} className="border-none-input" />
+                                    <div className="d-flex border-none-input" >
+                                        <input onBlur={() => setDetailsNumb(-1)} disabled={detailsNumb !== 0} type="text" value={studentFirstName} onChange={(e) => setStudentFirstName(e.target.value)} />
+                                        <button onClick={() => setDetailsNumb(0)} className="btn"><FaPen /></button>
+                                    </div>
+                                </div>
+                                <div className="col-lg-5 col-md-5 col-sm-12 mb-2 pb-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                                    <label htmlFor="form-label">Surname</label>
+                                    <div className="d-flex border-none-input">
+                                        <input disabled={detailsNumb !== 1} type="text" value={studentMiddleName} onChange={(e) => setStudentMiddleName(e.target.value)} />
+                                        <button onClick={() => setDetailsNumb(1)} className="btn"><FaPen /></button>
+                                    </div>
+                                </div>
+                                <div className="col-lg-5 col-md-5 col-sm-12 mb-2 pb-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                                    <label htmlFor="form-label">Middle Name</label>
+                                    <div className="d-flex border-none-input">
+                                        <input type="text" disabled={detailsNumb !== 2} value={studentSurName} onChange={(e) => setStudentSurName(e.target.value)} />
+                                        <button onClick={() => setDetailsNumb(2)} className="btn"><FaPen /></button>
+                                    </div>
+                                </div>
+                                <div className="col-lg-5 col-md-5 col-sm-12 mb-2 pb-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                                    <label htmlFor="form-label">Uniqued Id</label>
+                                    <div className="d-flex border-none-input">
+                                        <input type="text" disabled={true} />
                                         <button className="btn"><FaPen /></button>
                                     </div>
-
-
-
                                 </div>
-                                <div className="col-lg-6 col-md-6 col-sm-12 mb-2">
-                                    <label htmlFor="form-label">Surname</label>
-                                    <div></div>
-                                    <input type="text" value={studentMiddleName} onChange={(e) => setStudentMiddleName(e.target.value)} className="border-none-input" />
-                                </div>
-                                <div className="col-lg-6 col-md-6 col-sm-12 mb-2">
-                                    <label htmlFor="form-label">Middle Name</label>
-                                    <div></div>
-                                    <input type="text" value={studentSurName} onChange={(e) => setStudentSurName(e.target.value)} className="border-none-input" />
-                                </div>
-                                <div className="col-lg-6 col-md-6 col-sm-12 mb-2">
-                                    <label htmlFor="form-label">Uniqued Id</label>
-                                    <div></div>
-                                    <input type="text" className="border-none-input" />
-                                </div>
-                                <div className="col-lg-6 col-md-6 col-sm-12 mb-2">
+                                <div className="col-lg-5 col-md-5 col-sm-12 mb-2 pb-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                                     <label htmlFor="form-label">Parent PhoneNumber</label>
-                                    <input type="text" className="border-none-input" />
+                                    <div className="d-flex border-none-input">
+                                        <input type="text" disabled={detailsNumb !== 3} />
+                                        <button onClick={() => setDetailsNumb(3)} className="btn"><FaPen /> </button>
+                                    </div>
                                 </div>
-                                <div className="col-lg-6 col-md-6 col-sm-12 mb-2">
+                                <div className="col-lg-5 col-md-5 col-sm-12 mb-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                                     <label htmlFor="form-label">Parent Gmail</label>
-                                    <input type="text" className="border-none-input" />
+                                    <div className="d-flex border-none-input">
+                                        <input type="text" />
+                                        <button className="btn"><FaPen /> </button>
+                                    </div>
+
                                 </div>
                                 <div>
-                                    <button className="btn " style={{ background: "#ff6400", color: "white" }}>Save Changes</button>
+                                    <button className="btn" onClick={() => saveChanges()} style={{ background: "#ff6400", color: "white" }}>Save Changes</button>
                                 </div>
 
                             </div>
@@ -214,6 +347,7 @@ const StudenTermDetails = () => {
 
                     </div>
                     {schoolFeeModal && <SchoolFeeModal />}
+                    {delModalStatus === 0 && <DeleteSubjectmodal />}
                 </div>
 
             </studenTermDetailContext.Provider>

@@ -1,9 +1,9 @@
 import "../styles/modal.css"
 import { FaTimes, FaSpinner } from "react-icons/fa"
-import { setDetailContext } from "./SetDetails"
+import { schoolSetDetailContext } from "./SetDetails"
 import { useContext } from "react"
 const FeeList = () => {
-    const { setListModal, setListDescription, setListAmount, addList, inputMessage2, spinner2, setSpinner2, setInputMessage2 } = useContext(setDetailContext)
+    const { setListModal, setListDescription, setListAmount, addList, inputMessage2, spinner2, setSpinner2, setInputMessage2 } = useContext(schoolSetDetailContext)
     const allNone = () => {
         setListModal(false)
         setSpinner2(false)

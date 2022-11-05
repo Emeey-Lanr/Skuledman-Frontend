@@ -1,9 +1,12 @@
 import React from 'react'
-import { FaPlus, FaSearch, FaPen } from "react-icons/fa"
+import { FaPlus, FaSearch, FaPen, FaSpinner } from "react-icons/fa"
 import { studenTermDetailContext } from './StudentTermDetails'
 import { useContext } from 'react'
 const StudentFirstTerm = () => {
-    const { activateSetStatus, setSchoolFeeModal, firstTermActivationMessage, firstTerMActivationStyle, setSubjectToBeAdded } = useContext(studenTermDetailContext)
+    const { activateSetStatus, setSchoolFeeModal, firstTermActivationMessage, firstTerMActivationStyle, setSubjectToBeAdded, addSubject, subjectCondition,
+        updateMessage, firstTerm, addValueToSubject, setValueName, setValuePoint,
+        deleteSubject, deletePoint
+    } = useContext(studenTermDetailContext)
     const openSchoolModal = () => {
         setSchoolFeeModal(true)
     }
@@ -14,14 +17,14 @@ const StudentFirstTerm = () => {
                 <button onClick={activateSetStatus} className={firstTerMActivationStyle}>{firstTermActivationMessage}</button>
             </div>
             <div>
-                <div className=''>
-                    <div>
-                        <p className='fs-4 fw-bold btn btn-dark'>First Term School Fees</p>
-                        <p className='fw-bold btn btn-danger'>#20000</p>
+                <div className='' style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                    <div className='w-100' >
+                        <div className='w-100 fs-4  bg-light'>First Term School Fees</div>
+                        <div className='w-100 bg-light py-2'>#20000</div>
                     </div>
                     <div>
-                        <p className='fs-4 fw-bold btn btn-dark'>First Term Pta Fees</p>
-                        <p className='fw-bold btn btn-danger'>#20000</p>
+                        <div className='w-100 fs-4  bg-white'>First Term Pta Fees</div>
+                        <div className='w-50 bg-white'>#20000</div>
                     </div>
                 </div>
                 <div className='row justify-content-between'>
@@ -65,7 +68,19 @@ const StudentFirstTerm = () => {
 
             <div>
                 <p>Result</p>
-                <button className="btn" style={{ color: "#ff6400" }}><FaPlus /> Add Subject</button>
+                {subjectCondition === 3 && <div className='w-75 mx-auto my-2 bg-white py-3'>
+                    <p className='text-center'>{updateMessage}</p>
+                </div>}
+                <button onClick={addSubject} className="btn" style={{ color: "#ff6400" }}>
+                    {subjectCondition === 2 ?
+                        <>
+                            <FaSpinner /> Adding Subject
+                        </>
+                        :
+                        <>
+                            <FaPlus /> Add Subject
+                        </>}
+                </button>
             </div>
             <div>
                 <label className="from-label fw-bold ">Name :</label>
@@ -78,67 +93,54 @@ const StudentFirstTerm = () => {
             </div>
             <div className="w-100 mx-auto mt-4 border-bottom"></div>
 
-            <div className="w-100 mx-auto mt-4 border-top py-3">
-                <div className="d-flex justify-content-between">
-                    <p className="fs-5" style={{ color: "#ff6400" }}>English</p>
+            {firstTerm.map((student, id) => (
+                < div className="w-100 mx-auto mt-4 border-top py-3">
+                    <div className="d-flex justify-content-between">
+                        <p className="fs-5" style={{ color: "#ff6400" }}>{student.subject}</p>
+                        <div>
+                            <button onClick={() => deleteSubject(student.subject)} className="btn btn-dark">Delete</button>
+                        </div>
+                    </div>
                     <div>
-                        <button className="btn btn-dark">Delete</button>
+                        <p className="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati, sunt.</p>
                     </div>
-                </div>
-                <div>
-                    <p className="text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati, sunt.</p>
-                </div>
-                <div>
-                    <label htmlFor="" className="form-label">Description</label>
-                    <input type="text" className="form-control" />
+                    <div>
+                        <label htmlFor="" className="form-label">Description</label>
+                        <input type="text" className="form-control" onChange={(e) => setValueName(e.target.value)} />
 
-                    <label htmlFor="" className="form-label">Value</label>
-                    <input type="text" className="form-control" />
-                    <div className="my-4">
-                        <button className="btn btn-success">Add Value</button>
-                    </div>
-
-                </div>
-                <div>
-                    <p>
-                        First Ca
-                    </p>
-                    <div className="row justify-content-between">
-                        <div className="col-lg-6 col-sm-12">
-                            <input type="text" className="form-control w-100" />
-                        </div>
-
-                        <div className="col-lg-6 col-sm-12 d-flex justify-content-end py-2">
-                            <button className="btn">Delete</button>
-                            <button className="btn ">Save Changes</button>
+                        <label htmlFor="" className="form-label">Value</label>
+                        <input type="text" className="form-control" onChange={(e) => setValuePoint(e.target.value)} />
+                        <div className="my-4">
+                            <button onClick={() => addValueToSubject(student.subject, id)} className="btn btn-success">Add Value</button>
                         </div>
 
                     </div>
 
-                </div>
-                <div>
-                    <p>
-                        First Ca
-                    </p>
-                    <div className="row justify-content-between">
-                        <div className="col-lg-6 col-sm-12">
-                            <input type="text" className="form-control w-100" />
+                    {student.resultNameXResultScore.map((info, id) => (
+                        < div >
+                            <p>
+                                {info.valueName}
+                            </p>
+                            <div className="row justify-content-between">
+                                <div className="col-lg-6 col-sm-12">
+                                    <input type="text" placeholder={info.valuePoint} className="form-control w-100" />
+                                </div>
+
+                                <div className="col-lg-6 col-sm-12 d-flex justify-content-end py-2">
+                                    <button className="btn" onClick={() => deletePoint(info.valueName, id, student.subject)}>Delete</button>
+                                    <button className="btn ">Save Changes</button>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div className="col-lg-6 col-sm-12 d-flex justify-content-end py-2">
-                            <button className="btn">Delete</button>
-                            <button className="btn ">Save Changes</button>
-                        </div>
-
-                    </div>
+                    ))}
 
 
                 </div>
-
-
-
-
-            </div>
+            )
+            )}
         </>
     )
 }

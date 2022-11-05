@@ -12,13 +12,16 @@ import SetSecondTerm from "./SetSecondTerm"
 import SetThirdTerm from "./SetThirdTerm"
 import Background from "./Background"
 import FeeList from "./FeeList"
+import DeletePriceModal from "./DeletePriceModal"
+export const schoolSetDetailContext = createContext(null)
 
-export const setDetailContext = createContext(null)
 const SetDetails = () => {
+
     const navigate = useNavigate()
-    const { showSideBar, showBack, setUrl } = useContext(appContext)
-    const [setInfo, setSetInfo] = useState({})
-    ///For terms
+    const { showSideBar, showBack, setUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus } = useContext(appContext)
+    const [schoolsetInfo, setSetInfo] = useState({})
+    const [schoolSetId, setSchoolSetId] = useState("")
+    ///For sterms
     const [first, setFirst] = useState(false)
     const [second, setSecond] = useState(false)
     const [third, setThird] = useState(false)
@@ -68,6 +71,7 @@ const SetDetails = () => {
             }).then((result) => {
                 if (result.data.status) {
                     setSetInfo(result.data.currentSet)
+                    setSchoolSetId(result.data.currentSet._id)
                     console.log(result.data.currentSet.firstTerm)
                     setFirstTerm(result.data.currentSet.firstTerm)
                     setSecondTerm(result.data.currentSet.secondTerm)
@@ -100,6 +104,7 @@ const SetDetails = () => {
     }
     useEffect(() => {
         getSetInfo()
+        setDeleteLogicNumb(1)
     }, [])
 
     //Condition handling spin
@@ -136,7 +141,7 @@ const SetDetails = () => {
     const [collectPtaFees, setCollectPtaFees] = useState("")
     const updateFeesEndPoint = `${setUrl}/updateFees`
     const fees = {
-        setId: setInfo._id,
+        setId: schoolsetInfo._id,
         schoolFees: collectSchoolFees,
         ptaFees: collectPtaFees,
         term: currentTerm,
@@ -184,7 +189,7 @@ const SetDetails = () => {
 
     const list = {
         setInfo: {
-            setid: setInfo._id,
+            setid: schoolsetInfo._id,
             currentTerm: currentTerm,
         },
         morelist: {
@@ -221,13 +226,25 @@ const SetDetails = () => {
             })
         }
     }
+
+    ///bring deleteModal 
+    ///Price List
+    const [listDescriptionName, setListDescriptionName] = useState("")
+
+    const brindDelModal = (listDescription) => {
+        setListDescriptionName(listDescription)
+        setDelModalStatus(1)
+
+    }
     return (
         <>
-            <setDetailContext.Provider
+            <schoolSetDetailContext.Provider
                 value={{
-                    setInfo, firstTerm, secondTerm, thirdTerm,
+                    getSetInfo,
+                    schoolsetInfo, firstTerm, secondTerm, thirdTerm,
                     setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, setListDescription, setListAmount, inputMessage,
-                    spinner, addList, spinner2, inputMessage2, setSpinner2, setInputMessage2, inputEmpty,
+                    spinner, addList, spinner2, inputMessage2, setSpinner2, setInputMessage2, inputEmpty, currentTerm, brindDelModal, listDescriptionName,
+                    schoolSetId
                 }}
             >
                 <div>
@@ -235,6 +252,7 @@ const SetDetails = () => {
                     {showBack && <Background />}
                     <SideBar />
                     {listModal && <FeeList />}
+                    {delModalStatus === 1 && <DeletePriceModal />}
                     <div className="setDetails bg-light">
                         <div>
                             <div className="w-100 mx-auto">
@@ -252,8 +270,8 @@ const SetDetails = () => {
                                     <buttton onClick={() => btn3()} className="btn">Third Term</buttton>
                                 </div>
                                 <div className="setinfo w-75">
-                                    <p>{setInfo.class}</p>
-                                    <p>{setInfo.set}</p>
+                                    <p>{schoolsetInfo.class}</p>
+                                    <p>{schoolsetInfo.set}</p>
                                 </div>
 
                             </div>
@@ -262,13 +280,14 @@ const SetDetails = () => {
                             {second && <SetSecondTerm />}
                             {third && <SetThirdTerm />}
 
+
                         </div>
 
                     </div>
                 </div>
 
 
-            </setDetailContext.Provider>
+            </schoolSetDetailContext.Provider>
 
         </>
     )

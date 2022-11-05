@@ -114,7 +114,10 @@ function App() {
     navigate("/studentProfile")
   }
 
-  return (
+  const [deleteLogicNumber, setDeleteLogicNumb] = useState(-1)
+  const [delModalStatus, setDelModalStatus] = useState(-1)
+ 
+ return (
 
     <appContext.Provider value={
       {
@@ -160,6 +163,12 @@ function App() {
 
         ///For view studentPersonal Details
         viewStudentPersonalDetails,
+        ///Delete Modal
+        setDeleteLogicNumb,
+        deleteLogicNumber,
+        delModalStatus,
+        setDelModalStatus
+
       }}>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />

@@ -58,7 +58,7 @@ const Login = () => {
         <div className="bg-light signin">
             <div className="signin-form">
                 {whenClicked && <div className="tokenMove mb-4"></div>}
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center mt-2">
                     <Logo />
                 </div>
                 {forgotSomethingCheck && <div className="form py-1" style={{ background: "#f7c9ab" }}>
@@ -81,7 +81,7 @@ const Login = () => {
                 </div>
 
                 <div className="inputform-box">
-                    <button onClick={() => Login()}>Login</button>
+                    <button className="bn-info" onClick={() => Login()}>Login</button>
                 </div>
                 <div className="d-flex justify-content-center noacc">
                     <span>Don't have an account <Link to="/signup" className="link">Signup</Link></span>

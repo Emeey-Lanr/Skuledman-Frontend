@@ -59,6 +59,27 @@
 
 }
 
+.delsubjectmodal {
+    width: 400px;
+    border-radius: 6px;
+    padding: 10px 0;
+}
+
+.delmodaltrash {
+    color: red;
+    animation: trash infinite 0.9s running normal;
+}
+
+@keyframes trash {
+    to {
+        transform: rotate(45deg);
+    }
+
+    from {
+        transform: rotate(-45deg);
+    }
+}
+
 @media (max-width:700px) {
     .setdetails {
         width: 95%;

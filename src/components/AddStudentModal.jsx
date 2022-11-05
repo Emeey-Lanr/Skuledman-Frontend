@@ -7,7 +7,7 @@ import axios from "axios"
 const AddStudentModal = () => {
     const [userAlreadyExist, setUserAlreadyExist] = useState(false)
     const [userDoesntExist, setUserDoesntExist] = useState(true)
-    const { studentModal, setStudentModal } = useContext(studentBoardContext)
+    const { studentModal, setStudentModal, getStudent } = useContext(studentBoardContext)
     const { studentUrl } = useContext(appContext)
     const [firstName, setFirstName] = useState("")
     const [surname, setSurName] = useState("")
@@ -198,6 +198,7 @@ const AddStudentModal = () => {
         axios.post(registerStudentEndPoint, studentSchema).then((result) => {
             if (result.data.status) {
                 setStatusMessage(result.data.message)
+                getStudent()
                 setTimeout(() => {
                     afterResult()
                 }, 2000)
@@ -223,6 +224,7 @@ const AddStudentModal = () => {
         axios.patch(addStudentToNeWEndPoint, addStudentToSetSchema).then((result) => {
             if (result.data.status) {
                 setStatusMessage(result.data.message)
+                getStudent()
                 setTimeout(() => {
                     afterResult()
                     setCurrentId(-1)
