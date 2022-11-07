@@ -1,15 +1,66 @@
 
 import { useContext } from "react"
-import { FaPlus, FaSearch, FaSpinner } from "react-icons/fa"
+import { FaPlus, FaSearch, FaSpinner, FaPen } from "react-icons/fa"
 import { studenTermDetailContext } from "./StudentTermDetails"
 const StudentThirdTerm = () => {
-    const { first, activateSetStatus, thirdTermActivationMessage, thirdTerMActivationStyle, setSubjectToBeAdded, addSubject, subjectCondition,
-        updateMessage, thirdTerm, addValueToSubject, setValueName, setValuePoint, deleteSubject, deletePoint,
+    const { first, activateSetStatus, thirdTermActivationMessage, thirdTerMActivationStyle, openModalForSchoolFee,
+        openModalForPtaFee, thirdTermSchoolFeesToBePaid, thirdTermPtaFeesToBePaid, thirdTermSchoolFees, thirdTermPtaFees, setSubjectToBeAdded, addSubject, subjectCondition,
+        updateMessage, thirdTerm, addValueToSubject, setValueName, setValuePoint, deleteSubject, deletePoint, thirdTermStatusForDebt
     } = useContext(studenTermDetailContext)
     return (
         <>
-            <div className='d-flex justify-content-center my-2'>
-                <button onClick={activateSetStatus} className={thirdTerMActivationStyle}>{thirdTermActivationMessage}</button>
+
+            <div className='px-2 ' style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd", marginBottom: "20px" }}>
+                <div className='d-flex justify-content-center my-2'>
+                    <button style={{ width: "100%" }} onClick={activateSetStatus} className={thirdTerMActivationStyle}>{thirdTermActivationMessage}</button>
+                </div>
+                <div>
+                    <div className='' >
+                        <div className='w-100 border-bottom py-3' >
+                            <span className='fw-bold fs-6'>Third Term School Fees:</span><span>₦{thirdTermSchoolFeesToBePaid}</span>
+                        </div>
+                        <div className="w-100 py-3 border-bottom">
+                            <span className='fw-bold fs-6'>Third Pta Fees:</span><span>₦{thirdTermPtaFeesToBePaid}</span>
+                        </div>
+                    </div>
+                    <div className='row justify-content-between py-6'>
+                        <div className='col-lg-5 border-bottom my-3-'>
+                            <p>Third Term School Fees Debt</p>
+                            <p>₦{thirdTermStatusForDebt === true ? Number(thirdTermSchoolFeesToBePaid) - Number(thirdTermSchoolFees) : `0`}</p>
+                        </div>
+                        <div className='col-lg-5 border-bottom'>
+                            <p>Third Term PTA Fee Debt</p>
+                            <p>₦{thirdTermStatusForDebt === true ? Number(thirdTermPtaFeesToBePaid) - Number(thirdTermPtaFees) : `0`}</p>
+                        </div>
+                    </div>
+                    <div className='row justify-content-between'>
+                        <div className='col-lg-5 border-bottom d-flex justify-content-between py-3  align-items-center my-3'>
+                            <div>
+                                <span className='fw-bold'>SchoolFees:</span><span>₦{thirdTermSchoolFees}</span>
+                            </div>
+                            <div>
+                                <button disabled={thirdTermStatusForDebt === false} className="btn" onClick={openModalForSchoolFee}>
+                                    <FaPen />
+                                </button>
+                            </div>
+
+                        </div>
+                        <div className='col-lg-5 border-bottom d-flex justify-content-between align-items-center py-3  my-3'>
+                            <div>
+                                <span className='fw-bold'>PtaFee:</span><span>₦{thirdTermPtaFees}</span>
+                            </div>
+                            <div>
+                                <button disabled={thirdTermStatusForDebt === false} className="btn" onClick={openModalForPtaFee}>
+                                    <FaPen />
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
             </div>
             <div>
                 <p>Result</p>

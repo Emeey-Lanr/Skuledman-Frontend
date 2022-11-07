@@ -4,6 +4,10 @@
 
 }
 
+.termdetailsphone {
+    width: 75%;
+}
+
 .search {
     border: none;
 }
@@ -20,8 +24,7 @@
     background-color: white;
     box-shadow: 1px 2px 4px #797878;
     padding: 10px 0;
-    position: sticky;
-    top: 0;
+
 }
 
 .termdescription button {
@@ -48,9 +51,20 @@
 
 }
 
+@media screen and (min-width:1062px) {
+    .harmrbugerMenu {
+        display: none;
+    }
+
+}
+
 @media (max-width:1063px) {
     .term {
         width: 100%;
+    }
+
+    .harmrbugerMenu {
+        display: block;
     }
 
     .termdescription {
@@ -70,5 +84,15 @@
         width: 100%;
         position: sticky;
         top: 0;
+    }
+
+    .termdetailsphone {
+        width: 90%;
+    }
+}
+
+@media (max-width:400px) {
+    .termdetailsphone {
+        width: 100%;
     }
 }

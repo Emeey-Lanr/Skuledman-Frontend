@@ -22,6 +22,8 @@ const AddStudentModal = () => {
         imgUrl: "",
         schoolUniqueId: 1,
         currentClass: setId[3],
+        parentGmail: "",
+        parentPhoneNumber: "",
         jss1Id: "",
         jss2Id: "",
         jss3Id: "",

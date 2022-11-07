@@ -1,14 +1,65 @@
 import React, { useContext } from 'react'
-import { FaPlus, FaSearch, FaSpinner } from "react-icons/fa"
+import { FaPlus, FaSearch, FaSpinner, FaPen } from "react-icons/fa"
 import { studenTermDetailContext } from './StudentTermDetails'
 const StudentSecondTerm = () => {
-    const { first, activateSetStatus, secondTermActivationMessage, secondTerMActivationStyle, setSubjectToBeAdded, addSubject, subjectCondition,
-        updateMessage, secondTerm, addValueToSubject, setValueName, setValuePoint, deleteSubject, deletePoint,
+    const { first, activateSetStatus, secondTermActivationMessage, secondTerMActivationStyle, openModalForSchoolFee,
+        openModalForPtaFee, secondTermSchoolFeesToBePaid, secondTermPtaFeesToBePaid, secondTermSchoolFees, secondTermPtaFees, setSubjectToBeAdded, addSubject, subjectCondition,
+        updateMessage, secondTerm, addValueToSubject, setValueName, setValuePoint, deleteSubject, deletePoint, secondTermStatusForDebt,
     } = useContext(studenTermDetailContext)
     return (
         <>
-            <div className='d-flex justify-content-center my-2'>
-                <button onClick={activateSetStatus} className={secondTerMActivationStyle}>{secondTermActivationMessage}</button>
+
+            <div className='px-2' style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd", marginBottom: "20px" }}>
+                <div className='d-flex justify-content-center my-2'>
+                    <button style={{ width: "100%" }} onClick={activateSetStatus} className={secondTerMActivationStyle}>{secondTermActivationMessage}</button>
+                </div>
+                <div>
+                    <div className='' >
+                        <div className='w-100 border-bottom py-3' >
+                            <span className='fw-bold fs-6'>Second Term School Fees:</span><span>₦{secondTermSchoolFeesToBePaid}</span>
+                        </div>
+                        <div className="w-100 py-3 border-bottom">
+                            <span className='fw-bold fs-6'>Second Pta Fees:</span><span>₦{secondTermPtaFeesToBePaid}</span>
+                        </div>
+                    </div>
+                    <div className='row justify-content-between py-6'>
+                        <div className='col-lg-5 border-bottom my-3-'>
+                            <p className='fw-bold'>Second Term School Fees Debt</p>
+                            <p>₦{secondTermStatusForDebt === true ? Number(secondTermSchoolFeesToBePaid) - Number(secondTermSchoolFees) : `0`}</p>
+                        </div>
+                        <div className='col-lg-5 border-bottom'>
+                            <p className='fw-bold'>Second Term PTA Fee Debt</p>
+                            <p>₦ {secondTermStatusForDebt === true ? Number(secondTermPtaFeesToBePaid) - Number(secondTermPtaFees) : `0`}</p>
+                        </div>
+                    </div>
+                    <div className='row justify-content-between'>
+                        <div className='col-lg-5 border-bottom d-flex justify-content-between py-3  align-items-center my-3'>
+                            <div>
+                                <span className='fw-bold'>SchoolFees:</span><span>₦{secondTermSchoolFees}</span>
+                            </div>
+                            <div>
+                                <button disabled={secondTermStatusForDebt === false} className="btn" onClick={openModalForSchoolFee}>
+                                    <FaPen />
+                                </button>
+                            </div>
+
+                        </div>
+                        <div className='col-lg-5 border-bottom d-flex justify-content-between align-items-center py-3  my-3'>
+                            <div>
+                                <span className='fw-bold'>PtaFee:</span><span>₦{secondTermPtaFees}</span>
+                            </div>
+                            <div>
+                                <button disabled={secondTermStatusForDebt === false} className="btn" onClick={openModalForPtaFee}>
+                                    <FaPen />
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
             </div>
             <div>
                 <p>Result</p>
