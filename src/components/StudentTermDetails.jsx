@@ -3,7 +3,7 @@ import "../styles/term.css"
 import photo1 from "../images/photo1.jpg"
 import { FaCameraRetro, FaPen, FaPlus, FaSearch, FaSpinner } from "react-icons/fa"
 import { AiOutlineMenu } from "react-icons/ai"
-import { useEffect, useState, useContext, createContext } from "react"
+import { useEffect, useState, useContext, createContext, useRef } from "react"
 import { Link } from "react-router-dom"
 import StudentFirstTerm from "./StudentFirstTerm"
 import StudentSecondTerm from "./StudentSecondTerm"
@@ -13,14 +13,18 @@ import { appContext } from "../App"
 import SchoolFeeModal from "./SchoolFeeModal"
 import DeleteSubjectmodal from "./DeleteSubjectmodal"
 import Background from "./Background"
+import EditSubject from "./EditSubject"
 export const studenTermDetailContext = createContext(null)
 
 const StudenTermDetails = () => {
+    ///Making input empty
+    const empty = useRef()
     const { showSideBar, showBack, studentUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus } = useContext(appContext)
     const [schoolFeeModal, setSchoolFeeModal] = useState(false)
     const setId = localStorage.setId.split(",")
     const userId = localStorage.cs
     const getStudentEndPoint = `${studentUrl}/currentStudent`
+    const [studentImgUrl, setStudentImgUrl] = useState("")
     const [studentFirstName, setStudentFirstName] = useState("")
     const [studentMiddleName, setStudentMiddleName] = useState("")
     const [studentSurName, setStudentSurName] = useState("")
@@ -30,6 +34,9 @@ const StudenTermDetails = () => {
     const [firstTerm, setFirstTerm] = useState([])
     const [secondTerm, setsecondTerm] = useState([])
     const [thirdTerm, setThirdTerm] = useState([])
+    const [firstTerm2, setFirstTerm2] = useState([])
+    const [secondTerm2, setSecondTerm2] = useState([])
+    const [thirdTerm2, setThirdTerm2] = useState([])
     ///Amount to be paid
     const [firstTermSchoolFeesToBePaid, setfirstTermSchoolFeesToBePaid] = useState("")
     const [secondTermSchoolFeesToBePaid, setsecondTermSchoolFeesToBePaid] = useState("")
@@ -69,6 +76,7 @@ const StudenTermDetails = () => {
         }).then((result) => {
             if (result.data.status) {
                 console.log(result)
+                setStudentImgUrl(result.data.totalInfo.imgUrl)
                 setStudentFirstName(result.data.totalInfo.firstName)
                 setStudentMiddleName(result.data.totalInfo.middleName)
                 setStudentSurName(result.data.totalInfo.surName)
@@ -76,9 +84,13 @@ const StudenTermDetails = () => {
                 setParentGmail(result.data.totalInfo.parentGmail)
                 setParentPhoneNumber(result.data.totalInfo.parentPhoneNumber)
                 //Result
-                setFirstTerm(result.data.currentClassInfo.firstTermResult)
-                setsecondTerm(result.data.currentClassInfo.secondTermResult)
-                setThirdTerm(result.data.currentClassInfo.thirdTermResult)
+                setFirstTerm(result.data.currentClassInfo.firstTermResult.reverse())
+                setsecondTerm(result.data.currentClassInfo.secondTermResult.reverse())
+                setThirdTerm(result.data.currentClassInfo.thirdTermResult.reverse())
+                //for search
+                setFirstTerm2(result.data.currentClassInfo.firstTermResult.reverse())
+                setSecondTerm2(result.data.currentClassInfo.secondTermResult.reverse())
+                setThirdTerm2(result.data.currentClassInfo.thirdTermResult.reverse())
                 ///Amount to be paid
                 //school
                 setfirstTermSchoolFeesToBePaid(result.data.setfirstTermSchoolFees)
@@ -141,15 +153,19 @@ const StudenTermDetails = () => {
 
     }, [])
     const uploadImgEndPoint = `${studentUrl}/uploadimg`
-
+    const [spinStyle, setSpinStyle] = useState("")
     const uploadImg = (e) => {
 
         let reader = new FileReader()
         reader.readAsDataURL(e.target.files[0])
         reader.onload = () => {
+
+            setSpinStyle("spin")
             axios.patch(uploadImgEndPoint, { imgUrl: reader.result, userId: userId }).then((result) => {
                 if (result.data.status) {
-
+                    console.log(result.data)
+                    getCurrentUser()
+                    setSpinStyle("")
                 } else {
 
                 }
@@ -282,6 +298,7 @@ const StudenTermDetails = () => {
                     setTimeout(() => {
                         setSubjectCondition(-1)
                         setUpdateMessage("")
+                        empty.value = ""
                     }, 1500)
                 } else {
                     setSubjectCondition(3)
@@ -289,6 +306,7 @@ const StudenTermDetails = () => {
                     setTimeout(() => {
                         setSubjectCondition(-1)
                         setUpdateMessage("")
+                        empty.value = ""
                     }, 1500)
 
                 }
@@ -298,10 +316,12 @@ const StudenTermDetails = () => {
     }
 
     ///Adding value to subject
+    const [addValueSpinner, setaddValueSpinner] = useState(-1)
     const [valueName, setValueName] = useState("")
     const [valuePoint, setValuePoint] = useState("")
     const addValueEndPoint = `${studentUrl}/addvaluetosubject`
     const addValueToSubject = (subject, id) => {
+        setaddValueSpinner(id + first)
         console.log(subject, id)
         const addValueToSubjectSchema = {
             userInfo: addSubjectSchema,
@@ -314,6 +334,11 @@ const StudenTermDetails = () => {
         axios.patch(addValueEndPoint, addValueToSubjectSchema).then((result) => {
             if (result.data.status) {
                 getCurrentUser()
+                setaddValueSpinner(-1)
+                empty.value = ""
+            } else {
+                setaddValueSpinner(-1)
+                empty.value = ""
             }
         })
 
@@ -335,11 +360,52 @@ const StudenTermDetails = () => {
         setValuePointId(id)
         setCurrentSubject(subject)
 
+    }
+
+    ////Edting 
+    const [changeSubject, setchangeSubject] = useState(false)
+    const [formerSubject, setFormerSubject] = useState("")
+    const [parentChild, setParentChild] = useState(-1)
+    const [valueId, setvalueId] = useState(-1)
+    const editName = (formerSubject) => {
+        setchangeSubject(true)
+        setFormerSubject(formerSubject)
+        setParentChild(0)
+
+    }
+    const editValueName = (subject, id) => {
+        setchangeSubject(true)
+        setFormerSubject(subject)
+        setvalueId(id)
+        setParentChild(1)
+
+
+    }
+    const [valuePointt, setValuePointt] = useState("")
+
+    const changeValuePointValue = `${studentUrl}/editvaluepoint`
+    const changeValuePoint = (valueName, id, subjecthosting) => {
+        const editSubjectSchema = {
+            studentId: userId,
+            studentClass: setId[3],
+            term: first,
+            subject: subjecthosting,
+            newValuePoint: valuePointt,
+            id: id,
+        }
+        axios.patch(changeValuePointValue, editSubjectSchema).then((result) => {
+            if (result.data.status) {
+                getCurrentUser()
+            }
+
+        })
 
     }
     return (
         <>
             <studenTermDetailContext.Provider value={{
+                ///Empty Input 
+                empty,
                 getCurrentUser,
                 first,
                 activateSetStatus,
@@ -377,12 +443,19 @@ const StudenTermDetails = () => {
                 ///Adding subject
                 setSubjectToBeAdded,
                 addSubject,
+                addValueSpinner,
                 subjectCondition,
                 updateMessage,
                 ////subject added
+                setFirstTerm,
+                setsecondTerm,
+                setThirdTerm,
                 firstTerm,
                 secondTerm,
                 thirdTerm,
+                firstTerm2,
+                secondTerm2,
+                thirdTerm2,
                 ///Adding value to subject added
                 addValueToSubject,
                 setValueName,
@@ -399,7 +472,18 @@ const StudenTermDetails = () => {
                 ///Status for debt
                 firstermStatusForDebt,
                 secondTermStatusForDebt,
-                thirdTermStatusForDebt
+                thirdTermStatusForDebt,
+
+                ///editname
+                editName,
+                setchangeSubject,
+                setFormerSubject,
+                formerSubject,
+                parentChild,
+                editValueName,
+                valueId,
+                changeValuePoint,
+                setValuePointt,
 
 
 
@@ -411,22 +495,22 @@ const StudenTermDetails = () => {
                         <div className="py-2 w-75 mx-auto">
                             <p></p>
                         </div>
-                        <div className="py-2 harmrbugerMenu d-flex justify-content-end" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                        <div className="harmrbugerMenu py-2  d-flex justify-content-end" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                             <button onClick={showSideBar} className="btn"><AiOutlineMenu /> </button>
                         </div>
 
-                        <div className="mx-auto py-2 px-2 termdetailsphone" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd", borderRadius: "30px, 30px, 0, 0" }}>
+                        <div className="mx-auto py-2 px-2 termdetailsphone" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                             {changesMessage !== "" && <div className="bg-light py-2 w-75 mx-auto">
                                 <p className="text-center">{changesMessage}</p>
                             </div>}
                             <div className="d-flex w-75 mx-auto py-3 align-items-end" >
-                                <img src={photo1} alt="" style={{ width: "120px", height: "130px", objectFit: "cover" }} />
+                                <img src={studentImgUrl === "" ? photo1 : studentImgUrl} alt="" style={{ width: "120px", height: "130px", objectFit: "cover" }} />
                                 <label htmlFor="img">
-                                    <FaCameraRetro />
+                                    <FaCameraRetro className={spinStyle} />
                                     <input type="file" id="img" hidden onChange={(e) => uploadImg(e)} />
                                 </label>
                             </div>
-                            <div className="row w-100 mx-auto justify-content-evenly px-3 py-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                            <div className="row w-100 mx-auto justify-content-evenly px-3 py-2" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd", borderRadius: "30px 30px 0 0" }}>
                                 <div className="col-lg-5 col-md-5 col-sm-12 mb-2 pb-2">
 
                                     <label htmlFor="form-label">First Name</label>
@@ -494,6 +578,7 @@ const StudenTermDetails = () => {
                     </div>
                     {schoolFeeModal && <SchoolFeeModal />}
                     {delModalStatus === 0 && <DeleteSubjectmodal />}
+                    {changeSubject && <EditSubject />}
                 </div>
 
             </studenTermDetailContext.Provider>

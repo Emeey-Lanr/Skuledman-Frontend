@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import Dashboard from "./components/Dashboard";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import Jss1 from "./components/Jss1";
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useRef } from "react";
 import Studentboard from "./components/Studentboard";
 import StudenTermDetails from "./components/StudentTermDetails";
 import ResultTable from "./components/ResultTable";
@@ -18,6 +18,7 @@ import Jss2 from "./components/Jss2";
 import Jss3 from "./components/Jss3";
 import Ss1 from "./components/Ss1";
 import { useNavigate } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
 export const appContext = createContext(null)
 function App() {
   let navigate = useNavigate()
@@ -75,12 +76,12 @@ function App() {
           }
         }).then((result) => {
           if (result.data.status) {
-            setJss1(result.data.set1)
-            setJss2(result.data.set2)
-            setJss3(result.data.set3)
-            setSss1(result.data.set4)
-            setSss2(result.data.set5)
-            setSss3(result.data.set6)
+            setJss1(result.data.set1.reverse())
+            setJss2(result.data.set2.reverse())
+            setJss3(result.data.set3.reverse())
+            setSss1(result.data.set4.reverse())
+            setSss2(result.data.set5.reverse())
+            setSss3(result.data.set6.reverse())
           }
         })
       } else {
@@ -116,8 +117,8 @@ function App() {
 
   const [deleteLogicNumber, setDeleteLogicNumb] = useState(-1)
   const [delModalStatus, setDelModalStatus] = useState(-1)
- 
- return (
+
+  return (
 
     <appContext.Provider value={
       {
@@ -171,6 +172,7 @@ function App() {
 
       }}>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/jss1" element={<Jss1 />} />
         <Route path="/jss2" element={<Jss2 />} />

@@ -82,7 +82,7 @@ const AddSetModal = () => {
             {addSetModal && <div className='w-100 h-100 position-fixed top-0 align-items-center  d-flex justify-content-center' style={{ background: "#0000006b" }}>
                 <div className='setdetails' style={{ overflowX: "hidden" }}>
                     {whenClicked && <div className="tokenMove mb-4"></div>}
-                    <button className="btn" onClick={() => close()} style={{ color: "#ff6400" }}> <FaTimes /> </button>
+                    <button className="btn" onClick={() => close()} > <FaTimes /> </button>
                     <div>
                         {massageCondition && <div className="w-75 mx-auto">{messageInfo}</div>}
                         <div className="w-75 mx-auto">
@@ -90,7 +90,7 @@ const AddSetModal = () => {
                             <input type="text" className="form-control" onChange={(e) => setSchoolSet(e.target.value)} />
                         </div>
                         <div className="mt-4 w-75 mx-auto">
-                            <button onClick={() => createSet()} className="btn" style={{ background: "#ff6400", color: "white" }}>Create</button>
+                            <button onClick={() => createSet()} className="btn btn-dark" style={{ width: "100%" }}>Create</button>
                         </div>
 
                     </div>

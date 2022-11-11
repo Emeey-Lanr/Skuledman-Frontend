@@ -290,7 +290,7 @@ const AddStudentModal = () => {
                                 userFound.length > 0 ? < div className="w-75  mx-auto" style={{ overflowY: "scroll", height: "350px" }}>
                                     {userFound.map((user, id) => (
                                         < div className="form-control" key={id}>
-                                            <img src={mage} alt="" width="40px" height="40px" style={{ borderRadius: "40px", objectFit: "cover" }} />
+                                            <img src={user.imgUrl === "" ? mage : user.imgUrl} alt="" width="40px" height="40px" style={{ borderRadius: "40px", objectFit: "cover" }} />
                                             <p><span className="fw-bold"> First Name:</span><span>{user.firstName}</span>  </p>
                                             <p><span className="fw-bold">Surname:</span><span>{user.surName}</span>  </p>
                                             <p><span className="fw-bold">Last Name:</span><span>{user.middleName}</span> </p>

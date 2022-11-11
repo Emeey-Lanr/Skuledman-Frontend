@@ -19,7 +19,7 @@ const Logo = () => {
                 </div>
 
             </div>
-            <p className="eduman text-center">Eduman</p>
+            <p className="eduman text-center">Skuledman</p>
         </div>
 
     )

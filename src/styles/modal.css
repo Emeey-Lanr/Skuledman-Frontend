@@ -1,7 +1,7 @@
 .setdetails {
     background-color: white;
-    width: 700px;
-    padding: 10px 10px;
+    width: 400px;
+    padding: 70px 10px;
     border-radius: 5px;
 }
 
@@ -87,6 +87,11 @@
     }
 }
 
+.editsubject {
+    width: 600px;
+    background: white;
+}
+
 
 @Media (max-width:600px) {
 
@@ -100,4 +105,7 @@
         width: 95%;
     }
 
+    .editsubject {
+        width: 95%;
+    }
 }

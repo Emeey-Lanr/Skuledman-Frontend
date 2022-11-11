@@ -2,9 +2,11 @@ import React, { useContext } from 'react'
 import { FaPlus, FaSearch, FaSpinner, FaPen } from "react-icons/fa"
 import { studenTermDetailContext } from './StudentTermDetails'
 const StudentSecondTerm = () => {
-    const { first, activateSetStatus, secondTermActivationMessage, secondTerMActivationStyle, openModalForSchoolFee,
-        openModalForPtaFee, secondTermSchoolFeesToBePaid, secondTermPtaFeesToBePaid, secondTermSchoolFees, secondTermPtaFees, setSubjectToBeAdded, addSubject, subjectCondition,
-        updateMessage, secondTerm, addValueToSubject, setValueName, setValuePoint, deleteSubject, deletePoint, secondTermStatusForDebt,
+    const { empty, first, activateSetStatus, secondTermActivationMessage, secondTerMActivationStyle, openModalForSchoolFee,
+        openModalForPtaFee, secondTermSchoolFeesToBePaid, secondTermPtaFeesToBePaid, secondTermSchoolFees, secondTermPtaFees, setSubjectToBeAdded, addSubject,
+        addValueSpinner, subjectCondition,
+        updateMessage, setsecondTerm, secondTerm, secondTerm2, addValueToSubject, setValueName, setValuePoint, deleteSubject, deletePoint, secondTermStatusForDebt,
+        editName, editValueName
     } = useContext(studenTermDetailContext)
     return (
         <>
@@ -77,7 +79,7 @@ const StudentSecondTerm = () => {
             </div>
             <div>
                 <label className="from-label fw-bold ">Name :</label>
-                <input type="text" className="w-100 form-control" onChange={(e) => setSubjectToBeAdded(e.target.value)} />
+                <input type="text" ref={empty} className="w-100 form-control" onChange={(e) => setSubjectToBeAdded(e.target.value)} />
             </div>
 
             <div className="w-100 mx-auto mt-4 border-bottom"></div>
@@ -92,6 +94,7 @@ const StudentSecondTerm = () => {
                         <p className="fs-5" style={{ color: "#ff6400" }}>{student.subject}</p>
                         <div>
                             <button onClick={() => deleteSubject(student.subject)} className="btn btn-dark">Delete</button>
+                            <button onClick={() => editName(student.subject)} className="btn btn-light">Edit</button>
                         </div>
                     </div>
                     <div>
@@ -99,12 +102,12 @@ const StudentSecondTerm = () => {
                     </div>
                     <div>
                         <label htmlFor="" className="form-label">Description</label>
-                        <input type="text" className="form-control" onChange={(e) => setValueName(e.target.value)} />
+                        <input type="text" ref={empty} className="form-control" onChange={(e) => setValueName(e.target.value)} />
 
                         <label htmlFor="" className="form-label">Value</label>
-                        <input type="text" className="form-control" onChange={(e) => setValuePoint(e.target.value)} />
+                        <input type="text" ref={empty} className="form-control" onChange={(e) => setValuePoint(e.target.value)} />
                         <div className="my-4">
-                            <button onClick={() => addValueToSubject(student.subject, id)} className="btn btn-success">Add Value</button>
+                            <button onClick={() => addValueToSubject(student.subject, id)} className="btn btn-success">Add Value {addValueSpinner === first + id && <FaSpinner className='spin' />} </button>
                         </div>
 
                     </div>
@@ -114,6 +117,7 @@ const StudentSecondTerm = () => {
                             <p>
                                 {info.valueName}
                             </p>
+                            <button className='btn btn-light' onClick={() => editValueName(student.subject, id)}>Edit Value Name</button>
                             <div className="row justify-content-between">
                                 <div className="col-lg-6 col-sm-12">
                                     <input type="text" className="form-control w-100" />
@@ -121,7 +125,7 @@ const StudentSecondTerm = () => {
 
                                 <div className="col-lg-6 col-sm-12 d-flex justify-content-end py-2">
                                     <button className="btn" onClick={() => deletePoint(info.valueName, id)}>Delete</button>
-                                    <button className="btn ">Save Changes</button>
+                                    <button className="btn">Save Changes</button>
                                 </div>
 
                             </div>

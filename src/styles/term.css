@@ -51,12 +51,12 @@
 
 }
 
-@media screen and (min-width:1062px) {
-    .harmrbugerMenu {
-        display: none;
-    }
+.harmrbugerMenu {
+    width: 75%;
+    margin: 0 auto;
 
 }
+
 
 @media (max-width:1063px) {
     .term {
@@ -82,8 +82,6 @@
 @media (max-width:500px) {
     .termdescription {
         width: 100%;
-        position: sticky;
-        top: 0;
     }
 
     .termdetailsphone {
