@@ -11,7 +11,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 
 const Ss2 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, Sss2Set, viewStudents, setDetails } = useContext(appContext)
+    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, Sss2Set, viewStudents, setDetails, setLastRoute } = useContext(appContext)
     useLayoutEffect(() => {
         getSchoolDetails()
     }, [])
@@ -19,6 +19,7 @@ const Ss2 = () => {
     useEffect(() => {
         setClassType("Sss2")
         hideSideBar()
+        setLastRoute("/sss3")
     }, [])
 
     const ShowModal = () => {

@@ -2,7 +2,7 @@ import SideBar from "./SideBar"
 import "../styles/term.css"
 import photo1 from "../images/photo1.jpg"
 import { FaCameraRetro, FaPen, FaPlus, FaSearch, FaSpinner } from "react-icons/fa"
-import { AiOutlineMenu } from "react-icons/ai"
+import { AiOutlineMenu, AiOutlineArrowLeft } from "react-icons/ai"
 import { useEffect, useState, useContext, createContext, useRef } from "react"
 import { Link } from "react-router-dom"
 import StudentFirstTerm from "./StudentFirstTerm"
@@ -14,11 +14,12 @@ import SchoolFeeModal from "./SchoolFeeModal"
 import DeleteSubjectmodal from "./DeleteSubjectmodal"
 import Background from "./Background"
 import EditSubject from "./EditSubject"
+import ModalMessage from "./ModalMessage"
 export const studenTermDetailContext = createContext(null)
 
 const StudenTermDetails = () => {
     ///Making input empty
-    const empty = useRef()
+    let empty = useRef()
     const { showSideBar, showBack, studentUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus } = useContext(appContext)
     const [schoolFeeModal, setSchoolFeeModal] = useState(false)
     const setId = localStorage.setId.split(",")
@@ -66,6 +67,10 @@ const StudenTermDetails = () => {
     const [firstermStatusForDebt, setFirstTermStatusForDebt] = useState(false)
     const [secondTermStatusForDebt, setSecondTermStatusForDebt] = useState(false)
     const [thirdTermStatusForDebt, setThirdTermStatusForDebt] = useState(false)
+
+    ///MODAL MESSAGE
+    const [modalMessageIfSuccesful, setmodalMessageIfSuccesful] = useState(false)
+    const [modalMessage, setModalMessage] = useState("")
     const getCurrentUser = () => {
         axios.get(getStudentEndPoint, {
             headers: {
@@ -284,6 +289,7 @@ const StudenTermDetails = () => {
     const addSubjectEndPoint = `${studentUrl}/addSubject`
     const [updateMessage, setUpdateMessage] = useState("")
     const addSubject = () => {
+        console.log(empty.current)
         if (subjectToBeAdded === "") {
             setSubjectCondition(3)
             setUpdateMessage("Empty Input Fill Something")
@@ -295,18 +301,21 @@ const StudenTermDetails = () => {
                     getCurrentUser()
                     setSubjectCondition(3)
                     setUpdateMessage(result.data.message)
+                    empty.current.value = ""
+
                     setTimeout(() => {
                         setSubjectCondition(-1)
                         setUpdateMessage("")
-                        empty.value = ""
                     }, 1500)
                 } else {
                     setSubjectCondition(3)
+                    empty.current.value = ""
                     setUpdateMessage(result.data.message)
+
                     setTimeout(() => {
                         setSubjectCondition(-1)
                         setUpdateMessage("")
-                        empty.value = ""
+                        empty.current.value = ""
                     }, 1500)
 
                 }
@@ -335,10 +344,10 @@ const StudenTermDetails = () => {
             if (result.data.status) {
                 getCurrentUser()
                 setaddValueSpinner(-1)
-                empty.value = ""
+                empty.current.value = ""
             } else {
                 setaddValueSpinner(-1)
-                empty.value = ""
+                empty.current.value = ""
             }
         })
 
@@ -381,9 +390,17 @@ const StudenTermDetails = () => {
 
 
     }
-    const [valuePointt, setValuePointt] = useState("")
 
+    const [valuePointt, setValuePointt] = useState("")
+    const [spinValueChangeCondition, setspinValueChangeCondition] = useState(-1)
     const changeValuePointValue = `${studentUrl}/editvaluepoint`
+    const modalMessageFunc = (n) => {
+        setmodalMessageIfSuccesful(true)
+        setModalMessage(n)
+        setTimeout(() => {
+            setmodalMessageIfSuccesful(false)
+        }, 1500)
+    }
     const changeValuePoint = (valueName, id, subjecthosting) => {
         const editSubjectSchema = {
             studentId: userId,
@@ -393,12 +410,22 @@ const StudenTermDetails = () => {
             newValuePoint: valuePointt,
             id: id,
         }
-        axios.patch(changeValuePointValue, editSubjectSchema).then((result) => {
-            if (result.data.status) {
-                getCurrentUser()
-            }
+        if (valuePointt === "") {
+            alert('add a point')
+        } else {
+            setspinValueChangeCondition(id + first)
+            axios.patch(changeValuePointValue, editSubjectSchema).then((result) => {
+                if (result.data.status) {
+                    getCurrentUser()
 
-        })
+                    setspinValueChangeCondition(-1)
+                    modalMessageFunc(result.data.message)
+                } else {
+                    modalMessageFunc(result.data.message)
+                }
+
+            })
+        }
 
     }
     return (
@@ -484,6 +511,8 @@ const StudenTermDetails = () => {
                 valueId,
                 changeValuePoint,
                 setValuePointt,
+                spinValueChangeCondition,
+                modalMessage,
 
 
 
@@ -495,7 +524,13 @@ const StudenTermDetails = () => {
                         <div className="py-2 w-75 mx-auto">
                             <p></p>
                         </div>
-                        <div className="harmrbugerMenu py-2  d-flex justify-content-end" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+                        <div className="harmrbugerMenu py-2  d-flex justify-content-between" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+
+                            <button className="btn">
+                                <Link to="/studentSet">
+                                    <AiOutlineArrowLeft />
+                                </Link>
+                            </button>
                             <button onClick={showSideBar} className="btn"><AiOutlineMenu /> </button>
                         </div>
 
@@ -579,6 +614,7 @@ const StudenTermDetails = () => {
                     {schoolFeeModal && <SchoolFeeModal />}
                     {delModalStatus === 0 && <DeleteSubjectmodal />}
                     {changeSubject && <EditSubject />}
+                    {modalMessageIfSuccesful && <ModalMessage />}
                 </div>
 
             </studenTermDetailContext.Provider>

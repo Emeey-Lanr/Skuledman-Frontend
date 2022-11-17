@@ -1,12 +1,13 @@
-.logo1 {
+/* ========== */
+.logo11 {
     width: 20px;
     height: 40px;
     border: 1px solid #ff6400;
     border-radius: 10px 0 10px 0;
-    /* #33ff00 */
+
 }
 
-.logo2 {
+.logo22 {
     width: 20px;
     height: 40px;
     border: 1px solid #ff6400;
@@ -14,8 +15,9 @@
 
 }
 
-.logo2 div {
+.logo22 div {
     border-bottom: 1px solid #ff6400;
+
     height: 5px;
     margin-bottom: 5px;
     width: 100%;

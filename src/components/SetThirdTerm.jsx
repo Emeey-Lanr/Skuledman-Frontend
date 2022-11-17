@@ -12,10 +12,10 @@ const SetThirdTerm = () => {
 
     return (
         <>
-            <div className="w-75 py-2 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+            <div className="setTerm py-2 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                 <p className="text-center" style={{ color: "#ff6400", }}>Third Term</p>
             </div>
-            <div className="firstT w-75 mx-auto border-top mt-3 mb-2 py-3" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+            <div className="firstT setTerm mx-auto border-top mt-3 mb-2 py-3" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                 <p className="text-center">Add the amount to be paid for this term</p>
                 {inputMessage !== "" && <div className="w-75 mx-auto bg-light">
                     <p className="w-75 mx-auto text-center py-3">{inputMessage}</p>
@@ -83,7 +83,7 @@ const SetThirdTerm = () => {
                 )
                 )}
             </div>
-            <div className="row w-75 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
+            <div className="row setTerm mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }}>
                 <div className="col-lg-6 mt-5 mb-4">
                     <p>Number of students</p>
                     <div className="border-bottom mt-5">
@@ -103,30 +103,34 @@ const SetThirdTerm = () => {
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
+                    <p>Total School Fee To Be Paid</p>
+                    <div className="border-bottom mt-5">
+
+                    </div>
+                </div>
+                <div className="col-lg-6 mt-5  mb-4">
+                    <p>Total PTA To Be Fees Paid</p>
+                    <div className="border-bottom mt-5">
+
+                    </div>
+                </div>
+                <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fees Paid</p>
                     <div className="border-bottom mt-5">
 
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
-                    <p>Total School PTA Fees Paid</p>
+                    <p>Total PTA Fees Paid</p>
                     <div className="border-bottom mt-5">
 
                     </div>
                 </div>
-                <div className="col-lg-6 mt-5  mb-4">
-                    <p>Best Student</p>
-                    <div className="border-bottom mt-5">
 
-                    </div>
-                </div>
-                <div className="col-lg-6 mt-5  mb-4">
-                    <p>Worst Student</p>
-                    <div className="border-bottom mt-5">
 
-                    </div>
-                </div>
+
             </div>
+
 
         </>
     )

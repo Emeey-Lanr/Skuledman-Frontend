@@ -6,7 +6,14 @@ import { appContext } from "../App"
 import edu from "../images/edu.webp"
 import Background from "./Background"
 const Dashboard = () => {
-    const { showSideBar, hideSideBar, showBack, getSchoolDetails, schoolDetails, setWhenDashBoard } = useContext(appContext)
+    const { showSideBar, hideSideBar, showBack, getSchoolDetails, schoolDetails, setWhenDashBoard,
+        jss1SetDashB,
+        jss2SetDashB,
+        jss3SetDashB,
+        Sss1SetDashB,
+        Sss2SetDashB,
+        Sss3SetDashB,
+    } = useContext(appContext)
 
     const [style, setStyle] = useState(
         {
@@ -56,45 +63,48 @@ const Dashboard = () => {
                         </div>
 
                     </div>
-                    <div className="dash-details">
-                        <div>
-                            <p className="text-center"><AiFillAccountBook style={{ color: "#ff6400" }} /></p>
-                            <p className="text-center fs-4">Total Number of students</p>
-                            <div className="dash-info">
-                                <p className="text-center">Jss1</p>
-                                <p className="text-center">2020/2022</p>
-                                <p className="text-center">
-                                    <span>
-                                        Total:
-                                    </span>
-                                    <span>
-                                        40
-                                    </span>
+
+
+                    <div className="dash-deatailsSet">
+                        {jss1SetDashB !== null &&
+                            <div>
+                                <p className="fs-3 text-center" style={{ color: "#ff6400" }}>Jss1</p>
+                                <p className="fw-bold text-center" style={{ color: "#ff6400" }}>
+                                    {jss1SetDashB.set}
                                 </p>
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>View Details</button>
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>View Students</button>
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>Delete</button>
+                                </div>
                             </div>
-
-
-                        </div>
-                        <div>
-                            <p className="text-center"><AiFillAccountBook /></p>
-                            <p className="text-center">Total Number of Debt</p>
-                            <div className="dash-info">
-                                <p className="text-center">Jss1</p>
-                                <p className="text-center">2020/2022</p>
-                                <p className="text-center">
-                                    <span>
-                                        Total:
-                                    </span>
-                                    <span>
-                                        #60000
-                                    </span>
+                        },
+                        {jss2SetDashB !== null &&
+                            <div>
+                                <p className="fs-3 text-center" style={{ color: "#ff6400" }}>Jss2</p>
+                                <p className="fw-bold text-center" style={{ color: "#ff6400" }}>
+                                    {jss2SetDashB.set}
                                 </p>
-
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>View Details</button>
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>View Students</button>
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>Delete</button>
+                                </div>
                             </div>
+                        },  {jss3SetDashB !== null &&
+                            <div>
+                                <p className="fs-3 text-center" style={{ color: "#ff6400" }}>Jss3</p>
+                                <p className="fw-bold text-center" style={{ color: "#ff6400" }}>
+                                    {jss3SetDashB.set}
+                                </p>
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>View Details</button>
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>View Students</button>
+                                    <button className="btn mx-2" style={{ background: "#ff6400", color: "white", }}>Delete</button>
+                                </div>
+                            </div>
+                        }
 
-
-
-                        </div>
 
                     </div>
 

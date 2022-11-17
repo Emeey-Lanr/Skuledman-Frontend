@@ -43,6 +43,12 @@ function App() {
   const [Sss2Set, setSss2] = useState([])
   const [Sss3Set, setSss3] = useState([])
 
+  const [jss1SetDashB, setJss1DashB] = useState({})
+  const [jss2SetDashB, setJss2DashB] = useState({})
+  const [jss3SetDashB, setJss3DashB] = useState({})
+  const [Sss1SetDashB, setSss1DashB] = useState({})
+  const [Sss2SetDashB, setSss2DashB] = useState({})
+  const [Sss3SetDashB, setSss3DashB] = useState({})
 
   ///A fuction that makes the sidebar show 
   const showSideBar = () => {
@@ -57,9 +63,13 @@ function App() {
 
   ///School Details
   const [schoolDetails, setSchoolDetails] = useState({})
+  const [one, setOne] = useState([])
+  const [two, setTwo] = useState([])
+  const [three, setThree] = useState([])
   const getSchoolDetailsEndpoint = `${schoolUrl}/edumanOtp`
   const getSchoolSet = `${setUrl}/getset`
   const getSchoolDetails = () => {
+    localStorage.navigatigation = 0
     axios.get(getSchoolDetailsEndpoint, {
       headers: {
         "Authorization": `bearer ${localStorage.eduManToken}`,
@@ -82,6 +92,14 @@ function App() {
             setSss1(result.data.set4.reverse())
             setSss2(result.data.set5.reverse())
             setSss3(result.data.set6.reverse())
+
+            setJss1DashB(result.data.set1[result.data["set1"].length - 1])
+            setJss2DashB(result.data.set2[result.data["set2"].length - 1])
+            setJss3DashB(result.data.set3[result.data["set3"].length - 1])
+            setSss1DashB(result.data.set4[result.data["set4"].length - 1])
+            setSss2DashB(result.data.set5[result.data["set5"].length - 1])
+            setSss3DashB(result.data.set6[result.data["set6"].length - 1])
+
           }
         })
       } else {
@@ -109,6 +127,15 @@ function App() {
     localStorage.term = "viewFirst"
     navigate("/studentSet")
   }
+  const [deleteSetModal, setDeleteSetModal] = useState(false)
+  const [deleteSetInfo, setDeleteSetInfo] = useState("")
+  const deleteSet = (setid, schoolEmail, schoolId, set, classSet) => {
+    const setIdentification = setid + "," + schoolId + "," + set + "," + classSet + "," + schoolEmail
+    setDeleteSetInfo(setIdentification)
+    setDeleteSetModal(true)
+
+  }
+
 
   const viewStudentPersonalDetails = (id) => {
     localStorage.cs = id
@@ -117,6 +144,11 @@ function App() {
 
   const [deleteLogicNumber, setDeleteLogicNumb] = useState(-1)
   const [delModalStatus, setDelModalStatus] = useState(-1)
+  ///Navigating Page 
+  const [navigatingCondition, setNavigationCondition] = useState("")
+
+  const [thelastRoute, setLastRoute] = useState("/dashboard")
+
 
   return (
 
@@ -148,11 +180,24 @@ function App() {
         Sss1Set,
         Sss2Set,
         Sss3Set,
+        ///Dash Set
+        jss1SetDashB,
+        jss2SetDashB,
+        jss3SetDashB,
+        Sss1SetDashB,
+        Sss2SetDashB,
+        Sss3SetDashB,
+
         ///Fuctions Handling Set
         ///View Details of set
         setDetails,
         //View student
         viewStudents,
+        deleteSet,
+        deleteSetModal,
+        setDeleteSetModal,
+        deleteSetInfo,
+
 
 
 
@@ -168,7 +213,10 @@ function App() {
         setDeleteLogicNumb,
         deleteLogicNumber,
         delModalStatus,
-        setDelModalStatus
+        setDelModalStatus,
+        thelastRoute,
+        setLastRoute
+
 
       }}>
       <Routes>

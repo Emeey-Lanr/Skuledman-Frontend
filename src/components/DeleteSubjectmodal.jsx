@@ -53,7 +53,7 @@ const DeleteSubjectmodal = () => {
         term: first,
     }
     const deleteValuePoint = () => {
-        setSpinnerStatus(false)
+        setSpinnerStatus(true)
         axios.patch(deletevaluePoint, deletePointSchema).then((result) => {
             if (result.data.status) {
                 getCurrentUser()
@@ -78,7 +78,7 @@ const DeleteSubjectmodal = () => {
         <div className="w-100 h-100 position-fixed top-0 d-flex justify-content-center align-items-center" style={{ background: "#0000006b" }} >
             <div className="bg-white py-2 delsubjectmodal px-3">
                 <div className="d-flex justify-content-center align-items-center">
-                    <p>Are yo sure you want to delete</p><p className="delmodaltrash px-2"><FaTrashAlt /></p>
+                    <p>Are you sure you want to delete</p><p className="delmodaltrash px-2"><FaTrashAlt /></p>
                 </div>
                 <div className="d-flex justify-content-end align-items-center py-1">
                     <button className="btn btn-light mx-1" onClick={() => setDelModalStatus(-1)}>Cancel</button>

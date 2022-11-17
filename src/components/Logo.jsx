@@ -7,11 +7,11 @@ const Logo = () => {
     return (
         <div className="">
             <div className={j === 2 ? `bdy  d-flex ${logoCenter}` : "yes"}>
-                <div className="logo1">
+                <div className="logo11" >
                     <div></div>
                     <div></div>
                 </div>
-                <div className="logo2">
+                <div className="logo22">
                     <div></div>
                     <div></div>
                     <div></div>

@@ -35,21 +35,23 @@
     object-fit: cover;
 }
 
-.dash-details {
-    width: 80%;
+
+.dash-details .dash-deatailsSet {
+    width: 78%;
     margin: 0 auto;
+    background-color: white;
+    box-shadow: 1px 2px 3px #999898;
     display: grid;
     grid-template-columns: 50% 50%;
 
-
 }
 
-.dash-details div {
-    width: 98%;
+.dash-deatailsSet div {
+    width: 100%;
     background-color: white;
-    box-shadow: 1px 2px 5px #bdbdbd;
-    margin-top: 10px;
-
+    box-shadow: 1px 2px 3px #c0c0c0;
+    margin: 10px 0;
+    padding: 10px 3px;
 }
 
 .dash-info {

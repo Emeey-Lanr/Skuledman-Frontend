@@ -8,12 +8,13 @@ import { useState, useContext, useEffect, useLayoutEffect } from "react"
 import { appContext } from "../App"
 import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
+import Deleteset from "./Deleteset"
 
 
 const Jss1 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents, setUrl,
-        studentUrl } = useContext(appContext)
+    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents, deleteSet, deleteSetModal, setUrl,
+        studentUrl, setLastRoute, } = useContext(appContext)
     // useLayoutEffect(() => {
 
     // }, [])
@@ -22,6 +23,7 @@ const Jss1 = () => {
         setClassType("Jss1")
         hideSideBar()
         getSchoolDetails()
+        setLastRoute("/jss1")
 
     }, [])
 
@@ -60,6 +62,7 @@ const Jss1 = () => {
                             <div className="setBtn">
                                 <button onClick={() => viewStudents(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>View Student</button>
                                 <button onClick={() => setDetails(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}> View Details</button>
+                                <button onClick={() => deleteSet(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>Delete</button>
                             </div>
                         </div>
                     )) :
@@ -71,6 +74,7 @@ const Jss1 = () => {
 
             </div>
             <AddSetModal />
+            {deleteSetModal && <Deleteset />}
 
         </>
 

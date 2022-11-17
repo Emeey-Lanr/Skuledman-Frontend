@@ -13,12 +13,13 @@ import SetThirdTerm from "./SetThirdTerm"
 import Background from "./Background"
 import FeeList from "./FeeList"
 import DeletePriceModal from "./DeletePriceModal"
+import { Link } from "react-router-dom"
 export const schoolSetDetailContext = createContext(null)
 
 const SetDetails = () => {
 
     const navigate = useNavigate()
-    const { showSideBar, showBack, setUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus } = useContext(appContext)
+    const { showSideBar, showBack, setUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus, thelastRoute } = useContext(appContext)
     const [schoolsetInfo, setSetInfo] = useState({})
     const [schoolSetId, setSchoolSetId] = useState("")
     ///For sterms
@@ -35,6 +36,43 @@ const SetDetails = () => {
     const [thirdTerm, setThirdTerm] = useState({
         otherFee: []
     })
+
+    const [firstTermTotalNumberOfStudent, setfirstTermTotalNumberOfStudent] = useState(0)
+    const [secondTermTotalNumberOfStudent, setsecondTermTotalNumberOfStudent] = useState(0)
+    const [thirdTermTotalNumberOfStudent, setthirdTermTotalNumberOfStudent] = useState(0)
+
+    /////SCHOOL FEE
+    ///Total Amount to be paid  school fee
+    const [totalAmountToBePaidSchoolFeeFirstTerm, settotalAmountToBePaidSchoolFeeFirstTerm] = useState()
+    const [totalAmountToBePaidSchoolFeeSecondTerm, settotalAmountToBePaidSchoolFeeSecondTerm] = useState()
+    const [totalAmountToBePaidSchoolFeeThirsTerm, settotalAmountToBePaidSchoolFeeThirsTerm] = useState()
+
+    ///school debt fee
+    const [firsTermDebtOwned, setfirsTermDebtOwned] = useState()
+    const [secondTermDebtOwned, setsecondTermDebtOwned] = useState()
+    const [thirdTermDebt, setthirdTermDebt] = useState()
+
+    ///SchoolFees Amount already paid
+    const [studentSFirstTermPaid, setstudentSFirstTermPaid] = useState()
+    const [studentSSecondTermPaid, setstudentSSecondTermPaid] = useState()
+    const [studentSThirdTermPaid, setstudentSThirdTermPaid] = useState()
+
+    ///PTA
+    ///Total Amount to be paid pta fee
+    const [totalAmountToBePaidPtaFeeFirstTerm, settotalAmountToBePaidPtaFeeFirstTerm] = useState()
+    const [totalAmountToBePaidPtaFeeSecondTerm, settotalAmountToBePaidPtaFeeSecondTerm] = useState()
+    const [totalAmountToBePaidPtaFeeThirdTerm, settotalAmountToBePaidPtaFeeThirdTerm] = useState()
+    ///
+
+    ///Pta Fees debt owned
+    const [firstTermDebtOwnedPta, setfirstTermDebtOwnedPta] = useState()
+    const [secondTermDebtOwnedPta, setsecondTermDebtOwnedPta] = useState()
+    const [thirdTermDebtOwnedPta, setthirdTermDebtOwnedPta] = useState()
+
+
+
+
+    ///School Fees
 
     ///Functions to handle the term condition for each page
     const firstTermPage = () => {
@@ -70,13 +108,45 @@ const SetDetails = () => {
                 }
             }).then((result) => {
                 if (result.data.status) {
+                    console.log(result.data, "========")
                     setSetInfo(result.data.currentSet)
                     setSchoolSetId(result.data.currentSet._id)
-                    console.log(result.data.currentSet.firstTerm)
                     setFirstTerm(result.data.currentSet.firstTerm)
                     setSecondTerm(result.data.currentSet.secondTerm)
                     setThirdTerm(result.data.currentSet.thirdTerm)
 
+                    setfirstTermTotalNumberOfStudent(result.data.firstnumberOfStudent)
+                    setsecondTermTotalNumberOfStudent(result.data.secondTotalNumberOfStudent)
+                    setthirdTermTotalNumberOfStudent(result.data.thirdTotalNumberOfStudent)
+
+
+                    /////SCHOOL FEE
+                    ///Total Amount to be paid  school fee
+                    settotalAmountToBePaidSchoolFeeFirstTerm(result.data.totalAmountToBePaidSchoolFeeFirstTerm)
+                    settotalAmountToBePaidSchoolFeeSecondTerm(result.data.totalAmountToBePaidSchoolFeeSecondTerm)
+                    settotalAmountToBePaidSchoolFeeThirsTerm(result.data.otalAmountToBePaidSchoolFeeThirsTerm)
+
+                    ///school debt fee
+                    setfirsTermDebtOwned(result.data.firsTermDebtOwned)
+                    setsecondTermDebtOwned(result.data.secondTermDebtOwned)
+                    setthirdTermDebt(result.data.thirdTermDebt)
+
+                    ///SchoolFees Amount already paid
+                    setstudentSFirstTermPaid(result.data.studentSFirstTermPaid)
+                    setstudentSSecondTermPaid(result.data.studentSSecondTermPaid)
+                    setstudentSThirdTermPaid(result.data.studentSThirdTermPaid)
+
+                    ///PTA
+                    ///Total Amount to be paid pta fee
+                    settotalAmountToBePaidPtaFeeFirstTerm(result.data.totalAmountToBePaidPtaFeeFirstTerm)
+                    settotalAmountToBePaidPtaFeeSecondTerm(result.data.totalAmountToBePaidPtaFeeSecondTerm)
+                    settotalAmountToBePaidPtaFeeThirdTerm(result.data.totalAmountToBePaidPtaFeeThirdTerm)
+                    ///
+
+                    ///Pta Fees debt owned
+                    setfirstTermDebtOwnedPta(result.data.firstTermDebtOwnedPta)
+                    setsecondTermDebtOwnedPta(result.data.secondTermDebtOwnedPta)
+                    setthirdTermDebtOwnedPta(result.data.thirdTermDebtOwnedPta)
                 } else {
 
                 }
@@ -107,6 +177,24 @@ const SetDetails = () => {
         setDeleteLogicNumb(1)
     }, [])
 
+    const navigateTo = () => {
+        if (localStorage.navigation) {
+            if (localStorage.navigation === 1) {
+                navigate("/jss1")
+            } else if (localStorage.navigation === 2) {
+
+            } else if (localStorage.navigation === 3) {
+
+            } else if (localStorage.navigation === 4) {
+
+            } else if (localStorage.navigation === 5) {
+
+            } else if (localStorage.navigation === 6) {
+
+            }
+
+        }
+    }
     //Condition handling spin
     const [spinner, setSpinner] = useState(false)
     const [spinner2, setSpinner2] = useState(false)
@@ -244,7 +332,40 @@ const SetDetails = () => {
                     schoolsetInfo, firstTerm, secondTerm, thirdTerm,
                     setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, setListDescription, setListAmount, inputMessage,
                     spinner, addList, spinner2, inputMessage2, setSpinner2, setInputMessage2, inputEmpty, currentTerm, brindDelModal, listDescriptionName,
-                    schoolSetId
+                    schoolSetId,
+
+                    firstTermTotalNumberOfStudent,
+                    secondTermTotalNumberOfStudent,
+                    thirdTermTotalNumberOfStudent,
+
+                    /////SCHOOL FEE
+                    ///Total Amount to be paid  school fee
+                    totalAmountToBePaidSchoolFeeFirstTerm,
+                    totalAmountToBePaidSchoolFeeSecondTerm,
+                    totalAmountToBePaidSchoolFeeThirsTerm,
+
+                    ///school debt fee
+                    firsTermDebtOwned,
+                    secondTermDebtOwned,
+                    thirdTermDebt,
+
+                    ///SchoolFees Amount already paid
+                    studentSFirstTermPaid,
+                    studentSSecondTermPaid,
+                    studentSThirdTermPaid,
+
+                    ///PTA
+                    ///Total Amount to be paid pta fee
+                    totalAmountToBePaidPtaFeeFirstTerm,
+                    totalAmountToBePaidPtaFeeSecondTerm,
+                    totalAmountToBePaidPtaFeeThirdTerm,
+                    ///
+
+                    ///Pta Fees debt owned
+                    firstTermDebtOwnedPta,
+                    secondTermDebtOwnedPta,
+                    thirdTermDebtOwnedPta,
+
                 }}
             >
                 <div>
@@ -256,20 +377,22 @@ const SetDetails = () => {
                     <div className="setDetails bg-light">
                         <div>
                             <div className="w-100 mx-auto">
-                                <div className="w-75 mx-auto d-flex justify-content-between">
+                                <div className="setTerm mx-auto d-flex justify-content-between">
                                     <button className="btn">
-                                        <AiOutlineArrowLeft />
+                                        <Link to={thelastRoute}>
+                                            <AiOutlineArrowLeft />
+                                        </Link>
                                     </button>
                                     <button onClick={() => showSideBar()} className="btn" >
                                         <AiOutlineMenu />
                                     </button>
                                 </div>
-                                <div className="d-flex w-75 mx-auto">
+                                <div className="setTerm d-flex  mx-auto">
                                     <buttton onClick={() => btn1()} className="btn">First Term</buttton>
                                     <buttton onClick={() => btn2()} className="btn">Second Term</buttton>
                                     <buttton onClick={() => btn3()} className="btn">Third Term</buttton>
                                 </div>
-                                <div className="setinfo w-75">
+                                <div className="setinfo setTerm">
                                     <p>{schoolsetInfo.class}</p>
                                     <p>{schoolsetInfo.set}</p>
                                 </div>

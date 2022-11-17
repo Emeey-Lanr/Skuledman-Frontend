@@ -8,7 +8,7 @@ const StudentFirstTerm = () => {
         updateMessage, setFirstTerm, firstTerm, firstTerm2,
         addValueToSubject, setValueName, setValuePoint,
         deleteSubject, deletePoint, firstermStatusForDebt, editName, editValueName, changeValuePoint,
-        setValuePointt,
+        setValuePointt, spinValueChangeCondition
     } = useContext(studenTermDetailContext)
 
 
@@ -116,6 +116,12 @@ const StudentFirstTerm = () => {
                                 <button onClick={() => editName(student.subject)} className="btn btn-light">Edit</button>
                             </div>
                         </div>
+                        <div className="w-25 mx-auto bg-white py-3" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd", marginBottom: "20px" }}>
+                            <p className="text-center fw-bold">Total Score</p>
+                            <p className="text-center">
+                                {student.totalScore}
+                            </p>
+                        </div>
                         <div>
                             <p className="text-center">Add a description and a score</p>
                         </div>
@@ -146,7 +152,7 @@ const StudentFirstTerm = () => {
                                     </div>
                                     <div className="d-flex justify-content-center py-2 bg-light w-100">
                                         <button className="btn btn-dark " onClick={() => deletePoint(info.valueName, sid, student.subject)}>Delete</button>
-                                        <button className="btn btn-white" onClick={() => changeValuePoint(info.valueName, sid, student.subject)}>Save Changes</button>
+                                        <button className="btn btn-white" onClick={() => changeValuePoint(info.valueName, sid, student.subject)}>Save Changes{spinValueChangeCondition === sid + first && <FaSpinner className="spin" />}</button>
                                     </div>
 
                                 </div>

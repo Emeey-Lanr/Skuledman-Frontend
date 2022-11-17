@@ -12,7 +12,7 @@ import axios from "axios"
 export const studentBoardContext = createContext(null)
 const Studentboard = () => {
     const [studentModal, setStudentModal] = useState(false)
-    const { showBack, setShowBack, setSidebarNone, viewStudentPersonalDetails, studentUrl } = useContext(appContext)
+    const { showBack, setShowBack, setSidebarNone, viewStudentPersonalDetails, studentUrl, thelastRoute } = useContext(appContext)
     const setId = localStorage.setId.split(",")
     const [studentsFound, setStudentsFound] = useState([])
     const [statusMessage, setStatusMessage] = useState("")
@@ -44,6 +44,7 @@ const Studentboard = () => {
     }
     useEffect(() => {
         getStudent()
+
     }, [])
 
     return (
@@ -55,7 +56,7 @@ const Studentboard = () => {
                     <div className="studentBoard bg-light">
                         <div>
                             <div className="w-75 pt-3 mx-auto d-flex justify-content-between">
-                                <Link to="/" className="link">
+                                <Link to={thelastRoute} className="link">
                                     <FaArrowLeft />
                                 </Link>
                                 <span className="outlineNone" onClick={() => showSidBar()}>
