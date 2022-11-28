@@ -176,12 +176,15 @@ const AddStudentModal = () => {
                 "Content-Type": "application/json"
             }
         }).then((result) => {
+            console.log(result.data)
             if (result.data.status) {
                 setUserFound(result.data.result)
                 setUserAlreadyExist(true)
                 setwhenGogtten(false)
             } else {
-
+                setUserFound([])
+                    setUserAlreadyExist(true)
+                setwhenGogtten(false)
             }
 
         })

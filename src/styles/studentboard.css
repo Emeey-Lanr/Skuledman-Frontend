@@ -33,6 +33,12 @@
     color: #ff6400;
 }
 
+.rowStudentCard {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    justify-content: space-evenly;
+}
+
 .studentCard {
     background-color: white;
     box-shadow: 1px 2px 5px #afafaf;
@@ -40,17 +46,22 @@
     padding: 5px 10px;
 }
 
-.studentCard button {
-    border: none;
-    color: #afafaf;
-    box-shadow: 1px 3px 5px #afafaf;
-    background-color: white;
-    padding: 8px 10px;
-    margin: 5px 0;
-    border-radius: 20px;
+.studentCard .rowCardBtn {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+}
+
+.studentCard .rowCardBtn button {
     background-color: #ff6400;
+    padding: 10px 0;
+    text-align: center;
     color: white;
-    font-weight: 500;
+    border: none;
+    background-color: none;
+    border-left: 1px solid white;
+
 }
 
 .studentInfo div span {
@@ -70,7 +81,40 @@
 
 }
 
+@Media(max-width:900px) {
+    .studentCard .rowCardBtn {
+        grid-template-columns: 100%;
+    }
 
+    .studentCard .rowCardBtn button {
+        border-bottom: 1px solid white;
+    }
+}
+
+@Media (max-width:750px) {
+    .rowStudentCard {
+        grid-template-columns: 40% 40%;
+    }
+
+    .studentCard {
+        margin-bottom: 10px;
+    }
+
+}
+
+@Media (max-width:550px) {
+    .rowStudentCard {
+        grid-template-columns: 45% 45%;
+    }
+
+}
+
+@Media (max-width:500px) {
+    .rowStudentCard {
+        grid-template-columns: 90%;
+    }
+
+}
 
 
 

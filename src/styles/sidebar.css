@@ -42,9 +42,10 @@
 }
 
 .headinglog p {
-    font-style: italic;
+    /* font-style: italic; */
     font-size: 1.2rem;
     padding-left: 10px;
+    border-bottom: 1px solid #bec2c2;
 }
 
 .jss {
@@ -56,20 +57,14 @@
 }
 
 .dash-link-dashboard {
-    background-color: #ff660080;
     padding: 10px 0;
-    color: #ffffff;
-    border-radius: 10px;
-    padding-left: 30px;
-    margin-bottom: 40px;
-    align-items: center;
 }
 
-.dash-link-dashboard:hover {
+/* .dash-link-dashboard:hover {
     background-color: #ff660075;
     color: white;
     border: none;
-}
+} */
 
 .logoutbtn {
     margin-top: 120px;

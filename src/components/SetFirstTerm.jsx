@@ -9,7 +9,7 @@ import axios from "axios"
 const SetFirstTerm = () => {
     const { schoolsetInfo, firstTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
         inputEmpty, brindDelModal, firstTermTotalNumberOfStudent, totalAmountToBePaidSchoolFeeFirstTerm, firsTermDebtOwned, studentSFirstTermPaid,
-        totalAmountToBePaidPtaFeeFirstTerm, firstTermDebtOwnedPta
+        totalAmountToBePaidPtaFeeFirstTerm, firstTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail
 
     } = useContext(schoolSetDetailContext)
 
@@ -63,11 +63,16 @@ const SetFirstTerm = () => {
                 <div className="w-75 mx-auto">
                     <p className="text-center fs-2 fw-bold">Other Fees</p>
                 </div>
+                {listgmail !== "" && <div className="w-75 mx-auto py-2 bg-light">
+                    <p className="text-center">{listgmail}</p>
+                </div>}
                 <div>
                     <div className="w-75 d-flex justify-content-end my-2 mx-auto">
                         <button onClick={() => setListModal(true)} className="btn btn-dark">Create List</button>
                     </div>
-
+                </div>
+                <div className="w-75 d-flex justify-content-end my-2 mx-auto">
+                    <button onClick={sendListAsGmail} className="btn w-100 btn-dark">Send List As Mail {spinGmail === 1 && < FaSpinner className="spin" />} </button>
                 </div>
                 {firstTerm.otherFee.map((items, id) => (
                     <div className="w-75 mt-3 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }} >

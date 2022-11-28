@@ -19,7 +19,7 @@ export const schoolSetDetailContext = createContext(null)
 const SetDetails = () => {
 
     const navigate = useNavigate()
-    const { showSideBar, showBack, setUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus, thelastRoute } = useContext(appContext)
+    const { showSideBar, showBack, setUrl, setDeleteLogicNumb, delModalStatus, setDelModalStatus, thelastRoute, setLastRoute } = useContext(appContext)
     const [schoolsetInfo, setSetInfo] = useState({})
     const [schoolSetId, setSchoolSetId] = useState("")
     ///For sterms
@@ -147,6 +147,19 @@ const SetDetails = () => {
                     setfirstTermDebtOwnedPta(result.data.firstTermDebtOwnedPta)
                     setsecondTermDebtOwnedPta(result.data.secondTermDebtOwnedPta)
                     setthirdTermDebtOwnedPta(result.data.thirdTermDebtOwnedPta)
+                    if (result.data.currentSet.class === "Jss1") {
+                        setLastRoute('/jss1')
+                    } else if (result.data.currentSet.class === "Jss2") {
+                        setLastRoute('/jss2')
+                    } else if (result.data.currentSet.class === "Jss3") {
+                        setLastRoute('/jss3')
+                    } else if (result.data.currentSet.class === "Sss1") {
+                        setLastRoute('/sss1')
+                    } else if (result.data.currentSet.class === "Sss2") {
+                        setLastRoute('/sss2')
+                    } else if (result.data.currentSet.class === "Sss3") {
+                        setLastRoute('/sss3')
+                    }
                 } else {
 
                 }
@@ -315,6 +328,42 @@ const SetDetails = () => {
         }
     }
 
+    const sendListAsEmailAsEndPoint = `${setUrl}/sendlist`
+    const [listgmail, setlistgmail] = useState("")
+    const [spinGmail, setSpinGmail] = useState(-1)
+    const doAfter = (n) => {
+        setlistgmail(n)
+        setTimeout(() => {
+            setlistgmail("")
+            setSpinGmail(-1)
+        }, 1500)
+
+    }
+    const sendListAsGmail = () => {
+        if (currentTerm === "firstTerm") {
+            setSpinGmail(1)
+        } else if (currentTerm === "secondTerm") {
+            setSpinGmail(2)
+        } else if (currentTerm === "thirdTerm") {
+            setSpinGmail(3)
+        }
+        const sendListSchema = {
+            setId: schoolSetId,
+            term: currentTerm
+        }
+        axios.post(sendListAsEmailAsEndPoint, sendListSchema).then((result) => {
+            if (result.data.status) {
+
+                doAfter(result.data.message)
+
+            } else {
+                doAfter(result.data.message)
+            }
+
+        })
+
+    }
+
     ///bring deleteModal 
     ///Price List
     const [listDescriptionName, setListDescriptionName] = useState("")
@@ -365,6 +414,9 @@ const SetDetails = () => {
                     firstTermDebtOwnedPta,
                     secondTermDebtOwnedPta,
                     thirdTermDebtOwnedPta,
+                    listgmail,
+                    spinGmail,
+                    sendListAsGmail
 
                 }}
             >

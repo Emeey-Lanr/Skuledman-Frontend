@@ -9,6 +9,7 @@ import Background from "./Background"
 import { createContext, useState, useContext, useEffect } from "react"
 import { appContext, } from "../App"
 import axios from "axios"
+import DeactivateStudentModal from "./DeactivateStudentModal"
 export const studentBoardContext = createContext(null)
 const Studentboard = () => {
     const [studentModal, setStudentModal] = useState(false)
@@ -46,10 +47,29 @@ const Studentboard = () => {
         getStudent()
 
     }, [])
+    
+    const [deactivateStatus, setdeactivateStatus] = useState(false)
+    const [studentId, setStudentId] = useState("")
+
+    const deactivateStudent = (id) => {
+        setdeactivateStatus(true)
+        setStudentId(id)
+
+    }
+    const endd = `${studentUrl}/del`
+    const play = () => {
+        axios.patch(endd, { numb: 0 }).then((result) => {
+            if (result.data.status) {
+                console.log(result.data)
+            } else {
+                console.log(result.data)
+            }
+        })
+    }
 
     return (
         <>
-            <studentBoardContext.Provider value={{ studentModal, setStudentModal, getStudent }}>
+            <studentBoardContext.Provider value={{ studentModal, setStudentModal, getStudent, setdeactivateStatus, studentId }}>
                 <div>
                     {showBack && <Background />}
                     <SideBar />
@@ -59,6 +79,7 @@ const Studentboard = () => {
                                 <Link to={thelastRoute} className="link">
                                     <FaArrowLeft />
                                 </Link>
+                                <button onClick={() => play()}>See how return wpork</button>
                                 <span className="outlineNone" onClick={() => showSidBar()}>
                                     <AiOutlineMenu />
                                 </span>
@@ -83,14 +104,12 @@ const Studentboard = () => {
                             <FaSpinner className="spin" />
                         </div>}
                         {statusMessage !== "" && < div className="w-75 py-2 mx-auto bg-light">
-                            <p>{statusMessage}</p>
+                            <p className="txet-center">{statusMessage}</p>
                         </div>}
-                        <div className="row justify-content-center w-100 mx-auto grid-gap-1 mx-auto">
+                        <div className="rowStudentCard">
                             {studentsFound.map((student, id) => (
-                                < div className="col-lg-3 col-md-3 col-sm-10 mx-1  mb-5 studentCard">
-                                    <div className="d-flex justify-content-end">
-                                        <button onClick={() => viewStudentPersonalDetails(student._id)}>View Profile</button>
-                                    </div>
+                                < div className="studentCard">
+
                                     <div className=" border-none">
                                         <div className="d-flex justify-content-center">
                                             <div style={{ width: "60px", hheadereight: "60px" }}>
@@ -115,7 +134,10 @@ const Studentboard = () => {
                                             <span>UniqueId</span>
                                             <p>{student.schoolUniqueId}</p>
                                         </div>
-
+                                        <div className="rowCardBtn">
+                                            <button onClick={() => viewStudentPersonalDetails(student._id)}>View Profile</button>
+                                            <button onClick={() => deactivateStudent(student._id)}>Deactivate</button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -128,6 +150,7 @@ const Studentboard = () => {
                 </div>
 
                 {studentModal && <AddStudentModal />}
+                {deactivateStatus && <DeactivateStudentModal />}
 
             </studentBoardContext.Provider>
 

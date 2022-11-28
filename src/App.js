@@ -148,6 +148,18 @@ function App() {
   const [navigatingCondition, setNavigationCondition] = useState("")
 
   const [thelastRoute, setLastRoute] = useState("/dashboard")
+  const [dashboardStyleNumber, setDashboardStyleNumber] = useState(0)
+
+  ///mail
+  const [mailStatus, setMailStatus] = useState(false)
+  const [mailInfo, setMailInfo] = useState("")
+  const sendMail = (setid, schoolEmail, schoolId, set, classSet) => {
+    setMailStatus(true)
+    const setIdentification = setid + "," + schoolId + "," + set + "," + classSet + "," + schoolEmail
+    setMailInfo(setIdentification)
+
+  }
+
 
 
   return (
@@ -215,7 +227,15 @@ function App() {
         delModalStatus,
         setDelModalStatus,
         thelastRoute,
-        setLastRoute
+        setLastRoute,
+        dashboardStyleNumber,
+        setDashboardStyleNumber,
+
+        ///mail status
+        mailStatus,
+        setMailStatus,
+        mailInfo,
+        sendMail
 
 
       }}>

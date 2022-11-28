@@ -108,6 +108,68 @@
     padding: 10px 0;
 }
 
+.mail-modal {
+    width: 500px;
+    background-color: white;
+    height: 480px;
+
+}
+
+
+.mail-modal input {
+    width: 100%;
+    border: 1px solid #8b8b8b9a;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.mail-modal input:focus {
+    outline: none;
+}
+
+.mail-modal textarea {
+    width: 100%;
+    resize: none;
+    height: 250px;
+    border: 1px solid #7271719a;
+    border-radius: 5px;
+
+}
+
+.mail-modal textarea:focus {
+    outline: none;
+}
+
+.mail-modal-btn {
+    width: 90%;
+    padding: 10px 0;
+}
+
+.deactivateModal {
+    width: 300px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 5px;
+}
+
+.deactivateModal div {
+    display: flex;
+    width: 96%;
+    margin: 0 auto;
+}
+
+.deactivateModal div button {
+    border: none;
+    text-align: center;
+    background-color: none;
+    padding: 8px 10px;
+}
+
+.deactivateModal div button:hover {
+    transition: 1s ease-out;
+    background-color: #dbdada;
+}
+
 @media (max-width:700px) {
     .setdetails {
         width: 95%;
@@ -134,6 +196,12 @@
     }
 
     .editsubject {
+        width: 95%;
+    }
+}
+
+@Media (max-width:500px) {
+    .mail-modal {
         width: 95%;
     }
 }

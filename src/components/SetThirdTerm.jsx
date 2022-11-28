@@ -7,7 +7,8 @@ import { schoolSetDetailContext } from "./SetDetails"
 import { useContext } from "react"
 const SetThirdTerm = () => {
     const { schoolsetInfo, thirdTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
-        inputEmpty, brindDelModal
+        inputEmpty, brindDelModal, thirdTermTotalNumberOfStudent, totalAmountToBePaidSchoolFeeThirsTerm, thirdTermDebt, studentSThirdTermPaid,
+        totalAmountToBePaidPtaFeeThirdTerm, thirdTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail
     } = useContext(schoolSetDetailContext)
 
     return (
@@ -59,11 +60,17 @@ const SetThirdTerm = () => {
                 <div className="w-75 mx-auto">
                     <p className="text-center fs-2 fw-bold">Other Fees</p>
                 </div>
+                {listgmail !== "" && <div className="w-75 py-2 mx-auto bg-light">
+                    <p className="text-center">{listgmail}</p>
+                </div>}
                 <div>
                     <div className="w-75 d-flex justify-content-end my-2 mx-auto">
                         <button onClick={() => setListModal(true)} className="btn btn-dark">Create List</button>
                     </div>
 
+                </div>
+                <div className="w-75 d-flex justify-content-end my-2 mx-auto">
+                    <button onClick={sendListAsGmail} className="btn w-100 btn-dark">Send List As Mail {spinGmail === 3 && < FaSpinner className="spin" />} </button>
                 </div>
                 {thirdTerm.otherFee.map((items, id) => (
                     <div className="w-75 mt-3 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }} >
@@ -87,37 +94,37 @@ const SetThirdTerm = () => {
                 <div className="col-lg-6 mt-5 mb-4">
                     <p>Number of students</p>
                     <div className="border-bottom mt-5">
-
+                        {thirdTermTotalNumberOfStudent}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total Amount To Be Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {totalAmountToBePaidSchoolFeeThirsTerm + totalAmountToBePaidPtaFeeThirdTerm}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total Amount Owned</p>
                     <div className="border-bottom mt-5">
-
+                        {thirdTermDebt + thirdTermDebtOwnedPta}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fee To Be Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {totalAmountToBePaidSchoolFeeThirsTerm}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total PTA To Be Fees Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {totalAmountToBePaidPtaFeeThirdTerm}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fees Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {studentSThirdTermPaid}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">

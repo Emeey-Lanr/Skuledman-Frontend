@@ -9,21 +9,21 @@ import { appContext } from "../App"
 import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
 import Deleteset from "./Deleteset"
+import Mail from "./Mail"
 
 
 const Jss1 = () => {
 
     const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents, deleteSet, deleteSetModal, setUrl,
-        studentUrl, setLastRoute, } = useContext(appContext)
-    // useLayoutEffect(() => {
-
-    // }, [])
+        studentUrl, setLastRoute, setDashboardStyleNumber, mailStatus, setMailStatus, sendMail } = useContext(appContext)
 
     useEffect(() => {
         setClassType("Jss1")
         hideSideBar()
         getSchoolDetails()
         setLastRoute("/jss1")
+        setDashboardStyleNumber(2)
+        setMailStatus(false)
 
     }, [])
 
@@ -62,6 +62,7 @@ const Jss1 = () => {
                             <div className="setBtn">
                                 <button onClick={() => viewStudents(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>View Student</button>
                                 <button onClick={() => setDetails(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}> View Details</button>
+                                <button onClick={() => sendMail(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>Send Mail</button>
                                 <button onClick={() => deleteSet(set._id, set.schoolEmail, set.schoolId, set.set, set.class)}>Delete</button>
                             </div>
                         </div>
@@ -75,6 +76,7 @@ const Jss1 = () => {
             </div>
             <AddSetModal />
             {deleteSetModal && <Deleteset />}
+            {mailStatus && <Mail />}
 
         </>
 

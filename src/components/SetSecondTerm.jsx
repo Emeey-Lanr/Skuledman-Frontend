@@ -8,7 +8,7 @@ import { useContext } from "react"
 const SetSecondTerm = () => {
     const { schoolsetInfo, secondTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
         inputEmpty, brindDelModal, secondTermTotalNumberOfStudent, totalAmountToBePaidSchoolFeeSecondTerm, secondTermDebtOwned, studentSSecondTermPaid,
-        totalAmountToBePaidPtaFeeSecondTerm, secondTermDebtOwnedPta
+        totalAmountToBePaidPtaFeeSecondTerm, secondTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail
 
     } = useContext(schoolSetDetailContext)
 
@@ -62,11 +62,16 @@ const SetSecondTerm = () => {
                 <div className="w-75 mx-auto">
                     <p className="text-center fs-2 fw-bold">Other Fees</p>
                 </div>
+                {listgmail !== "" && <div className="w-75 py-2  mx-auto bg-light">
+                    <p className="text-center">{listgmail}</p>
+                </div>}
                 <div>
                     <div className="w-75 d-flex justify-content-end my-2 mx-auto">
                         <button onClick={() => setListModal(true)} className="btn btn-dark">Create List</button>
                     </div>
-
+                </div>
+                <div className="w-75 d-flex justify-content-end my-2 mx-auto">
+                    <button onClick={sendListAsGmail} className="btn w-100 btn-dark">Send List As Mail {spinGmail === 2 && < FaSpinner className="spin" />} </button>
                 </div>
                 {secondTerm.otherFee.map((items, id) => (
                     <div className="w-75 mt-3 mx-auto" style={{ background: "white", boxShadow: "1px 2px 5px #bdbdbd" }} >
@@ -90,37 +95,37 @@ const SetSecondTerm = () => {
                 <div className="col-lg-6 mt-5 mb-4">
                     <p>Number of students</p>
                     <div className="border-bottom mt-5">
-
+                        {secondTermTotalNumberOfStudent}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total Amount To Be Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {totalAmountToBePaidSchoolFeeSecondTerm + totalAmountToBePaidPtaFeeSecondTerm}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total Amount Owned</p>
                     <div className="border-bottom mt-5">
-
+                        {secondTermDebtOwned + secondTermDebtOwnedPta}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fee To Be Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {totalAmountToBePaidSchoolFeeSecondTerm}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total PTA To Be Fees Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {totalAmountToBePaidPtaFeeSecondTerm}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fees Paid</p>
                     <div className="border-bottom mt-5">
-
+                        {studentSSecondTermPaid}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
