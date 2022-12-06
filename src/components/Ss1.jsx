@@ -12,7 +12,9 @@ import Mail from "./Mail"
 
 const Ss1 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, Sss1Set,
+
+    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, setSss1, Sss1Set,
+        Sss1Set2,
         viewStudents, setDetails, setLastRoute, setDashboardStyleNumber, deleteSet, deleteSetModal, mailStatus, setMailStatus, sendMail } = useContext(appContext)
     useLayoutEffect(() => {
         getSchoolDetails()
@@ -33,7 +35,15 @@ const Ss1 = () => {
         Navigate("/studentSet")
     }
 
-
+    const searchSet = (e) => {
+        setSss1(
+            Sss1Set2.filter((info) => {
+                if (info.set.toUpperCase().indexOf(e.target.value.toUpperCase()) > -1) {
+                    return info
+                }
+            })
+        )
+    }
     return (
         <>
             <div>
@@ -48,7 +58,7 @@ const Ss1 = () => {
                         {/* <span>
                             <FaSearch />
                         </span> */}
-                        <input type="text" className="w-100 h-100 inputjss1" placeholder="Search..." />
+                        <input type="text" onClick={(e) => searchSet(e)} className="w-100 h-100 inputjss1" placeholder="Search..." />
                     </div>
 
                     <div className="d-flex justify-content-flex-end w-75 mx-auto my-3">

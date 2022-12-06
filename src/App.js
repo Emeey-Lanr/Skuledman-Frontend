@@ -43,12 +43,20 @@ function App() {
   const [Sss2Set, setSss2] = useState([])
   const [Sss3Set, setSss3] = useState([])
 
-  const [jss1SetDashB, setJss1DashB] = useState({})
-  const [jss2SetDashB, setJss2DashB] = useState({})
-  const [jss3SetDashB, setJss3DashB] = useState({})
-  const [Sss1SetDashB, setSss1DashB] = useState({})
-  const [Sss2SetDashB, setSss2DashB] = useState({})
-  const [Sss3SetDashB, setSss3DashB] = useState({})
+  ///2
+  const [jss1Set2, set2Jss1] = useState([])
+  const [jss2Set2, set2Jss2] = useState([])
+  const [jss3Set2, set2Jss3] = useState([])
+  const [Sss1Set2, set2Sss1] = useState([])
+  const [Sss2Set2, set2Sss2] = useState([])
+  const [Sss3Set2, set2Sss3] = useState([])
+
+  const [jss1SetDashB, setJss1DashB] = useState({ set: "" })
+  const [jss2SetDashB, setJss2DashB] = useState({ set: "" })
+  const [jss3SetDashB, setJss3DashB] = useState({ set: "" })
+  const [Sss1SetDashB, setSss1DashB] = useState({ set: "" })
+  const [Sss2SetDashB, setSss2DashB] = useState({ set: "" })
+  const [Sss3SetDashB, setSss3DashB] = useState({ set: "" })
 
   ///A fuction that makes the sidebar show 
   const showSideBar = () => {
@@ -68,6 +76,8 @@ function App() {
   const [three, setThree] = useState([])
   const getSchoolDetailsEndpoint = `${schoolUrl}/edumanOtp`
   const getSchoolSet = `${setUrl}/getset`
+  const [lastestSet, setLastestSet] = useState("")
+  const [schoolIdentification, setSchoolIdentification] = useState("")
   const getSchoolDetails = () => {
     localStorage.navigatigation = 0
     axios.get(getSchoolDetailsEndpoint, {
@@ -78,6 +88,7 @@ function App() {
     }).then((result) => {
       if (result.data.status) {
         setSchoolDetails(result.data.schoolDetails)
+        setSchoolIdentification(result.data.schoolDetails._id)
         setRunWhenTrue(true)
         axios.get(getSchoolSet, {
           headers: {
@@ -92,13 +103,34 @@ function App() {
             setSss1(result.data.set4.reverse())
             setSss2(result.data.set5.reverse())
             setSss3(result.data.set6.reverse())
+            if (result.data.set1.length > 0) {
+              setJss1DashB(result.data.set1[result.data["set1"].length - 1])
+              setLastestSet(result.data.set1[result.data["set1"].length - 1].set)
+            }
+            if (result.data.set2.length > 0) {
+              setJss2DashB(result.data.set2[result.data["set2"].length - 1])
+            }
+            if (result.data.set3.length > 0) {
+              setJss3DashB(result.data.set3[result.data["set3"].length - 1])
+            }
+            if (result.data.set4.length > 0) {
+              setSss1DashB(result.data.set4[result.data["set4"].length - 1])
+            }
 
-            setJss1DashB(result.data.set1[result.data["set1"].length - 1])
-            setJss2DashB(result.data.set2[result.data["set2"].length - 1])
-            setJss3DashB(result.data.set3[result.data["set3"].length - 1])
-            setSss1DashB(result.data.set4[result.data["set4"].length - 1])
-            setSss2DashB(result.data.set5[result.data["set5"].length - 1])
-            setSss3DashB(result.data.set6[result.data["set6"].length - 1])
+            if (result.data.set5.length > 0) {
+              setSss2DashB(result.data.set5[result.data["set5"].length - 1])
+            }
+            if (result.data.set6.length > 0) {
+              setSss3DashB(result.data.set6[result.data["set6"].length - 1])
+            }
+
+
+            set2Jss1(result.data.set1.reverse())
+            set2Jss2(result.data.set2.reverse())
+            set2Jss3(result.data.set3.reverse())
+            set2Sss1(result.data.set4.reverse())
+            set2Sss2(result.data.set5.reverse())
+            set2Sss3(result.data.set6.reverse())
 
           }
         })
@@ -186,12 +218,27 @@ function App() {
         setClassType,
         setWhenDashBoard,
         ///Set
+        setJss1,
+        setJss2,
+        setJss3,
+        setSss1,
+        setSss2,
+        setSss3,
         jss1Set,
         jss2Set,
         jss3Set,
         Sss1Set,
         Sss2Set,
         Sss3Set,
+
+        //second
+
+        jss1Set2,
+        jss2Set2,
+        jss3Set2,
+        Sss1Set2,
+        Sss2Set2,
+        Sss3Set2,
         ///Dash Set
         jss1SetDashB,
         jss2SetDashB,
@@ -235,7 +282,9 @@ function App() {
         mailStatus,
         setMailStatus,
         mailInfo,
-        sendMail
+        sendMail,
+        lastestSet,
+        schoolIdentification
 
 
       }}>

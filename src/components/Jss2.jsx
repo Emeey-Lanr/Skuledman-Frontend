@@ -13,7 +13,7 @@ import Deleteset from "./Deleteset"
 const Jss2 = () => {
 
     const { showSideBar,
-        hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss2Set, viewStudents, deleteSet, deleteSetModal, setDetails, setLastRoute,
+        hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, setJss2, jss2Set, jss2Set2, viewStudents, deleteSet, deleteSetModal, setDetails, setLastRoute,
         setDashboardStyleNumber, mailStatus, setMailStatus, sendMail
     } = useContext(appContext)
     useLayoutEffect(() => {
@@ -34,6 +34,15 @@ const Jss2 = () => {
     const showDetails = () => {
         Navigate("/studentSet")
     }
+    const searchSet = (e) => {
+        setJss2(
+            jss2Set2.filter((info) => {
+                if (info.set.toUpperCase().indexOf(e.target.value.toUpperCase()) > - 1) {
+                    return info
+                }
+            })
+        )
+    }
 
 
     return (
@@ -50,7 +59,7 @@ const Jss2 = () => {
                         {/* <span>
                             <FaSearch />
                         </span> */}
-                        <input type="text" className="w-100 h-100 inputjss1" placeholder="Search..." />
+                        <input type="text" onClick={(e) => searchSet(e)} className="w-100 h-100 inputjss1" placeholder="Search..." />
                     </div>
 
                     <div className="d-flex justify-content-flex-end w-75 mx-auto my-3">

@@ -8,7 +8,8 @@ import { useContext } from "react"
 const SetThirdTerm = () => {
     const { schoolsetInfo, thirdTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
         inputEmpty, brindDelModal, thirdTermTotalNumberOfStudent, totalAmountToBePaidSchoolFeeThirsTerm, thirdTermDebt, studentSThirdTermPaid,
-        totalAmountToBePaidPtaFeeThirdTerm, thirdTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail
+        totalAmountToBePaidPtaFeeThirdTerm, thirdTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail, thirdTermPaidPta
+
     } = useContext(schoolSetDetailContext)
 
     return (
@@ -100,37 +101,37 @@ const SetThirdTerm = () => {
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total Amount To Be Paid</p>
                     <div className="border-bottom mt-5">
-                        {totalAmountToBePaidSchoolFeeThirsTerm + totalAmountToBePaidPtaFeeThirdTerm}
+                        ₦  {(Number(totalAmountToBePaidSchoolFeeThirsTerm) + Number(totalAmountToBePaidPtaFeeThirdTerm)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total Amount Owned</p>
                     <div className="border-bottom mt-5">
-                        {thirdTermDebt + thirdTermDebtOwnedPta}
+                        ₦ {(Number(thirdTermDebt) + Number(thirdTermDebtOwnedPta)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fee To Be Paid</p>
                     <div className="border-bottom mt-5">
-                        {totalAmountToBePaidSchoolFeeThirsTerm}
+                        ₦ {Number(totalAmountToBePaidSchoolFeeThirsTerm).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total PTA To Be Fees Paid</p>
                     <div className="border-bottom mt-5">
-                        {totalAmountToBePaidPtaFeeThirdTerm}
+                        ₦ {Number(totalAmountToBePaidPtaFeeThirdTerm).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total School Fees Paid</p>
                     <div className="border-bottom mt-5">
-                        {studentSThirdTermPaid}
+                        ₦ {Number(studentSThirdTermPaid).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </div>
                 </div>
                 <div className="col-lg-6 mt-5  mb-4">
                     <p>Total PTA Fees Paid</p>
                     <div className="border-bottom mt-5">
-
+                        ₦  {Number(thirdTermPaidPta).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </div>
                 </div>
 

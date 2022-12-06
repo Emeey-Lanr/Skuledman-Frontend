@@ -69,7 +69,11 @@ const SetDetails = () => {
     const [secondTermDebtOwnedPta, setsecondTermDebtOwnedPta] = useState()
     const [thirdTermDebtOwnedPta, setthirdTermDebtOwnedPta] = useState()
 
+    //pta fee already paid
 
+    const [firstTermPaidPta, setfirstTermPaidPta] = useState()
+    const [secondTermPaidPta, setsecondTermPaidPta] = useState()
+    const [thirdTermPaidPta, setthirdTermPaidPta] = useState()
 
 
     ///School Fees
@@ -124,7 +128,7 @@ const SetDetails = () => {
                     ///Total Amount to be paid  school fee
                     settotalAmountToBePaidSchoolFeeFirstTerm(result.data.totalAmountToBePaidSchoolFeeFirstTerm)
                     settotalAmountToBePaidSchoolFeeSecondTerm(result.data.totalAmountToBePaidSchoolFeeSecondTerm)
-                    settotalAmountToBePaidSchoolFeeThirsTerm(result.data.otalAmountToBePaidSchoolFeeThirsTerm)
+                    settotalAmountToBePaidSchoolFeeThirsTerm(result.data.totalAmountToBePaidSchoolFeeThirsTerm)
 
                     ///school debt fee
                     setfirsTermDebtOwned(result.data.firsTermDebtOwned)
@@ -147,6 +151,13 @@ const SetDetails = () => {
                     setfirstTermDebtOwnedPta(result.data.firstTermDebtOwnedPta)
                     setsecondTermDebtOwnedPta(result.data.secondTermDebtOwnedPta)
                     setthirdTermDebtOwnedPta(result.data.thirdTermDebtOwnedPta)
+
+                    //pta fees already paid
+                    setfirstTermPaidPta(result.data.studentPFirstTermPaid)
+                    setsecondTermPaidPta(result.data.studentPSecondTermPaid)
+                    setthirdTermPaidPta(result.data.studentPThirdTermPaid)
+
+
                     if (result.data.currentSet.class === "Jss1") {
                         setLastRoute('/jss1')
                     } else if (result.data.currentSet.class === "Jss2") {
@@ -416,7 +427,13 @@ const SetDetails = () => {
                     thirdTermDebtOwnedPta,
                     listgmail,
                     spinGmail,
-                    sendListAsGmail
+                    sendListAsGmail,
+                    firstTermPaidPta,
+                    secondTermPaidPta,
+                    thirdTermPaidPta
+
+
+
 
                 }}
             >

@@ -41,17 +41,17 @@ const StudentFirstTerm = () => {
                     <div className='row justify-content-between py-6'>
                         <div className='col-lg-5 border-bottom my-3-'>
                             <p>First Term School Fees Debt</p>
-                            <p>₦{firstermStatusForDebt === true ? Number(firstTermSchoolFeesToBePaid) - Number(firstTermSchoolFees) : `0`}</p>
+                            <p>₦{firstermStatusForDebt === true ? (Number(firstTermSchoolFeesToBePaid) - Number(firstTermSchoolFees)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : `0`}</p>
                         </div>
                         <div className='col-lg-5 border-bottom'>
                             <p>First Term PTA Fee Debt</p>
-                            <p>₦ {firstermStatusForDebt === true ? Number(firstTermPtaFeesToBePaid) - Number(firstTermPtaFees) : `0`}</p>
+                            <p>₦ {firstermStatusForDebt === true ? (Number(firstTermPtaFeesToBePaid) - Number(firstTermPtaFees)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : `0`}</p>
                         </div>
                     </div>
                     <div className='row justify-content-between'>
                         <div className='col-lg-5 border-bottom d-flex justify-content-between py-3  align-items-center my-3'>
                             <div>
-                                <span className='fw-bold'>SchoolFees:</span><span>₦{firstTermSchoolFees}</span>
+                                <span className='fw-bold'>SchoolFees:</span><span>₦{Number(firstTermSchoolFees).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                             </div>
                             <div>
                                 <button disabled={firstermStatusForDebt === false} className="btn" onClick={openModalForSchoolFee}>
@@ -62,7 +62,7 @@ const StudentFirstTerm = () => {
                         </div>
                         <div className='col-lg-5 border-bottom d-flex justify-content-between align-items-center py-3  my-3'>
                             <div>
-                                <span className='fw-bold'>PtaFee:</span><span>₦{firstTermPtaFees}</span>
+                                <span className='fw-bold'>PtaFee:</span><span>₦{Number(firstTermPtaFees).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                             </div>
                             <div>
                                 <button disabled={firstermStatusForDebt === false} className="btn" onClick={openModalForPtaFee}>

@@ -1,7 +1,8 @@
 .dashboard {
     width: 83%;
-    height: 100vh;
+
     margin: 0 0 0 auto;
+
 }
 
 .navigation {
@@ -20,7 +21,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
     padding-left: 10px;
     box-sizing: border-box;
 }
@@ -60,7 +60,89 @@
 }
 
 
+.jsclass {
+    display: grid;
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 30px;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
 
+}
+
+.jsclass .class {
+    /* background-color: white;
+    box-shadow: 1px 2px 3px #bdbdbd; */
+}
+
+.classdeta {
+    background: white;
+    box-shadow: 1px 2px 3px #999898;
+    margin: 10px 0;
+}
+
+
+.className {
+    padding: 10px 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+
+    color: #666565;
+    text-align: center;
+
+}
+
+.junoirline {
+    border-bottom: 1px solid #eceaea;
+    padding-top: 20px;
+}
+
+.setname p {
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+/* .setname button {
+    border: none;
+    background-color: #ff7519;
+    width: 100%;
+    padding: 20px 0;
+    color: white;
+    margin: 10px 0;
+} */
+
+.generalMail {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.generalMail button {
+    background-color: #ff8a3c;
+    border: none;
+    width: 100%;
+    padding: 20px 0;
+    box-shadow: 1px 2px 3px #999898;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.setDetailsBtnSide {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 98%;
+    margin: 0 auto;
+
+}
+
+.setDetailsBtnSide button {
+    background-color: #ff8a3c;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    border: none;
+    border-left: 0.5px solid white;
+    box-shadow: 1px 2px 3px #666565;
+}
 
 
 @media (max-width:1063px) {
@@ -69,4 +151,12 @@
     }
 
 
+}
+
+@media (max-width:722px) {
+    .jsclass {
+        display: grid;
+        grid-template-columns: 98%;
+
+    }
 }

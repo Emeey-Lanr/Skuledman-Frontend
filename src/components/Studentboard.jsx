@@ -47,7 +47,7 @@ const Studentboard = () => {
         getStudent()
 
     }, [])
-    
+
     const [deactivateStatus, setdeactivateStatus] = useState(false)
     const [studentId, setStudentId] = useState("")
 
@@ -79,7 +79,7 @@ const Studentboard = () => {
                                 <Link to={thelastRoute} className="link">
                                     <FaArrowLeft />
                                 </Link>
-                                <button onClick={() => play()}>See how return wpork</button>
+
                                 <span className="outlineNone" onClick={() => showSidBar()}>
                                     <AiOutlineMenu />
                                 </span>

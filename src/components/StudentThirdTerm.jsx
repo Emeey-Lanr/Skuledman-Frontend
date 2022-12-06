@@ -31,26 +31,26 @@ const StudentThirdTerm = () => {
                 <div>
                     <div className='' >
                         <div className='w-100 border-bottom py-3' >
-                            <span className='fw-bold fs-6'>Third Term School Fees:</span><span>₦{thirdTermSchoolFeesToBePaid}</span>
+                            <span className='fw-bold fs-6'>Third Term School Fees:</span><span>₦{Number(thirdTermSchoolFeesToBePaid).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                         </div>
                         <div className="w-100 py-3 border-bottom">
-                            <span className='fw-bold fs-6'>Third Pta Fees:</span><span>₦{thirdTermPtaFeesToBePaid}</span>
+                            <span className='fw-bold fs-6'>Third Pta Fees:</span><span>₦{Number(thirdTermPtaFeesToBePaid).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                         </div>
                     </div>
                     <div className='row justify-content-between py-6'>
                         <div className='col-lg-5 border-bottom my-3-'>
                             <p>Third Term School Fees Debt</p>
-                            <p>₦{thirdTermStatusForDebt === true ? Number(thirdTermSchoolFeesToBePaid) - Number(thirdTermSchoolFees) : `0`}</p>
+                            <p>₦{thirdTermStatusForDebt === true ? (Number(thirdTermSchoolFeesToBePaid) - Number(thirdTermSchoolFees)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : `0`}</p>
                         </div>
                         <div className='col-lg-5 border-bottom'>
                             <p>Third Term PTA Fee Debt</p>
-                            <p>₦{thirdTermStatusForDebt === true ? Number(thirdTermPtaFeesToBePaid) - Number(thirdTermPtaFees) : `0`}</p>
+                            <p>₦{thirdTermStatusForDebt === true ? (Number(thirdTermPtaFeesToBePaid) - Number(thirdTermPtaFees)).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : `0`}</p>
                         </div>
                     </div>
                     <div className='row justify-content-between'>
                         <div className='col-lg-5 border-bottom d-flex justify-content-between py-3  align-items-center my-3'>
                             <div>
-                                <span className='fw-bold'>SchoolFees:</span><span>₦{thirdTermSchoolFees}</span>
+                                <span className='fw-bold'>SchoolFees:</span><span>₦{Number(thirdTermSchoolFees).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                             </div>
                             <div>
                                 <button disabled={thirdTermStatusForDebt === false} className="btn" onClick={openModalForSchoolFee}>
@@ -61,7 +61,7 @@ const StudentThirdTerm = () => {
                         </div>
                         <div className='col-lg-5 border-bottom d-flex justify-content-between align-items-center py-3  my-3'>
                             <div>
-                                <span className='fw-bold'>PtaFee:</span><span>₦{thirdTermPtaFees}</span>
+                                <span className='fw-bold'>PtaFee:</span><span>₦{Number(thirdTermPtaFees).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                             </div>
                             <div>
                                 <button disabled={thirdTermStatusForDebt === false} className="btn" onClick={openModalForPtaFee}>

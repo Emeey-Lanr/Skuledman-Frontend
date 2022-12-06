@@ -170,10 +170,134 @@
     background-color: #dbdada;
 }
 
+.board {
+    width: 700px;
+    background: white;
+}
+
+.boardbtnSpace {
+    width: 95%;
+    margin: auto;
+}
+
+.boardbtnSpace button {
+    width: 50%;
+    border: none;
+    background: none;
+    text-align: center;
+}
+
+.dashsetDetails {
+    width: 700px;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.dashsetDetails::-webkit-scrollbar-track {
+    width: 2px;
+}
+
+.dashsetDetails::-webkit-scrollbar-thumb {
+    width: 2px;
+}
+
+.dashSetDetailsHeader {
+    width: 90%;
+
+}
+
+.dashSetDetailsHeader p {
+    text-align: center;
+    font-size: 1.1rem;
+
+}
+
+.dashSetDetailsTermContainer {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    justify-content: center;
+
+}
+
+.dashSetDetailsTermContainer div:hover {
+    transition: 0.6s ease-in;
+    background-color: #ebebeb;
+}
+
+.dashSetDetailsTermContainer div button {
+    width: 100%;
+    text-align: center;
+    border: none;
+    background: none;
+    padding: 10px 0;
+}
+
+.dashmail {
+    width: 500px;
+    background-color: white;
+    padding: 20px 10px;
+    border-radius: 5px;
+}
+
+.dashmail textarea:focus {
+    outline: 2px solid #ff660094;
+    border: none;
+    border-radius: 10px;
+}
+
+.dashmail textarea {
+    resize: none;
+    border: 1px solid #dbdada;
+
+}
+
+.dashmail .dashmailSubject {
+    width: 90%;
+    margin: 5px auto;
+
+
+}
+
+.dashmail .dashmailSubject textarea {
+    width: 100%;
+
+}
+
+.dashmailMessage {
+    width: 90%;
+    margin: 5px auto;
+
+}
+
+.dashmailMessage textarea {
+    height: 150px;
+    width: 100%;
+
+}
+
+.dashmailButton {
+    width: 90%;
+    margin: 5px auto;
+}
+
+.dashmailButton button {
+    background-color: #ff6400;
+    color: white;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    box-shadow: 1px 2px 3px #dbdada;
+
+}
+
 @media (max-width:700px) {
     .setdetails {
         width: 95%;
 
+    }
+
+    .board {
+        width: 90%;
     }
 }
 

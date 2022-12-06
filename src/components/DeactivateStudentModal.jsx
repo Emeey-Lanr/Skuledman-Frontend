@@ -26,9 +26,9 @@ const DeactivateStudentModal = () => {
         axios.patch(deactivateEndPoint, deactivateSchema).then((result) => {
             if (result.data.status) {
                 getStudent()
-               doAfter(result.data.message)
+                doAfter(result.data.message)
             } else {
-               doAfter(result.data.message)
+                doAfter(result.data.message)
 
             }
 
@@ -36,7 +36,7 @@ const DeactivateStudentModal = () => {
     }
     return (
         <>
-            <div className="w-100 h-100 position-fixed top-0" style={{ background: "#0000006b" }}>
+            <div className="w-100 h-100 position-fixed top-0 d-flex justify-content-center align-items-center" style={{ background: "#0000006b" }}>
                 <div className="deactivateModal">
                     <p className="textCenter">{message}</p>
                     <div>

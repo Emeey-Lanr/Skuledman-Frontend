@@ -14,7 +14,8 @@ import Mail from "./Mail"
 
 const Jss1 = () => {
 
-    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, jss1Set, setDetails, viewStudents, deleteSet, deleteSetModal, setUrl,
+
+    const { showSideBar, hideSideBar, showBack, setAddSetModal, setClassType, getSchoolDetails, setJss1, jss1Set, jss1Set2, setDetails, viewStudents, deleteSet, deleteSetModal, setUrl,
         studentUrl, setLastRoute, setDashboardStyleNumber, mailStatus, setMailStatus, sendMail } = useContext(appContext)
 
     useEffect(() => {
@@ -32,7 +33,15 @@ const Jss1 = () => {
     }
     let Navigate = useNavigate()
 
-
+    const searchSet = (e) => {
+        setJss1(
+            jss1Set2.filter((info) => {
+                if (info.set.toUpperCase().indexOf(e.target.value.toUpperCase()) > - 1) {
+                    return info
+                }
+            })
+        )
+    }
     return (
         <>
             <div>
@@ -47,7 +56,7 @@ const Jss1 = () => {
                         {/* <span>
                             <FaSearch />
                         </span> */}
-                        <input type="text" className="w-100 h-100 inputjss1" placeholder="Search..." />
+                        <input type="text" onClick={(e) => searchSet(e)} className="w-100 h-100 inputjss1" placeholder="Search..." />
                     </div>
 
                     <div className="d-flex justify-content-flex-end w-75 mx-auto my-3">

@@ -22,6 +22,7 @@ const AddStudentModal = () => {
         imgUrl: "",
         schoolUniqueId: 1,
         currentClass: setId[3],
+        currentSet: setId[2],
         parentGmail: "",
         parentPhoneNumber: "",
         jss1Id: "",
@@ -183,7 +184,7 @@ const AddStudentModal = () => {
                 setwhenGogtten(false)
             } else {
                 setUserFound([])
-                    setUserAlreadyExist(true)
+                setUserAlreadyExist(true)
                 setwhenGogtten(false)
             }
 
@@ -223,6 +224,7 @@ const AddStudentModal = () => {
         const addStudentToSetSchema = {
             studentId: id,
             currentClass: setId[3],
+            currentSet: setId[2],
             setId: setId[0],
             set: setId[2],
         }
