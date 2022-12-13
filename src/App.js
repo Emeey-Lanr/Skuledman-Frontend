@@ -19,6 +19,9 @@ import Jss3 from "./components/Jss3";
 import Ss1 from "./components/Ss1";
 import { useNavigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
+import ResetPasswordGmailSide from "./components/ResetPasswordGmailSide"
+import ResetPasswordToken from "./components/ResetPasswordToken";
+import NewPassword from "./components/NewPassword";
 export const appContext = createContext(null)
 function App() {
   let navigate = useNavigate()
@@ -304,6 +307,9 @@ function App() {
         <Route path="/signin" element={<Login />} />
         <Route path="/token" element={<Tokenverification />} />
         <Route path="/setdetails" element={<SetDetails />} />
+        <Route path="/reset" element={<ResetPasswordGmailSide />} />
+        <Route path="/passwordotp" element={<ResetPasswordToken />} />
+        <Route path="/newpassword" element={<NewPassword />} />
       </Routes >
     </appContext.Provider>
 

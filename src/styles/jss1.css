@@ -106,3 +106,15 @@
         width: 100%;
     }
 }
+
+
+@media (max-width:508px) {
+    .setBtn {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .setBtn button {
+        border-top: 1px solid white;
+    }
+}

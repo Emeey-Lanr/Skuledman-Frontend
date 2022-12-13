@@ -7,9 +7,9 @@ import { schoolSetDetailContext } from "./SetDetails"
 import { useContext } from "react"
 import axios from "axios"
 const SetFirstTerm = () => {
-    const { schoolsetInfo, firstTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
+    const { schoolsetInfo, firstTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, openEditModal, inputMessage, spinner,
         inputEmpty, brindDelModal, firstTermTotalNumberOfStudent, totalAmountToBePaidSchoolFeeFirstTerm, firsTermDebtOwned, studentSFirstTermPaid,
-        totalAmountToBePaidPtaFeeFirstTerm, firstTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail, firstTermPaidPta,
+        totalAmountToBePaidPtaFeeFirstTerm, firstTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail, firstTermPaidPta, editList
 
 
     } = useContext(schoolSetDetailContext)
@@ -69,7 +69,7 @@ const SetFirstTerm = () => {
                 </div>}
                 <div>
                     <div className="w-75 d-flex justify-content-end my-2 mx-auto">
-                        <button onClick={() => setListModal(true)} className="btn btn-dark">Create List</button>
+                        <button onClick={openEditModal} className="btn btn-dark">Create List</button>
                     </div>
                 </div>
                 <div className="w-75 d-flex justify-content-end my-2 mx-auto">
@@ -81,8 +81,9 @@ const SetFirstTerm = () => {
                             <p className="fs-4  px-2">{items.description}</p>
                             <span className="fw-bold px-2">Amount:</span><span><span>₦</span>{items.amount}</span>
                         </div>
+
                         <div>
-                            <button className="btn border">
+                            <button onClick={() => editList(id)} className="btn border">
                                 <FaPenAlt />
                             </button>
                             <button onClick={() => brindDelModal(items.description)} className="btn border">

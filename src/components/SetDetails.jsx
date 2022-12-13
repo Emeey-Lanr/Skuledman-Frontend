@@ -298,6 +298,11 @@ const SetDetails = () => {
         }
 
     }
+    const [listBtnNumberCondition, setListBtnNumbCondition] = useState(0)
+    const openEditModal = () => {
+        setListModal(true)
+        setListBtnNumbCondition(1)
+    }
 
     const list = {
         setInfo: {
@@ -311,10 +316,12 @@ const SetDetails = () => {
     }
     const [inputMessage2, setInputMessage2] = useState("")
     const addListEndPoint = `${setUrl}/createList`
+
     const addList = () => {
         if (listDescription === "" || listAmount === "") {
             setInputMessage2("Looks like you forgot something")
         } else {
+
             setSpinner2(true)
             axios.patch(addListEndPoint, list).then((result) => {
                 if (result.data.status) {
@@ -384,13 +391,57 @@ const SetDetails = () => {
         setDelModalStatus(1)
 
     }
+    //editing list
+    const [listId, setlistId] = useState(0)
+    const editList = (id) => {
+        setListBtnNumbCondition(2)
+        setListModal(true)
+        setlistId(id)
+    }
+    const editlistEndPoint = `${setUrl}/editFeeList`
+    const saveEditList = () => {
+        if (listDescription === "" || listAmount === "") {
+            setInputMessage2("Lookslikeyou forgot something")
+        } else {
+            setSpinner2(true)
+            const listSchema = {
+                feeId: listId,
+                setId: schoolsetInfo._id,
+                term: currentTerm,
+                editedList: {
+                    description: listDescription,
+                    amount: listAmount,
+
+                }
+            }
+            axios.patch(editlistEndPoint, listSchema).then((result) => {
+                if (result.data.status) {
+                    setInputMessage2(result.data.message)
+                    getSetInfo()
+                    setTimeout(() => {
+                        setInputMessage2("")
+                        setSpinner2(false)
+                        setListModal(false)
+                    }, 1500)
+                } else {
+                    setInputMessage2(result.data.message)
+                    setTimeout(() => {
+                        setInputMessage2("")
+                        setSpinner2(false)
+                        setListModal(false)
+                    }, 1500)
+                }
+
+            })
+        }
+    }
     return (
         <>
             <schoolSetDetailContext.Provider
                 value={{
                     getSetInfo,
                     schoolsetInfo, firstTerm, secondTerm, thirdTerm,
-                    setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, setListDescription, setListAmount, inputMessage,
+                    setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, openEditModal, setListDescription, setListAmount, inputMessage,
                     spinner, addList, spinner2, inputMessage2, setSpinner2, setInputMessage2, inputEmpty, currentTerm, brindDelModal, listDescriptionName,
                     schoolSetId,
 
@@ -430,7 +481,10 @@ const SetDetails = () => {
                     sendListAsGmail,
                     firstTermPaidPta,
                     secondTermPaidPta,
-                    thirdTermPaidPta
+                    thirdTermPaidPta,
+                    listBtnNumberCondition,
+                    editList,
+                    saveEditList
 
 
 

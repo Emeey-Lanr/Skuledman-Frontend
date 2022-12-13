@@ -3,7 +3,7 @@ import { FaTimes, FaSpinner } from "react-icons/fa"
 import { schoolSetDetailContext } from "./SetDetails"
 import { useContext } from "react"
 const FeeList = () => {
-    const { setListModal, setListDescription, setListAmount, addList, inputMessage2, spinner2, setSpinner2, setInputMessage2 } = useContext(schoolSetDetailContext)
+    const { setListModal, setListDescription, setListAmount, addList, inputMessage2, spinner2, setSpinner2, setInputMessage2, listBtnNumberCondition, saveEditList } = useContext(schoolSetDetailContext)
     const allNone = () => {
         setListModal(false)
         setSpinner2(false)
@@ -31,9 +31,12 @@ const FeeList = () => {
                 </div>
                 <div className="d-flex justify-content-center">
                     <div className="w-75 my-5 mx-auto btn btn-dark">
-                        <button onClick={addList} className="btn w-75 text-light">
+                        {listBtnNumberCondition === 1 && <button onClick={addList} className="btn w-75 text-light">
                             Add {spinner2 && <FaSpinner className="spin" />}
-                        </button>
+                        </button>}
+                        {listBtnNumberCondition === 2 && <button onClick={saveEditList} className="btn w-75 text-light">
+                            Save Edit {spinner2 && <FaSpinner className="spin" />}
+                        </button>}
                     </div>
                 </div>
 

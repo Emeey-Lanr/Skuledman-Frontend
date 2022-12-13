@@ -11,9 +11,16 @@ const SchoolFeeModal = () => {
         firstTermSchoolFeesToBePaid,
         secondTermSchoolFeesToBePaid,
         thirdTermSchoolFeesToBePaid,
+        firstTermPtaFeesToBePaid,
+        secondTermPtaFeesToBePaid,
+        thirdTermPtaFeesToBePaid,
         firstTermSchoolFees,
         secondTermSchoolFees,
-        thirdTermSchoolFees } = useContext(studenTermDetailContext)
+        thirdTermSchoolFees,
+        firstTermPtaFees,
+        secondTermPtaFees,
+        thirdTermPtaFees,
+    } = useContext(studenTermDetailContext)
 
     const [fee, setFee] = useState(0)
     const addSchoolFeeEndpoint = `${studentUrl}/addschoolfee`
@@ -28,7 +35,6 @@ const SchoolFeeModal = () => {
     const [messageToBePassed, setMessageToBePassed] = useState("")
     const addSchoolFee = () => {
         let statusToCheckIfMoreMoneyIsAdded = false
-        setspinStatus(true)
         if (first === 1) {
             const amountTOAdded = Number(fee) + Number(firstTermSchoolFees)
             console.log(amountTOAdded)
@@ -50,8 +56,9 @@ const SchoolFeeModal = () => {
         }
 
         if (statusToCheckIfMoreMoneyIsAdded === true) {
-            setMessageToBePassed("You can't add an amount greater then to money to be paid")
+            setMessageToBePassed("You can't add an amount greater than to money to be paid")
         } else {
+            setspinStatus(true)
             axios.patch(addSchoolFeeEndpoint, feeSchema).then((result) => {
                 if (result.data.status) {
                     getCurrentUser()
@@ -64,14 +71,38 @@ const SchoolFeeModal = () => {
     }
     const addPtaFeeEndPoint = `${studentUrl}/addptafee`
     const ptaFee = () => {
-        setspinStatus(true)
-        axios.patch(addPtaFeeEndPoint, feeSchema).then((result) => {
-            if (result.data.status) {
-                getCurrentUser()
-                setspinStatus(false)
-                setSchoolFeeModal(false)
+       
+        let statusToCheckIfMoreMoneyIsAdded = false
+        if (first === 1) {
+            const amouttoBeAdded = Number(fee) + Number(firstTermPtaFees)
+            if (amouttoBeAdded > firstTermPtaFeesToBePaid && amouttoBeAdded !== firstTermPtaFeesToBePaid) {
+                statusToCheckIfMoreMoneyIsAdded = true
             }
-        })
+        }
+        if (first === 2) {
+            const amouttoBeAdded = Number(fee) + Number(secondTermPtaFees)
+            if (amouttoBeAdded > secondTermPtaFeesToBePaid && amouttoBeAdded !== secondTermPtaFeesToBePaid) {
+                statusToCheckIfMoreMoneyIsAdded = true
+            }
+        }
+        if (first === 3) {
+            const amouttoBeAdded = Number(fee) + Number(thirdTermPtaFees)
+            if (amouttoBeAdded > thirdTermPtaFeesToBePaid && amouttoBeAdded !== thirdTermPtaFeesToBePaid) {
+                statusToCheckIfMoreMoneyIsAdded = true
+            }
+        }
+        if (statusToCheckIfMoreMoneyIsAdded) {
+            setMessageToBePassed("You can't add an amount greater then to money to be paid")
+        } else {
+            setspinStatus(true)
+            axios.patch(addPtaFeeEndPoint, feeSchema).then((result) => {
+                if (result.data.status) {
+                    getCurrentUser()
+                    setspinStatus(false)
+                    setSchoolFeeModal(false)
+                }
+            })
+        }
     }
 
     const addFee = () => {

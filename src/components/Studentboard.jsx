@@ -56,16 +56,7 @@ const Studentboard = () => {
         setStudentId(id)
 
     }
-    const endd = `${studentUrl}/del`
-    const play = () => {
-        axios.patch(endd, { numb: 0 }).then((result) => {
-            if (result.data.status) {
-                console.log(result.data)
-            } else {
-                console.log(result.data)
-            }
-        })
-    }
+  
 
     return (
         <>

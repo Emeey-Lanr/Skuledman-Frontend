@@ -6,9 +6,9 @@ import { FaPenAlt, FaTrashAlt, FaSpinner } from "react-icons/fa"
 import { schoolSetDetailContext } from "./SetDetails"
 import { useContext } from "react"
 const SetSecondTerm = () => {
-    const { schoolsetInfo, secondTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, setListModal, inputMessage, spinner,
+    const { schoolsetInfo, secondTerm, setCollectSchoolFees, setCollectPtaFees, updateFee, openEditModal, inputMessage, spinner,
         inputEmpty, brindDelModal, secondTermTotalNumberOfStudent, totalAmountToBePaidSchoolFeeSecondTerm, secondTermDebtOwned, studentSSecondTermPaid,
-        totalAmountToBePaidPtaFeeSecondTerm, secondTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail, secondTermPaidPta,
+        totalAmountToBePaidPtaFeeSecondTerm, secondTermDebtOwnedPta, listgmail, spinGmail, sendListAsGmail, secondTermPaidPta, editList
 
     } = useContext(schoolSetDetailContext)
 
@@ -67,7 +67,7 @@ const SetSecondTerm = () => {
                 </div>}
                 <div>
                     <div className="w-75 d-flex justify-content-end my-2 mx-auto">
-                        <button onClick={() => setListModal(true)} className="btn btn-dark">Create List</button>
+                        <button onClick={openEditModal} className="btn btn-dark">Create List</button>
                     </div>
                 </div>
                 <div className="w-75 d-flex justify-content-end my-2 mx-auto">
@@ -80,7 +80,7 @@ const SetSecondTerm = () => {
                             <span className="fw-bold px-2">Amount:</span><span><span>₦</span>{items.amount}</span>
                         </div>
                         <div>
-                            <button className="btn border">
+                            <button onClick={() => editList(id)} className="btn border">
                                 <FaPenAlt />
                             </button>
                             <button onClick={() => brindDelModal(items.description)} className="btn border">

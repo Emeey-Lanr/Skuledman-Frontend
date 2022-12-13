@@ -32,10 +32,10 @@ const StudentFirstTerm = () => {
                 <div>
                     <div className='' >
                         <div className='w-100 border-bottom py-3' >
-                            <span className='fw-bold fs-6'>First Term School Fees:</span><span>₦{firstTermSchoolFeesToBePaid}</span>
+                            <span className='fw-bold fs-6'>First Term School Fees:</span><span>₦{Number(firstTermSchoolFeesToBePaid).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                         </div>
                         <div className="w-100 py-3 border-bottom">
-                            <span className='fw-bold fs-6'>First Pta Fees:</span><span>₦{firstTermPtaFeesToBePaid}</span>
+                            <span className='fw-bold fs-6'>First Pta Fees:</span><span>₦{Number(firstTermPtaFeesToBePaid).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</span>
                         </div>
                     </div>
                     <div className='row justify-content-between py-6'>
